@@ -4,7 +4,7 @@
   <Level Name="Sandbox">
     <Resource Name="Food" Value="50" MinValue="0" MaxValue="100"/>
     <Resource Name="Soil" Value="50" MinValue="0" MaxValue="100"/>
-    <Resource Name="Population" Value="1" MinValue="0" MaxValue="5"/>
+    <Resource Name="Population" Value="1" MinValue="0" MaxValue="1"/>
     <Resource Name="Soldier" Value="0" MinValue="0" MaxValue="5"/>
 
     <Room Name="Throne Room" X="0" Y="0"/>

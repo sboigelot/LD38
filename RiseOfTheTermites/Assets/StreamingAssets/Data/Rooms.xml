@@ -9,17 +9,17 @@
 
   <Room Name="Surface Empty Room"
         SpritePath="Empty"
-        ValidLocation="Anywhere">
+        ValidLocation="AboveGround">
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
-    <PossibleUpgrade>Barracks level 1</PossibleUpgrade>
-    <PossibleUpgrade>BedRoom level 1</PossibleUpgrade>
+    <PossibleUpgrade>Barracks level 1</PossibleUpgrade>    
     <PossibleUpgrade>GatheringRoom level 1</PossibleUpgrade>
+    <PossibleUpgrade>Soil generator level 1</PossibleUpgrade>
   </Room>
 
   <Room Name="Underground Empty Room"
         SpritePath="Empty"
-        ValidLocation="Anywhere">
+        ValidLocation="UnderGround">
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>FarmRoom level 1</PossibleUpgrade>
@@ -37,24 +37,24 @@
   <Room Name="BedRoom level 1"
         SpritePath="BedRoom"
         ValidLocation="UnderGround">
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="1" ImpactType="Value"/>
-    <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1" ImpactType="Value"/>
+    <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 2</PossibleUpgrade>
   </Room>
 
   <Room Name="BedRoom level 2"
         SpritePath="BedRoom"
         ValidLocation="UnderGround">
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="1.5" ImpactType="Value"/>
-    <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1.5" ImpactType="Value"/>
+    <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 3</PossibleUpgrade>
   </Room>
 
   <Room Name="BedRoom level 3"
         SpritePath="BedRoom"
         ValidLocation="UnderGround">
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="2.5" ImpactType="Value"/>
-    <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>
+    <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="2" ImpactType="MaxValue"/>
   </Room>
 
   <Room Name="GatheringRoom level 1"
@@ -146,6 +146,26 @@
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="35" ImpactType="MaxValue"/>
   </Room>
 
+  <Room Name="Soil generator level 1"
+           SpritePath="Empty"
+           ValidLocation="AboveGround">    
+    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
+    <PossibleUpgrade>Soil generator level 2</PossibleUpgrade>
+  </Room>
+
+  <Room Name="Soil generator level 2"
+           SpritePath="Empty"
+           ValidLocation="AboveGround">
+    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
+    <PossibleUpgrade>Soil generator level 3</PossibleUpgrade>
+  </Room>
+
+  <Room Name="Soil generator level 3"
+           SpritePath="Empty"
+           ValidLocation="AboveGround">
+    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
+    <PossibleUpgrade>Soil generator level 2</PossibleUpgrade>
+  </Room>
 
 
   <!--Venom room-->
