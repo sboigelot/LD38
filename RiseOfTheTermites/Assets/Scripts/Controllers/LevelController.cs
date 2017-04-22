@@ -56,9 +56,11 @@ namespace Assets.Scripts.Controllers
             Level.Rooms[Level.Rooms.IndexOf(oldRoom)] = newRoom;
 
             if(newRoom.ResourceImpactsOnBuilt !=null)
-            foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
             {
-                Level.ApplyImpact(resourceImpact, 1);
+                foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
+                {
+                    Level.ApplyImpact(resourceImpact, 1);
+                }
             }
         }
     }

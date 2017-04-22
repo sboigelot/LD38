@@ -2,9 +2,9 @@
 <ArrayOfLevel>
 
   <Level Name="Sandbox">
-    <Resource Name="Food" Value="10" MinValue="0" MaxValue="5"/>
-    <Resource Name="Soil" Value="10" MinValue="0" MaxValue="5"/>
-    <Resource Name="Population" Value="3" MinValue="0" MaxValue="5"/>
+    <Resource Name="Food" Value="0" MinValue="0" MaxValue="50"/>
+    <Resource Name="Soil" Value="0" MinValue="0" MaxValue="50"/>
+    <Resource Name="Population" Value="0" MinValue="0" MaxValue="5"/>
     <Resource Name="Soldier" Value="0" MinValue="0" MaxValue="5"/>
 
     <Room Name="Throne Room" X="0" Y="0"/>
