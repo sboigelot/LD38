@@ -6,41 +6,28 @@ using UnityEngine.UI;
 using Assets.Scripts.Models;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.DialogBoxes;
 
 namespace Assets.Scripts.UI
 {
-    public class SelectLevelScreen : MonoBehaviourSingleton<SelectLevelScreen>, IBuildUi
+    public class SelectLevelScreen : DialogBoxBase<SelectLevelScreen>
     {
         public Button BackButton;
         public GameObject ItemTemplate;
         public Transform ItemPanel;
-
-        // Use this for initialization
-        void Start()
+        
+        public void Start()
         {
-            BackButton.onClick.AddListener(TaskOnClick);
+            BackButton.onClick.AddListener(OnBackButtonClick);
         }
 
-        void TaskOnClick()
+        public void OnBackButtonClick()
         {
-            MonoBehaviourSingleton<MainMenuController>.Instance.gameObject.SetActive(true);
-            MonoBehaviourSingleton<SelectLevelScreen>.Instance.gameObject.SetActive(false);
+            DialogBoxManager.Instance.Show(typeof(SelectLevelScreen));
         }
-
-        // Update is called once per frame
-        void Update()
+        
+        protected override void OnScreenOpen()
         {
-            
-        }
-
-        public void Open()
-        {
-            BuildUi();
-        }
-
-        public void BuildUi()
-        {
-
             RebuildChildren();
         }
 
@@ -70,9 +57,7 @@ namespace Assets.Scripts.UI
                 {
                     Debug.Log("On level selected");
                     GameController.Instance.NewGame(index1);
-
-                    MonoBehaviourSingleton<SelectLevelScreen>.Instance.gameObject.SetActive(false);
-                    MonoBehaviourSingleton<GameHud>.Instance.gameObject.SetActive(true);
+                    DialogBoxManager.Instance.Show(typeof(GameHud));
                 });
             }
         }

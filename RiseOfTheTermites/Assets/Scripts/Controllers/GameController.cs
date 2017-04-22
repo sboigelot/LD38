@@ -2,20 +2,28 @@
 using System.Collections;
 using System.Linq;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.DialogBoxes;
 using Assets.Scripts.Models;
+using Assets.Scripts.UI;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Controllers
 {
-    class GameController : MonoBehaviourSingleton<GameController>, IBuildUi
+    class GameController : MonoBehaviourSingleton<GameController>
     {
         public void Awake()
         {
             PrototypeManager.Instance.LoadPrototypes();
             SaveManager.Instance.LoadProfiles();
-            //NewGame();
+            DialogBoxManager.Instance.Show(typeof(MainMenuController));
+        }
+
+        public void NewGame(int level_index)
+        {
+            GameManager.Instance.NewGame((Level)PrototypeManager.Instance.Levels[level_index].Clone());
+            StartCoroutine(GameTick());
         }
 
         public IEnumerator GameTick()
@@ -25,21 +33,14 @@ namespace Assets.Scripts.Controllers
                 if (GameManager.Instance.CurrentLevel != null)
                 {
                     GameManager.Instance.CurrentLevel.Tick();
-                    BuildUi();
+                    RebuildUi();
                 }
 
                 yield return new WaitForSeconds(1);
             }
         }
 
-
-        public void NewGame( int level_index )
-        {
-            GameManager.Instance.NewGame((Level)PrototypeManager.Instance.Levels[ level_index ].Clone());
-            StartCoroutine(GameTick());
-        }
-
-        public void BuildUi()
+        public void RebuildUi()
         {
             string resources = "";
 

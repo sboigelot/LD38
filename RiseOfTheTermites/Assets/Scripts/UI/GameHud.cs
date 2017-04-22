@@ -1,31 +1,19 @@
-﻿using System;
-using System.Linq;
-using Assets.Scripts.Controllers;
-using Assets.Scripts.Utils;
-using UnityEngine;
+﻿using Assets.Scripts.Managers.DialogBoxes;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
-    public class GameHud : MonoBehaviourSingleton<GameHud>, IBuildUi
+    public class GameHud : DialogBoxBase<GameHud>
     {
         public Button PauseButton;
 
-        public void BuildUi()
+        public GameHud()
         {
-            
+            IsModal = false;
         }
 
-        // Use this for initialization
-        void Start()
+        protected override void OnScreenOpen()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }

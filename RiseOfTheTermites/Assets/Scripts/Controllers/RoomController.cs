@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.DialogBoxes;
 using Assets.Scripts.Models;
 using Assets.Scripts.UI;
 using UnityEngine;
@@ -75,6 +76,9 @@ namespace Assets.Scripts.Controllers
 
         public void OnMouseUpAsButton()
         {
+            if (DialogBoxManager.Instance.AnyActiveModal)
+                return;
+
             Debug.Log(Room == null
                 ? "OnMouseUpAsButton(?) in 'No room'"
                 : string.Format("OnMouseUpAsButton({0}, {1}) in '{2}'",
@@ -82,10 +86,7 @@ namespace Assets.Scripts.Controllers
                     room.GridLocationY,
                     room.Name));
 
-            if(UpgradeRoomPanel.Instance.gameObject.activeSelf)
-                return;
-
-            UpgradeRoomPanel.Instance.Open(this);
+            DialogBoxManager.Instance.Show(typeof(UpgradeRoomPanel), this);
         }
 
         public void Blink()

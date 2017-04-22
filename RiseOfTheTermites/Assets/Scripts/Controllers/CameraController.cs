@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Assets.Scripts.Managers.DialogBoxes;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -11,8 +12,11 @@ namespace Assets.Scripts.Controllers
         void Update()
         {
             if (!Input.GetMouseButtonDown(0) &&
-                !Input.GetMouseButton(0))
+                !Input.GetMouseButton(0) ||
+                DialogBoxManager.Instance.AnyActiveModal)
+            {
                 return;
+            }
 
             if (Input.GetMouseButtonDown(0))
             {

@@ -1,30 +1,26 @@
 ﻿using System.Linq;
 using Assets.Scripts.Controllers;
+using Assets.Scripts.Managers.DialogBoxes;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
-    public class UpgradeRoomPanel : MonoBehaviourSingleton<UpgradeRoomPanel>, IBuildUi
+    public class UpgradeRoomPanel : ContextualDialogBoxBase<UpgradeRoomPanel, RoomController>
     {
-        private RoomController roomController;
-
-        public GameObject ItemTemplate;
         public Transform ItemPanel;
 
-        public void Open(RoomController controller)
+        public GameObject ItemTemplate;
+        private RoomController roomController;
+        
+        protected override void OnScreenOpen(RoomController context)
         {
-            if(controller.Room == null)
+            if (context.Room == null)
                 return;
 
-            roomController = controller;
+            roomController = context;
             gameObject.SetActive(true);
-            BuildUi();
-        }
-
-        public void BuildUi()
-        {
             RebuildChildren();
         }
 
@@ -52,9 +48,9 @@ namespace Assets.Scripts.UI
                 var index1 = index;
                 newItem.GetComponentInChildren<Button>().onClick.AddListener(() =>
                 {
-                    if(index1 != 0)
+                    if (index1 != 0)
                         roomController.ChangeRoomType(upgrade);
-                    this.gameObject.SetActive(false);
+                    gameObject.SetActive(false);
                 });
             }
         }
