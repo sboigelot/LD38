@@ -48,7 +48,7 @@ namespace Assets.Scripts.Models
 
         public bool SwapRoom(Room oldRoom, Room newRoom)
         {
-            if(canAfford(newRoom))
+            if(CanAfford(newRoom))
             {
                 Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
                 if (newRoom.ResourceImpactsOnBuilt != null)
@@ -170,7 +170,13 @@ namespace Assets.Scripts.Models
             return Resources.FirstOrDefault(r => r.Name == name);            
         }
 
-        public bool canAfford(Room room)
+        public bool CanAfford(string roomName)
+        {
+            var room = PrototypeManager.FindRoomPrototype(roomName);
+            return CanAfford(room);
+        }
+
+        public bool CanAfford(Room room)
         {
             bool canAfford = true;
             if(room.ResourceImpactPrices != null)
