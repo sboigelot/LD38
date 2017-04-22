@@ -2,19 +2,19 @@
 <ArrayOfRoom>
 
   <Room Name="Rock"
-        SpritePath="Empty"
+        SpritePath="Rock"
         ValidLocation="UnderGround">
   </Room>
 
   <Room Name="Food bonus"
-        SpritePath="Empty"
+        SpritePath="FoodBonus"
         ValidLocation="UnderGround">
     <ResourceImpactOnDestroy ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
 
   <Room Name="Soil bonus"
-        SpritePath="Empty"
+        SpritePath="SoilBonus"
         ValidLocation="UnderGround">
     <ResourceImpactOnDestroy ResourceName="Soil" ImpactValuePerWorker="100" ImpactType="Value"/>
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
@@ -198,7 +198,7 @@
   </Room>
 
   <Room Name="Soil generator level 1"
-           SpritePath="Empty"
+           SpritePath="SoilGenerator"
            ValidLocation="AboveGround"
            MaxWorker="1">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="60" ImpactType="Value"/>
@@ -208,7 +208,7 @@
   </Room>
 
   <Room Name="Soil generator level 2"
-           SpritePath="Empty"
+           SpritePath="SoilGenerator"
            ValidLocation="AboveGround"
            MaxWorker="1">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="80" ImpactType="Value"/>
@@ -218,7 +218,7 @@
   </Room>
 
   <Room Name="Soil generator level 3"
-           SpritePath="Empty"
+           SpritePath="SoilGenerator"
            ValidLocation="AboveGround"
            MaxWorker="2">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
