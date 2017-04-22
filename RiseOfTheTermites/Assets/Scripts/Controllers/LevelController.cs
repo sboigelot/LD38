@@ -64,13 +64,18 @@ namespace Assets.Scripts.Controllers
 
             foreach (var termite in Level.Termites)
             {
-                var newTermite = Instantiate(TermitesTemplate);
-                newTermite.name = string.Format("Termite {0}, {1}", termite.RoomX, termite.RoomY);
-                newTermite.GetComponent<TermiteController>().SetTermiteAndRoom(termite, termite.RoomX, termite.RoomY);
-                //newTermite.transform.localScale = new Vector3(RoomSpacing.y, RoomSpacing.x, 1);
-                newTermite.transform.SetParent(TermitesPanel, false);
-                newTermite.SetActive(true);
+                InstanciateTermite(termite);
             }
+        }
+
+        public void InstanciateTermite(Termite termite)
+        {
+            var newTermite = Instantiate(TermitesTemplate);
+            newTermite.name = string.Format("Termite {0}, {1}", termite.RoomX, termite.RoomY);
+            newTermite.GetComponent<TermiteController>().SetTermiteAndRoom(termite, termite.RoomX, termite.RoomY);
+            //newTermite.transform.localScale = new Vector3(RoomSpacing.y, RoomSpacing.x, 1);
+            newTermite.transform.SetParent(TermitesPanel, false);
+            newTermite.SetActive(true);
         }
     }
 }
