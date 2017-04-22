@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.DialogBoxes;
 using Assets.Scripts.Models;
 using Assets.Scripts.UI;
-using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +20,7 @@ namespace Assets.Scripts.Controllers
 
         public void NewGame(int level_index)
         {
-            GameManager.Instance.NewGame((Level)PrototypeManager.Instance.Levels[level_index].Clone());
+            GameManager.Instance.NewGame((Level) PrototypeManager.Instance.Levels[level_index].Clone());
             StartCoroutine(GameTick());
         }
 
@@ -42,14 +40,16 @@ namespace Assets.Scripts.Controllers
 
         public void RebuildUi()
         {
-            string resources = "";
+            GameHud.Instance.OnGameTick();
+
+            var resources = "";
 
             foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.Resources)
             {
-                resources += string.Format("{0}: {1} / {2}", 
-                    currentLevelResource.Name,
-                    currentLevelResource.Value,
-                    currentLevelResource.MaxValue) + Environment.NewLine;
+                resources += string.Format("{0}: {1} / {2}",
+                                 currentLevelResource.Name,
+                                 currentLevelResource.Value,
+                                 currentLevelResource.MaxValue) + Environment.NewLine;
             }
 
             GameObject.Find("DebugText").GetComponent<Text>().text = resources;

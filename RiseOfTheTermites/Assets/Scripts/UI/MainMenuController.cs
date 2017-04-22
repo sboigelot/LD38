@@ -18,7 +18,7 @@ namespace Assets.Scripts.UI
             AboutButton.onClick.AddListener(AboutClicked);
         }
 
-        protected override void OnScreenOpen()
+        protected override void OnDialogOpen()
         {
 
         }

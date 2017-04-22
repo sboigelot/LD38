@@ -26,7 +26,7 @@ namespace Assets.Scripts.UI
             DialogBoxManager.Instance.Show(typeof(SelectLevelScreen));
         }
         
-        protected override void OnScreenOpen()
+        protected override void OnDialogOpen()
         {
             RebuildChildren();
         }
@@ -57,7 +57,7 @@ namespace Assets.Scripts.UI
                 {
                     Debug.Log("On level selected");
                     GameController.Instance.NewGame(index1);
-                    DialogBoxManager.Instance.Show(typeof(GameHud));
+                    CloseDialog();
                 });
             }
         }

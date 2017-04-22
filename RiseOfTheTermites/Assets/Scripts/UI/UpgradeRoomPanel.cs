@@ -50,7 +50,7 @@ namespace Assets.Scripts.UI
                 {
                     if (index1 != 0)
                         roomController.ChangeRoomType(upgrade);
-                    gameObject.SetActive(false);
+                    CloseDialog();
                 });
             }
         }

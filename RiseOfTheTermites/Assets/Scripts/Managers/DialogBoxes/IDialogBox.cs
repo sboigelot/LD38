@@ -4,7 +4,7 @@ namespace Assets.Scripts.Managers.DialogBoxes
     {
         bool IsModal { get; }
         bool IsOpen { get; set; }
-        void OpenScreen(object context);
-        void CloseScreen();
+        void OpenDialog(object context);
+        void CloseDialog();
     }
 }

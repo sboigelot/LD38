@@ -1,19 +1,15 @@
-﻿using Assets.Scripts.Managers.DialogBoxes;
+﻿using Assets.Scripts.Controllers;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
-    public class GameHud : DialogBoxBase<GameHud>
+    public class GameHud : MonoBehaviourSingleton<GameHud>
     {
         public Button PauseButton;
-
-        public GameHud()
+        
+        public void OnGameTick()
         {
-            IsModal = false;
-        }
-
-        protected override void OnScreenOpen()
-        {
+            var level = LevelController.Instance.Level;
         }
     }
 }

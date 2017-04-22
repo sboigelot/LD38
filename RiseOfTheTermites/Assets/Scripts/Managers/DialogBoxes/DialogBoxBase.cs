@@ -14,16 +14,16 @@ namespace Assets.Scripts.Managers.DialogBoxes
 
         public bool IsOpen { get; set; }
 
-        public void OpenScreen(object context)
+        public void OpenDialog(object context)
         {
             gameObject.SetActive(true);
-            OnScreenOpen();
+            OnDialogOpen();
             IsOpen = true;
         }
 
-        protected abstract void OnScreenOpen();
+        protected abstract void OnDialogOpen();
 
-        public void CloseScreen()
+        public void CloseDialog()
         {
             gameObject.SetActive(false);
             IsOpen = false;

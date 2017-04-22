@@ -37,12 +37,12 @@ namespace Assets.Scripts.Managers.DialogBoxes
             if (screens.ContainsKey(screenType))
             {
                 var dialogBox = screens[screenType];
-                dialogBox.OpenScreen(context);
+                dialogBox.OpenDialog(context);
 
                 foreach (var otherDialogBox in screens.Values)
                 {
                     if(otherDialogBox != dialogBox)
-                    otherDialogBox.CloseScreen();
+                    otherDialogBox.CloseDialog();
                 }
             }
         }

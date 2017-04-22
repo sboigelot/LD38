@@ -14,7 +14,7 @@ namespace Assets.Scripts.Managers.DialogBoxes
 
         public bool IsOpen { get; set; }
 
-        public void OpenScreen(object context)
+        public void OpenDialog(object context)
         {
             gameObject.SetActive(true);
             OnScreenOpen((CT) context);
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Managers.DialogBoxes
 
         protected abstract void OnScreenOpen(CT context);
 
-        public void CloseScreen()
+        public void CloseDialog()
         {
             gameObject.SetActive(false);
             IsOpen = false;
