@@ -82,8 +82,29 @@ namespace Assets.Scripts.Models
             }
         }
 
+        private readonly Dictionary<string, float> lastTickChanges = new Dictionary<string, float>();
+
+        private void AddLastTickChanges(string resourceName, float change)
+        {
+            if (!lastTickChanges.ContainsKey(resourceName))
+                lastTickChanges.Add(resourceName, change);
+            else
+            {
+                lastTickChanges[resourceName] += change;
+            }
+        }
+
+        public float GetLastTickChange(string resourceName)
+        {
+            if (!lastTickChanges.ContainsKey(resourceName))
+                return 0f;
+            return lastTickChanges[resourceName];
+        }
+
         public void Tick()
         {
+            lastTickChanges.Clear();
+
             foreach (var room in Rooms)
             {
                 if(room.ResourceImpactsOnTick == null)
@@ -95,19 +116,30 @@ namespace Assets.Scripts.Models
                 }
             }
 
-            var food = Resources.FirstOrDefault(r => r.Name == "Food");
-            if (food != null)
+            var queenCount = Termites.Count(t => t.Job == TermiteType.Queen);
+            ApplyImpact(new ResourceImpact
             {
-                var queenCount = Termites.Count(t => t.Job == TermiteType.Queen);
-                var workerCount = Termites.Count(t => t.Job == TermiteType.Worker);
-                var soldierCount = Termites.Count(t => t.Job == TermiteType.Soldier);
+                ImpactType = ResourceImpactType.Value,
+                ResourceName = "Food",
+                ImpactValuePerWorker = QueenEatAmount
+            }, queenCount);
 
-                var eatAmount = (float)queenCount * QueenEatAmount +
-                                (float)workerCount * WorkerEatAmount +
-                                (float)soldierCount * SoldierEatAmount;
+            var soldierCount = Termites.Count(t => t.Job == TermiteType.Soldier);
+            ApplyImpact(new ResourceImpact
+            {
+                ImpactType = ResourceImpactType.Value,
+                ResourceName = "Food",
+                ImpactValuePerWorker = SoldierEatAmount
+            }, soldierCount);
 
-                food.Value -= (int) Math.Round(eatAmount);
-            }
+            var workerCount = Termites.Count(t => t.Job == TermiteType.Worker);
+            ApplyImpact(new ResourceImpact
+            {
+                ImpactType = ResourceImpactType.Value,
+                ResourceName = "Food",
+                ImpactValuePerWorker = WorkerEatAmount
+            }, workerCount);
+
         }
 
         public void ApplyImpact(ResourceImpact Impact, int multipliyer)
@@ -122,8 +154,10 @@ namespace Assets.Scripts.Models
             switch (Impact.ImpactType)
             {
                 case ResourceImpactType.Value:
-                    var desiredValue = resource.Value + Impact.ImpactValuePerWorker * multipliyer;
+                    var change = Impact.ImpactValuePerWorker * multipliyer;
+                    var desiredValue = resource.Value + change;
                     resource.Value = Math.Min(resource.MaxValue, Math.Max(resource.MinValue, desiredValue));
+                    AddLastTickChanges(resource.Name, change);
                     break;
                 case ResourceImpactType.MaxValue:
                     resource.MaxValue += Impact.ImpactValuePerWorker * multipliyer;
