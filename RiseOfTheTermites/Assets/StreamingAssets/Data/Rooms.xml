@@ -10,24 +10,37 @@
   <Room Name="Empty Room"
         SpritePath="Empty"
         ValidLocation="Anywhere">
+    <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>Tunel</PossibleUpgrade>
     <PossibleUpgrade>Mushroom Farm</PossibleUpgrade>
   </Room>
-  
-	<Room Name="Throne Room"
+
+  <Room Name="Throne Room"
         SpritePath="Throne"
         ValidLocation="UnderGround">
   </Room>
+  
+  <Room Name="BedRoom"
+        SpritePath="BedRoom"
+        ValidLocation="UnderGround">
+  </Room>
 
+  <Room Name="FarmRoom"
+        SpritePath="FarmRoom"
+        ValidLocation="UnderGround">
+  </Room>
+  
   <Room Name="Tunel"
         SpritePath="Tunel"
         ValidLocation="Anywhere">
     <PossibleUpgrade>Empty Room</PossibleUpgrade>
+    <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="3" ImpactType="MaxValue"/>
   </Room>
 
   <Room Name="Mushroom Farm"
         SpritePath="Mush"
         ValidLocation="UnderGround">
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="5" ImpactType="Value"/>
     <PossibleUpgrade>Empty Room</PossibleUpgrade>
   </Room>
 
@@ -37,7 +50,6 @@
   Gathering room  (gather wood & leaf outside)
   “Access pit” (entrance of the tower)
   Storage room (each resource one)
-  Venom room
-  Throne room (underground)-->
+  Venom room-->
 
 </ArrayOfRoom>

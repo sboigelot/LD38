@@ -3,7 +3,6 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Models;
 using Assets.Scripts.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Controllers
 {
@@ -11,8 +10,6 @@ namespace Assets.Scripts.Controllers
     [RequireComponent(typeof(BoxCollider2D))]
     public class RoomController : MonoBehaviour
     {
-        public Vector2 GridLocation;
-
         private SpriteRenderer spriteRenderer;
 
         private Room room;
@@ -36,10 +33,12 @@ namespace Assets.Scripts.Controllers
         {
             if (!string.IsNullOrEmpty(roomName))
             {
-                var prototype = PrototypeManager.Instance.Rooms.SingleOrDefault(r => r.Name == roomName);
+                var prototype = PrototypeManager.FindRoomPrototype(roomName);
                 if (prototype != null)
                 {
-                    Room = (Room) prototype.Clone();
+                    var room = (Room) prototype.Clone();
+                    LevelController.Instance.SwapRoom(Room, room);
+                    Room = room;
                     Initialize();
                 }
             }
@@ -70,10 +69,14 @@ namespace Assets.Scripts.Controllers
 
         public void OnMouseUpAsButton()
         {
+            Debug.Log(Room == null
+                ? "OnMouseUpAsButton(?) in 'No room'"
+                : string.Format("OnMouseUpAsButton({0}, {1}) in '{2}'", room.GridLocationX, room.GridLocationY,
+                    room.Name));
+
             if(UpgradeRoomPanel.Instance.gameObject.activeSelf)
                 return;
 
-            Debug.Log("OnMouseUpAsButton(" + GridLocation + ") in '" + (Room != null ? Room.Name : "No room room") +"'");
             UpgradeRoomPanel.Instance.Open(this);
         }
     }

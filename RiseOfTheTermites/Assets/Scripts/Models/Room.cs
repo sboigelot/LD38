@@ -26,6 +26,24 @@ namespace Assets.Scripts.Models
         [XmlElement("PossibleUpgrade")]
         public List<string> PossibleUpgrades { get; set; }
 
+        [XmlElement("ResourceImpactOnTick")]
+        public List<ResourceImpact> ResourceImpactsOnTick { get; set; }
+
+        [XmlElement("ResourceImpactOnBuilt")]
+        public List<ResourceImpact> ResourceImpactsOnBuilt { get; set; }
+
+        [XmlAttribute]
+        public int BuildingTime { get; set; }
+
+        [XmlAttribute]
+        public int MaxWorker { get; set; }
+
+        [XmlAttribute("X")]
+        public int GridLocationX { get; set; }
+
+        [XmlAttribute("Y")]
+        public int GridLocationY { get; set; }
+
         public object Clone()
         {
             return new Room
@@ -33,8 +51,17 @@ namespace Assets.Scripts.Models
                 Name = Name,
                 SpritePath = SpritePath,
                 ValidLocation = ValidLocation,
-                PossibleUpgrades = PossibleUpgrades.ToList()
+                PossibleUpgrades = PossibleUpgrades.ToList(),
+                ResourceImpactsOnTick = ResourceImpactsOnTick.ToList(),
+                ResourceImpactsOnBuilt = ResourceImpactsOnBuilt.ToList(),
+                BuildingTime = BuildingTime,
+                MaxWorker = MaxWorker
             };
+        }
+
+        public int GetWorkerCount()
+        {
+            return 1; //TODO împlement
         }
     }
 }

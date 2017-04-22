@@ -13,12 +13,12 @@ namespace Assets.Scripts.UI
         public GameObject ItemTemplate;
         public Transform ItemPanel;
 
-        public void Open(RoomController roomController)
+        public void Open(RoomController controller)
         {
-            if(roomController.Room == null)
+            if(controller.Room == null)
                 return;
 
-            this.roomController = roomController;
+            roomController = controller;
             gameObject.SetActive(true);
             BuildUi();
         }

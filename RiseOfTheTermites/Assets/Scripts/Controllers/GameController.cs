@@ -1,5 +1,11 @@
-﻿using Assets.Scripts.Managers;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using Assets.Scripts.Managers;
+using Assets.Scripts.Models;
 using Assets.Scripts.Utils;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Controllers
 {
@@ -9,16 +15,43 @@ namespace Assets.Scripts.Controllers
         {
             PrototypeManager.Instance.LoadPrototypes();
             SaveManager.Instance.LoadProfiles();
+            NewGame();
         }
+
+        public IEnumerator GameTick()
+        {
+            while (true)
+            {
+                if (GameManager.Instance.CurrentLevel != null)
+                {
+                    GameManager.Instance.CurrentLevel.Tick();
+                    BuildUi();
+                }
+
+                yield return new WaitForSeconds(1);
+            }
+        }
+
 
         public void NewGame()
         {
-            GameManager.Instance.NewGame();
-            BuildUi();
+            GameManager.Instance.NewGame((Level)PrototypeManager.Instance.Levels[0].Clone());
+            StartCoroutine(GameTick());
         }
 
         public void BuildUi()
         {
+            string resources = "";
+
+            foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.Resources)
+            {
+                resources += string.Format("{0}: {1} / {2}", 
+                    currentLevelResource.Name,
+                    currentLevelResource.Value,
+                    currentLevelResource.MaxValue) + Environment.NewLine;
+            }
+
+            GameObject.Find("DebugText").GetComponent<Text>().text = resources;
         }
     }
 }
