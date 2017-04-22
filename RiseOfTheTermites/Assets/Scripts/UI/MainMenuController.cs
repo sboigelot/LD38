@@ -30,7 +30,7 @@ namespace Assets.Scripts.UI
 
         void AboutClicked()
         {
-            Application.OpenURL("https://ldjam.com/events/ludum-dare/38");
+            Application.OpenURL( "https://ldjam.com/events/ludum-dare/38" );
         }
     }
 }

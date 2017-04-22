@@ -44,13 +44,13 @@ namespace Assets.Scripts.Controllers
 
             var resources = "";
 
-            foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.Resources)
+            /*foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.Resources)
             {
                 resources += string.Format("{0}: {1} / {2}",
                                  currentLevelResource.Name,
                                  currentLevelResource.Value,
                                  currentLevelResource.MaxValue) + Environment.NewLine;
-            }
+            }*/
 
             GameObject.Find("DebugText").GetComponent<Text>().text = resources;
         }
