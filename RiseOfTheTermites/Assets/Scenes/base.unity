@@ -201,7 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 247999225}
   m_Layer: 0
-  m_Name: Tower
+  m_Name: PlayerTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +214,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 247999224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -256, y: 106, z: 0}
   m_LocalScale: {x: 120, y: 80, z: 1}
   m_Children:
   - {fileID: 1884248501}
@@ -225,8 +225,7 @@ Transform:
   - {fileID: 497716065}
   - {fileID: 697254500}
   - {fileID: 1858717947}
-  - {fileID: 1320733383}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 293717172}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &252669806
@@ -303,6 +302,52 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 252669806}
+--- !u!1 &293717170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 293717172}
+  - component: {fileID: 293717171}
+  m_Layer: 0
+  m_Name: Level
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &293717171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 293717170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47537510c602dd040827ba7093bc88f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoomsPanel: {fileID: 247999225}
+  RoomTemplate: {fileID: 1320733382}
+  RoomSpacing: {x: 1.2, y: 0.8}
+--- !u!4 &293717172
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 293717170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 256, y: -106.00001, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1320733383}
+  - {fileID: 758099589}
+  - {fileID: 247999225}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &304542911
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c9cdc2cfeae479eb75e2d20a9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridLocation: {x: 0, y: 1}
   InitializeAsRoom: Diggable Room
 --- !u!212 &365731052
 SpriteRenderer:
@@ -814,7 +858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c9cdc2cfeae479eb75e2d20a9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridLocation: {x: 0, y: -1}
   InitializeAsRoom: Diggable Room
 --- !u!212 &497716067
 SpriteRenderer:
@@ -1054,7 +1097,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c9cdc2cfeae479eb75e2d20a9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridLocation: {x: 0, y: -1}
   InitializeAsRoom: Mushroom Farm
 --- !u!212 &697254502
 SpriteRenderer:
@@ -1402,13 +1444,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 758099588}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 172.59177, y: 33.503166, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -83.40823, y: 139.50317, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 513596735}
-  - {fileID: 2033638182}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 293717172}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &798338585
@@ -1453,7 +1494,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c9cdc2cfeae479eb75e2d20a9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridLocation: {x: 0, y: 0}
   InitializeAsRoom: Throne Room
 --- !u!212 &798338588
 SpriteRenderer:
@@ -1636,7 +1676,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c9cdc2cfeae479eb75e2d20a9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridLocation: {x: 1, y: 1}
   InitializeAsRoom: Diggable Room
 --- !u!212 &904009909
 SpriteRenderer:
@@ -1715,7 +1754,7 @@ GameObject:
   - component: {fileID: 1025177857}
   - component: {fileID: 1025177856}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1959,12 +1998,12 @@ GameObject:
   - component: {fileID: 1320733384}
   - component: {fileID: 1320733386}
   m_Layer: 0
-  m_Name: GameObject (8)
+  m_Name: RoomTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1320733383
 Transform:
   m_ObjectHideFlags: 0
@@ -1972,11 +2011,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1320733382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2, y: -0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 247999225}
-  m_RootOrder: 8
+  m_Father: {fileID: 293717172}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1320733384
 MonoBehaviour:
@@ -1989,7 +2028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c9cdc2cfeae479eb75e2d20a9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridLocation: {x: 0, y: -1}
   InitializeAsRoom: Diggable Room
 --- !u!212 &1320733385
 SpriteRenderer:
@@ -2282,7 +2320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c9cdc2cfeae479eb75e2d20a9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridLocation: {x: 1, y: 0}
   InitializeAsRoom: Tunel
 --- !u!212 &1714280506
 SpriteRenderer:
@@ -2663,7 +2700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c9cdc2cfeae479eb75e2d20a9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridLocation: {x: 0, y: -1}
   InitializeAsRoom: Mushroom Farm
 --- !u!212 &1858717949
 SpriteRenderer:
@@ -2759,7 +2795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c9cdc2cfeae479eb75e2d20a9681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridLocation: {x: -1, y: 0}
   InitializeAsRoom: Diggable Room
 --- !u!212 &1884248500
 SpriteRenderer:
@@ -2995,11 +3030,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2033638180}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -172.59177, y: -33.503166, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3500, y: 1500, z: 1}
   m_Children:
   - {fileID: 2092341434}
-  m_Father: {fileID: 758099589}
+  m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2092341429

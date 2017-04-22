@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<ArrayOfLevel>
+
+  <Level Name="Sandbox">
+    <Resource Name="Food"/>
+    <Resource Name="Soil"/>
+    <Resource Name="Population"/>
+    <Resource Name="Soldier"/>
+
+    <Room Name="Throne Room" X="0" Y="0"/>
+    <Room Name="Diggable Room" X="1" Y="0"/>
+    <Room Name="Diggable Room" X="-1" Y="0"/>
+    <Room Name="Diggable Room" X="0" Y="-1"/>
+    <Room Name="Diggable Room" X="1" Y="-1"/>
+    <Room Name="Diggable Room" X="-1" Y="-1"/>
+    <Room Name="Empty Room" X="1" Y="1"/>
+    <Room Name="Empty Room" X="-1" Y="1"/>
+  </Level>
+  
+</ArrayOfLevel>

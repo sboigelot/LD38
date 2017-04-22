@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Controllers;
 using Assets.Scripts.Models;
 
 namespace Assets.Scripts.Managers
@@ -8,9 +9,13 @@ namespace Assets.Scripts.Managers
     {
         public PlayerProfile Player { get; set; }
 
-        public void NewGame()
+        public Level CurrentLevel { get; set; }
+
+        public void NewGame(Level level)
         {
-            PlayerProfile player = SaveManager.Instance.PlayerProfile;
+            Player = SaveManager.Instance.PlayerProfile;
+            CurrentLevel = level;
+            LevelController.Instance.StartLevel(CurrentLevel);
         }
     }
 }

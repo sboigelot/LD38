@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Managers;
+﻿using System.Linq;
+using Assets.Scripts.Managers;
+using Assets.Scripts.Models;
 using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.Controllers
@@ -9,11 +11,12 @@ namespace Assets.Scripts.Controllers
         {
             PrototypeManager.Instance.LoadPrototypes();
             SaveManager.Instance.LoadProfiles();
+            NewGame();
         }
 
         public void NewGame()
         {
-            GameManager.Instance.NewGame();
+            GameManager.Instance.NewGame((Level)PrototypeManager.Instance.Levels.First().Clone());
             BuildUi();
         }
 

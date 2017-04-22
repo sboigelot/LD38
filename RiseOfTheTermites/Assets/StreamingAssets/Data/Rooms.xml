@@ -10,6 +10,7 @@
   <Room Name="Empty Room"
         SpritePath="Empty"
         ValidLocation="Anywhere">
+    <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20"/>
     <PossibleUpgrade>Tunel</PossibleUpgrade>
     <PossibleUpgrade>Mushroom Farm</PossibleUpgrade>
   </Room>
@@ -17,7 +18,7 @@
 	<Room Name="Throne Room"
         SpritePath="Throne"
         ValidLocation="UnderGround">
-  </Room>
+     </Room>
 
   <Room Name="Tunel"
         SpritePath="Tunel"
@@ -28,6 +29,7 @@
   <Room Name="Mushroom Farm"
         SpritePath="Mush"
         ValidLocation="UnderGround">
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="5"/>
     <PossibleUpgrade>Empty Room</PossibleUpgrade>
   </Room>
 

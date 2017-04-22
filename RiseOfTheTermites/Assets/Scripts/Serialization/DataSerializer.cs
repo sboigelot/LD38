@@ -73,8 +73,12 @@ namespace Assets.Scripts.Serialization
         {
             return new[]
             {
+                typeof(Level),
+                typeof(PlayerProfile),
+                typeof(Resources),
+                typeof(ResourceImpact),
                 typeof(Room),
-                typeof(PlayerProfile)
+                typeof(RoomValidLocation),
             };
         }
     }
