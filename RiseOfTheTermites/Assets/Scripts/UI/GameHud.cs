@@ -9,6 +9,8 @@ namespace Assets.Scripts.UI
 {
     public class GameHud : MonoBehaviourSingleton<GameHud>, IBuildUi
     {
+        public Button PauseButton;
+
         public void BuildUi()
         {
             
