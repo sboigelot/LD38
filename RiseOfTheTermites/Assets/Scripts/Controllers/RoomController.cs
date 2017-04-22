@@ -34,15 +34,18 @@ namespace Assets.Scripts.Controllers
 
         public void ChangeRoomType(string roomName)
         {
-            if (!string.IsNullOrEmpty(roomName))
+            if (!string.IsNullOrEmpty(roomName) && LevelController.Instance != null && LevelController.Instance.Level != null)
             {
                 var prototype = PrototypeManager.FindRoomPrototype(roomName);
                 if (prototype != null)
                 {
                     var room = (Room) prototype.Clone();
-                    LevelController.Instance.Level.SwapRoom(Room, room);
-                    Room = room;
-                    Initialize();
+                    bool swapped = LevelController.Instance.Level.SwapRoom(Room, room);
+                    if(swapped)
+                    {
+                        Room = room;
+                        Initialize();
+                    }                    
                 }
             }
         }
