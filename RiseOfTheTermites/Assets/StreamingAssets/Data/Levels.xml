@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <ArrayOfLevel>
 
-  <Level Name="Sandbox">
+  <Level Name="Sandbox"
+         QueenEatAmount="1"
+         SoldierEatAmount="0.75"
+         WorkerEatAmount="0.2">
     <Resource Name="Food" Value="50" MinValue="0" MaxValue="100"/>
     <Resource Name="Soil" Value="50" MinValue="0" MaxValue="100"/>
     <Resource Name="Population" Value="2" MinValue="0" MaxValue="2" />

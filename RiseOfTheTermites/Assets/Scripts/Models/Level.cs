@@ -20,6 +20,15 @@ namespace Assets.Scripts.Models
         [XmlElement("Termite")]
         public List<Termite> Termites { get; set; }
 
+        [XmlAttribute]
+        public float QueenEatAmount { get; set; }
+
+        [XmlAttribute]
+        public float SoldierEatAmount { get; set; }
+
+        [XmlAttribute]
+        public float WorkerEatAmount { get; set; }
+
         public object Clone()
         {
             return new Level
@@ -84,6 +93,20 @@ namespace Assets.Scripts.Models
                 {
                     ApplyImpact(resourceImpact, room.GetWorkerCount());
                 }
+            }
+
+            var food = Resources.FirstOrDefault(r => r.Name == "Food");
+            if (food != null)
+            {
+                var queenCount = Termites.Count(t => t.Job == TermiteType.Queen);
+                var workerCount = Termites.Count(t => t.Job == TermiteType.Worker);
+                var soldierCount = Termites.Count(t => t.Job == TermiteType.Soldier);
+
+                var eatAmount = (float)queenCount * QueenEatAmount +
+                                (float)workerCount * WorkerEatAmount +
+                                (float)soldierCount * SoldierEatAmount;
+
+                food.Value -= (int) Math.Round(eatAmount);
             }
         }
 
