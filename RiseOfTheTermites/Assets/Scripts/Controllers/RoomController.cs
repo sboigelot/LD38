@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Models;
 using Assets.Scripts.UI;
@@ -10,6 +11,8 @@ namespace Assets.Scripts.Controllers
     [RequireComponent(typeof(BoxCollider2D))]
     public class RoomController : MonoBehaviour
     {
+        public Color BlinkColor = Color.magenta;
+
         private SpriteRenderer spriteRenderer;
 
         private Room room;
@@ -71,13 +74,27 @@ namespace Assets.Scripts.Controllers
         {
             Debug.Log(Room == null
                 ? "OnMouseUpAsButton(?) in 'No room'"
-                : string.Format("OnMouseUpAsButton({0}, {1}) in '{2}'", room.GridLocationX, room.GridLocationY,
+                : string.Format("OnMouseUpAsButton({0}, {1}) in '{2}'",
+                    room.GridLocationX,
+                    room.GridLocationY,
                     room.Name));
 
             if(UpgradeRoomPanel.Instance.gameObject.activeSelf)
                 return;
 
             UpgradeRoomPanel.Instance.Open(this);
+        }
+
+        public void Blink()
+        {
+            spriteRenderer.color = BlinkColor;
+            StartCoroutine(RevertToWhite());
+        }
+
+        private IEnumerator RevertToWhite()
+        {
+            yield return new WaitForSeconds(0.5f);
+            spriteRenderer.color = Color.white;
         }
     }
 }
