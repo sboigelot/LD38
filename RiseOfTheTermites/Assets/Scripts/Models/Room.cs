@@ -62,7 +62,7 @@ namespace Assets.Scripts.Models
 
         public int GetWorkerCount()
         {
-            return
+            return 1+
                 LevelController.Instance.Level.Termites.Count(
                     t => t.RoomX == GridLocationX && t.RoomY == GridLocationY && t.Job == TermiteType.Worker);
         }
