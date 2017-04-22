@@ -37,7 +37,7 @@ namespace Assets.Scripts.Controllers
                 if (prototype != null)
                 {
                     var room = (Room) prototype.Clone();
-                    LevelController.Instance.SwapRoom(Room, room);
+                    LevelController.Instance.Level.SwapRoom(Room, room);
                     Room = room;
                     Initialize();
                 }
