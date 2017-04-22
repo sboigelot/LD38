@@ -34,6 +34,10 @@ namespace Assets.Scripts.Models
             get { return Job == TermiteType.Worker; }
         }
 
+        public bool HasMouseOver;
+
+        public bool IsDragging;
+
         public object Clone()
         {
             return new Termite

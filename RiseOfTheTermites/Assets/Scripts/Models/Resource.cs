@@ -12,13 +12,13 @@ namespace Assets.Scripts.Models
         public string SpritePath { get; set; }
 
         [XmlAttribute]
-        public int Value { get; set; }
+        public float Value { get; set; }
 
         [XmlAttribute]
-        public int MinValue { get; set; }
+        public float MinValue { get; set; }
 
         [XmlAttribute]
-        public int MaxValue { get; set; }
+        public float MaxValue { get; set; }
 
         [XmlAttribute]
         public bool IsVisible { get; set; }
