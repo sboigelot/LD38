@@ -79,6 +79,8 @@ namespace Assets.Scripts.Serialization
                 typeof(ResourceImpact),
                 typeof(Room),
                 typeof(RoomValidLocation),
+                typeof(Termite),
+                typeof(TermiteType),
             };
         }
     }

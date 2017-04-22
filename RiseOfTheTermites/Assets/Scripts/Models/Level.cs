@@ -32,7 +32,8 @@ namespace Assets.Scripts.Models
                     r2.GridLocationX = r.GridLocationX;
                     r2.GridLocationY = r.GridLocationY;
                     return r2;
-                }).ToList()
+                }).ToList(),
+                Termites = Termites.Select(t=>(Termite)t.Clone()).ToList()
             };
         }
 

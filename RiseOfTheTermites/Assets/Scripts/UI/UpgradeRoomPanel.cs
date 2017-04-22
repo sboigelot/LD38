@@ -51,7 +51,8 @@ namespace Assets.Scripts.UI
                 newItem.GetComponentInChildren<Text>().text = (index == 0 ? "Stay a " : "Upgrade to ") + upgrade;
                 newItem.GetComponentInChildren<Button>().onClick.AddListener(() =>
                 {
-                    roomController.ChangeRoomType(upgrade);
+                    if(index != 0)
+                        roomController.ChangeRoomType(upgrade);
                     this.gameObject.SetActive(false);
                 });
             }
