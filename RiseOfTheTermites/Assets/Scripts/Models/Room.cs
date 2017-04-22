@@ -51,8 +51,17 @@ namespace Assets.Scripts.Models
                 Name = Name,
                 SpritePath = SpritePath,
                 ValidLocation = ValidLocation,
-                PossibleUpgrades = PossibleUpgrades.ToList()
+                PossibleUpgrades = PossibleUpgrades.ToList(),
+                ResourceImpactsOnTick = ResourceImpactsOnTick.ToList(),
+                ResourceImpactsOnBuilt = ResourceImpactsOnBuilt.ToList(),
+                BuildingTime = BuildingTime,
+                MaxWorker = MaxWorker
             };
+        }
+
+        public int GetWorkerCount()
+        {
+            return 1; //TODO împlement
         }
     }
 }
