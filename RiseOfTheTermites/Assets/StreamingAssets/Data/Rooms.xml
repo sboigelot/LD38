@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <ArrayOfRoom>
 
+  <Room Name="Rock"
+        SpritePath="Empty"
+        ValidLocation="UnderGround">
+  </Room>
+
+  <Room Name="Food bonus"
+        SpritePath="Empty"
+        ValidLocation="UnderGround">
+    <ResourceImpactOnDestroy ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
+    <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
+  </Room>
+
+  <Room Name="Soil bonus"
+        SpritePath="Empty"
+        ValidLocation="UnderGround">
+    <ResourceImpactOnDestroy ResourceName="Soil" ImpactValuePerWorker="100" ImpactType="Value"/>
+    <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
+  </Room>
+  
+  
+  
   <Room Name="Diggable Room"
         SpritePath="Dig"
         ValidLocation="UnderGround">

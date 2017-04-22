@@ -30,6 +30,9 @@ namespace Assets.Scripts.Models
         [XmlElement("ResourceImpactOnTick")]
         public List<ResourceImpact> ResourceImpactsOnTick { get; set; }
 
+        [XmlElement("ResourceImpactOnDestroy")]
+        public List<ResourceImpact> ResourceImpactsOnDestroy { get; set; }
+
         [XmlElement("ResourceImpactOnBuilt")]
         public List<ResourceImpact> ResourceImpactsOnBuilt { get; set; }
 
@@ -55,6 +58,7 @@ namespace Assets.Scripts.Models
                 PossibleUpgrades = PossibleUpgrades.ToList(),
                 ResourceImpactsOnTick = ResourceImpactsOnTick.ToList(),
                 ResourceImpactsOnBuilt = ResourceImpactsOnBuilt.ToList(),
+                ResourceImpactsOnDestroy = ResourceImpactsOnDestroy.ToList(),
                 BuildingTime = BuildingTime,
                 MaxWorker = MaxWorker
             };

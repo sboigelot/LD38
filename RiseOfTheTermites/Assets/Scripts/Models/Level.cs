@@ -46,6 +46,14 @@ namespace Assets.Scripts.Models
                 foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
                 {
                     ApplyImpact(resourceImpact, 1);
+                }                
+            }
+
+            if(oldRoom.ResourceImpactsOnDestroy != null)
+            {
+                foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
+                {
+                    ApplyImpact(resourceImpact, 1);
                 }
             }
         }
