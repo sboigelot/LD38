@@ -68,7 +68,7 @@ namespace Assets.Scripts.UI
             percentage = Mathf.Min(1.0f, ((food.MaxValue - food.Value) / food.MaxValue) * 10.0f);
             FoodAmount.color = (OkColor * percentage) + KOColor * (1.0f - percentage);
 
-            //FoodRate = string.Format("{0}", food.);
+            FoodRate.text = string.Format("{0:0.00}", level.GetLastTickChange( food.Name ));
         }
     }
 }
