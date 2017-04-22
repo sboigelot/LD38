@@ -17,6 +17,9 @@ namespace Assets.Scripts.Models
         [XmlElement("Room")]
         public List<Room> Rooms { get; set; }
 
+        [XmlElement("Termite")]
+        public List<Termite> Termites { get; set; }
+
         public object Clone()
         {
             return new Level
@@ -31,6 +34,19 @@ namespace Assets.Scripts.Models
                     return r2;
                 }).ToList()
             };
+        }
+
+        public void SwapRoom(Room oldRoom, Room newRoom)
+        {
+            Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
+
+            if (newRoom.ResourceImpactsOnBuilt != null)
+            {
+                foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
+                {
+                    ApplyImpact(resourceImpact, 1);
+                }
+            }
         }
 
         public void Tick()

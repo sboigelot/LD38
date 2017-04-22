@@ -11,7 +11,7 @@ namespace Assets.Scripts.Controllers
 {
     public class LevelController : MonoBehaviourSingleton<LevelController>
     {
-        private Level Level;
+        public Level Level { get; private set; }
 
         public void StartLevel(Level level)
         {
@@ -23,10 +23,13 @@ namespace Assets.Scripts.Controllers
         public GameObject RoomTemplate;
         public Vector2 RoomSpacing = new Vector2(1.2f, 0.8f);
 
+        public Transform TermitesPanel;
+        public GameObject TermitesTemplate;
+
         public void RebuildChildren()
         {
             RebuildRooms();
-            //DisplayResources();
+            DisplayTermites();
         }
 
         private void RebuildRooms()
@@ -51,17 +54,27 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        public void SwapRoom(Room oldRoom, Room newRoom)
-        {
-            Level.Rooms[Level.Rooms.IndexOf(oldRoom)] = newRoom;
 
-            if(newRoom.ResourceImpactsOnBuilt !=null)
-            {
-                foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
-                {
-                    Level.ApplyImpact(resourceImpact, 1);
-                }
-            }
+        private void DisplayTermites()
+        {
+            //TermitesPanel.ClearChildren();
+
+            //if (Level == null || !Level.Termites.Any())
+            //    return;
+
+            //foreach (var termite in Level.Termites)
+            //{
+            //    var newRoom = Instantiate(TermitesTemplate);
+            //    newRoom.name = string.Format("Termite {0}, {1}", termite.RoomX, termite.RoomY);
+            //    //newRoom.GetComponent<RoomController>().Room = termite;
+            //    newRoom.transform.position = new Vector3(
+            //        RoomSpacing.x * termite.RoomX,
+            //        RoomSpacing.y * termite.RoomY,
+            //        0);
+            //    //newRoom.transform.localScale = new Vector3(RoomSpacing.y, RoomSpacing.x, 1);
+            //    newRoom.transform.SetParent(RoomsPanel, false);
+            //    newRoom.SetActive(true);
+            //}
         }
     }
 }
