@@ -16,7 +16,7 @@ namespace Assets.Scripts.Controllers
 
         public void NewGame()
         {
-            GameManager.Instance.NewGame((Level)PrototypeManager.Instance.Levels.First().Clone());
+            GameManager.Instance.NewGame((Level)PrototypeManager.Instance.Levels[0].Clone());
             BuildUi();
         }
 

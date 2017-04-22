@@ -26,6 +26,7 @@ namespace Assets.Scripts.Controllers
         public void RebuildChildren()
         {
             RebuildRooms();
+            //DisplayResources();
         }
 
         private void RebuildRooms()
