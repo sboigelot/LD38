@@ -4,7 +4,6 @@ using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 namespace Assets.Scripts.UI
 {
     public class MainMenuController : MonoBehaviourSingleton<MainMenuController>, IBuildUi
@@ -15,14 +14,13 @@ namespace Assets.Scripts.UI
         public void Open()
         {
             BuildUi();
-
-            
         }
 
         void OnSelectLevel()
         {
             MonoBehaviourSingleton<MainMenuController>.Instance.gameObject.SetActive(false);
             MonoBehaviourSingleton<SelectLevelScreen>.Instance.gameObject.SetActive(true);
+            MonoBehaviourSingleton<SelectLevelScreen>.Instance.Open();
         }
 
         void AboutClicked()
