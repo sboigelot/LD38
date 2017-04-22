@@ -43,26 +43,7 @@ namespace Assets.Scripts.UI
                 newItem.name = "Item " + roomName;
                 newItem.transform.SetParent(ItemPanel, false);
                 newItem.SetActive(true);
-
-                bool stayAtSame = index == 0;
-
-                //bellow should go to upgraderoomitem
-                newItem.GetComponentInChildren<Text>().text = (stayAtSame ? "Stay a " : "Upgrade to ") + roomName;
-                bool enable = stayAtSame || LevelController.Instance.Level.CanAfford(roomName);
-                var button = newItem.GetComponentInChildren<Button>();
-                button.interactable = enable;
-
-                if (enable)
-                {
-                    button.onClick.AddListener(() =>
-                    {
-                        if (!stayAtSame)
-                        {
-                            roomController.ChangeRoomType(roomName);
-                        }
-                        CloseDialog();
-                    });
-                }
+                newItem.GetComponent<UpgradeRoomItem>().Setup(roomController, index == 0, roomName);
             }
         }
     }

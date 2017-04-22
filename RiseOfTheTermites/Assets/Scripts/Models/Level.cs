@@ -112,7 +112,7 @@ namespace Assets.Scripts.Models
                 
                 foreach (var resourceImpact in room.ResourceImpactsOnTick)
                 {
-                    ApplyImpact(resourceImpact, room.GetWorkerCount());
+                    ApplyImpact(resourceImpact, room.GetWorkforce());
                 }
             }
 
@@ -147,7 +147,7 @@ namespace Assets.Scripts.Models
             if (multipliyer == 0)
                 return;
 
-            var resource = findLevelResourceByName(Impact.ResourceName);
+            var resource = FindLevelResourceByName(Impact.ResourceName);
             if (resource == null)
                 return;
 
@@ -165,7 +165,7 @@ namespace Assets.Scripts.Models
             }
         }
 
-        private Resource findLevelResourceByName(String name)
+        public Resource FindLevelResourceByName(String name)
         {
             return Resources.FirstOrDefault(r => r.Name == name);            
         }
@@ -183,7 +183,7 @@ namespace Assets.Scripts.Models
             {
                 foreach(var price in room.ResourceImpactPrices)
                 {
-                    var levelResource = findLevelResourceByName(price.ResourceName);
+                    var levelResource = FindLevelResourceByName(price.ResourceName);
                     if (levelResource != null)
                     {
                         if(levelResource.Value < price.ImpactValuePerWorker)

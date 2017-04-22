@@ -20,8 +20,6 @@
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
   
-  
-  
   <Room Name="Diggable Room"
         SpritePath="Dig"
         ValidLocation="UnderGround">
@@ -50,37 +48,41 @@
 
   <Room Name="Throne Room"
         SpritePath="Throne"
-        ValidLocation="UnderGround">
+        ValidLocation="UnderGround"
+        MaxWorker="0">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="1" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="1" ImpactType="Value"/>
   </Room>
 
   <Room Name="BedRoom level 1"
         SpritePath="BedRoom"
-        ValidLocation="UnderGround">
+        ValidLocation="UnderGround"
+        MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1" ImpactType="Value"/>
+    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1" ImpactType="Value"/> TODO replace by Level Food consumption per termite type, speak with Paris-->
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 2</PossibleUpgrade>
   </Room>
 
   <Room Name="BedRoom level 2"
         SpritePath="BedRoom"
-        ValidLocation="UnderGround">
+        ValidLocation="UnderGround"
+        MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1.5" ImpactType="Value"/>
+    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1.5" ImpactType="Value"/>-->
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 3</PossibleUpgrade>
   </Room>
 
   <Room Name="BedRoom level 3"
         SpritePath="BedRoom"
-        ValidLocation="UnderGround">
+        ValidLocation="UnderGround"
+        MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="35" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>
+    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>-->
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="2" ImpactType="MaxValue"/>
   </Room>
 
@@ -110,8 +112,6 @@
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="100" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="5" ImpactType="Value"/>
   </Room>
-
-
 
   <Room Name="FarmRoom level 1"
         SpritePath="FarmRoom"
@@ -144,33 +144,40 @@
 
   <Room Name="Barracks level 1"
         SpritePath="BarracksRoom"
-        ValidLocation="Anywhere">
+        ValidLocation="Anywhere"
+        MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2" ImpactType="Value"/>
+    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2" ImpactType="Value"/>-->
+    <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>Barracks level 2</PossibleUpgrade>
   </Room>
 
   <Room Name="Barracks level 2"
         SpritePath="BarracksRoom"
-        ValidLocation="Anywhere">
+        ValidLocation="Anywhere"
+        MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="75" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="45" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>
+    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>-->
+    <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="3" ImpactType="MaxValue"/>
     <PossibleUpgrade>Barracks level 3</PossibleUpgrade>
   </Room>
 
   <Room Name="Barracks level 3"
         SpritePath="BarracksRoom"
-        ValidLocation="Anywhere">
+        ValidLocation="Anywhere"
+        MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="60" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-3" ImpactType="Value"/>
+    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-3" ImpactType="Value"/>-->
+    <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="5" ImpactType="MaxValue"/>
   </Room>
 
   <Room Name="StorageRoom level 1"
           SpritePath="Empty"
-          ValidLocation="Anywhere">
+          ValidLocation="Anywhere"
+        MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="20" ImpactType="MaxValue"/>
@@ -180,7 +187,8 @@
 
   <Room Name="StorageRoom level 2"
           SpritePath="Empty"
-          ValidLocation="Anywhere">
+          ValidLocation="Anywhere"
+        MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="30" ImpactType="MaxValue"/>
@@ -190,7 +198,8 @@
 
   <Room Name="StorageRoom level 3"
           SpritePath="Empty"
-          ValidLocation="Anywhere">
+          ValidLocation="Anywhere"
+        MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="35" ImpactType="MaxValue"/>
