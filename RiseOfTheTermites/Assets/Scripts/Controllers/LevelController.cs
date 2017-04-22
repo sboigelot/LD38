@@ -21,7 +21,7 @@ namespace Assets.Scripts.Controllers
 
         public Transform RoomsPanel;
         public GameObject RoomTemplate;
-        public Vector2 RoomSpacing = new Vector2(1.2f, 0.8f);
+        public Vector2 RoomSpacing = new Vector2(1.6f, 0.9f);
 
         public Transform TermitesPanel;
         public GameObject TermitesTemplate;
@@ -57,24 +57,20 @@ namespace Assets.Scripts.Controllers
 
         private void DisplayTermites()
         {
-            //TermitesPanel.ClearChildren();
+            TermitesPanel.ClearChildren();
 
-            //if (Level == null || !Level.Termites.Any())
-            //    return;
+            if (Level == null || !Level.Termites.Any())
+                return;
 
-            //foreach (var termite in Level.Termites)
-            //{
-            //    var newRoom = Instantiate(TermitesTemplate);
-            //    newRoom.name = string.Format("Termite {0}, {1}", termite.RoomX, termite.RoomY);
-            //    //newRoom.GetComponent<RoomController>().Room = termite;
-            //    newRoom.transform.position = new Vector3(
-            //        RoomSpacing.x * termite.RoomX,
-            //        RoomSpacing.y * termite.RoomY,
-            //        0);
-            //    //newRoom.transform.localScale = new Vector3(RoomSpacing.y, RoomSpacing.x, 1);
-            //    newRoom.transform.SetParent(RoomsPanel, false);
-            //    newRoom.SetActive(true);
-            //}
+            foreach (var termite in Level.Termites)
+            {
+                var newTermite = Instantiate(TermitesTemplate);
+                newTermite.name = string.Format("Termite {0}, {1}", termite.RoomX, termite.RoomY);
+                newTermite.GetComponent<TermiteController>().SetTermiteAndRoom(termite, termite.RoomX, termite.RoomY);
+                //newTermite.transform.localScale = new Vector3(RoomSpacing.y, RoomSpacing.x, 1);
+                newTermite.transform.SetParent(RoomsPanel, false);
+                newTermite.SetActive(true);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using Assets.Scripts.Controllers;
 
 namespace Assets.Scripts.Models
 {
@@ -61,7 +62,9 @@ namespace Assets.Scripts.Models
 
         public int GetWorkerCount()
         {
-            return 1; //TODO împlement
+            return
+                LevelController.Instance.Level.Termites.Count(
+                    t => t.RoomX == GridLocationX && t.RoomY == GridLocationY && t.Job == TermiteType.Worker);
         }
     }
 }
