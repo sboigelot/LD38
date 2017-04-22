@@ -4,7 +4,7 @@ namespace Assets.Scripts.Controllers
 {
     public class CameraController : MonoBehaviour
     {
-        public BoxCollider2D Bounds;
+        public Rect Bounds;
         private Vector3 mouseOrigin;
 
         void Update()
@@ -29,11 +29,8 @@ namespace Assets.Scripts.Controllers
         private Vector3 BoundCameraPostion()
         {
             var pos = transform.position;
-            if (Bounds == null)
-                return pos;
-
-            var min = Bounds.bounds.min;
-            var max = Bounds.bounds.max;
+            var min = Bounds.min;
+            var max = Bounds.max;
 
             pos = new Vector3(
                 Mathf.Min(max.x, Mathf.Max(min.x, pos.x)),

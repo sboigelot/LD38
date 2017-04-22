@@ -49,5 +49,10 @@ namespace Assets.Scripts.Controllers
                 newRoom.SetActive(true);
             }
         }
+
+        public void SwapRoom(Room oldRoom, Room newRoom)
+        {
+            Level.Rooms[Level.Rooms.IndexOf(oldRoom)] = newRoom;
+        }
     }
 }

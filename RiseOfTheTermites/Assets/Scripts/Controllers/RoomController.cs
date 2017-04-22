@@ -36,7 +36,9 @@ namespace Assets.Scripts.Controllers
                 var prototype = PrototypeManager.FindRoomPrototype(roomName);
                 if (prototype != null)
                 {
-                    Room = (Room) prototype.Clone();
+                    var room = (Room) prototype.Clone();
+                    LevelController.Instance.SwapRoom(Room, room);
+                    Room = room;
                     Initialize();
                 }
             }
@@ -67,13 +69,14 @@ namespace Assets.Scripts.Controllers
 
         public void OnMouseUpAsButton()
         {
-            if(UpgradeRoomPanel.Instance.gameObject.activeSelf)
-                return;
-
             Debug.Log(Room == null
                 ? "OnMouseUpAsButton(?) in 'No room'"
                 : string.Format("OnMouseUpAsButton({0}, {1}) in '{2}'", room.GridLocationX, room.GridLocationY,
                     room.Name));
+
+            if(UpgradeRoomPanel.Instance.gameObject.activeSelf)
+                return;
+
             UpgradeRoomPanel.Instance.Open(this);
         }
     }

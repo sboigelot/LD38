@@ -32,5 +32,10 @@ namespace Assets.Scripts.Models
                 }).ToList()
             };
         }
+
+        public void Tick()
+        {
+            
+        }
     }
 }
