@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
@@ -9,9 +10,20 @@ namespace Assets.Scripts.Controllers
 
         void Update()
         {
+            if (!Input.GetMouseButtonDown(0) &&
+                !Input.GetMouseButton(0))
+                return;
+
             if (Input.GetMouseButtonDown(0))
             {
                 mouseOrigin = Input.mousePosition;
+            }
+
+            if (LevelController.Instance.Level != null &&
+                LevelController.Instance.Level.Termites != null &&
+                LevelController.Instance.Level.Termites.Any(t => t.HasMouseOver || t.IsDragging))
+            {
+                return;
             }
 
             if (Input.GetMouseButton(0))

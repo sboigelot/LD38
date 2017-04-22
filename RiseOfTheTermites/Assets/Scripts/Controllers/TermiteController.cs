@@ -27,6 +27,21 @@ namespace Assets.Scripts.Controllers
                 return;
             }
 
+            if (Termite.IsDragging)
+            {
+                Termite.HasMouseOver = true;
+                var worldPosition = Input.mousePosition;
+                worldPosition.z = 10.0f;
+                worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
+                transform.position = worldPosition;
+                return;
+            }
+
+            if (Termite.HasMouseOver)
+            {
+                return;
+            }
+
             var direction = DestinationInRoom - PositionInRoom;
 
             if (direction.magnitude >= movementSpeedInRoom * 2)
@@ -61,6 +76,75 @@ namespace Assets.Scripts.Controllers
                 LevelController.Instance.RoomSpacing.x * termite.RoomX,
                 LevelController.Instance.RoomSpacing.y * termite.RoomY,
                 0);
+        }
+
+        public void OnMouseEnter()
+        {
+            Termite.HasMouseOver = true;
+        }
+
+        public void OnMouseExit()
+        {
+            Termite.HasMouseOver = false;
+        }
+
+        public void OnMouseDown()
+        {
+            Termite.IsDragging = true;
+        }
+        
+        public void OnMouseUp()
+        {
+            var worldPosition = Input.mousePosition;
+            worldPosition.z = 10.0f;
+            worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
+
+            var rs = LevelController.Instance.RoomSpacing;
+
+            var gridPositionX = worldPosition.x / rs.x;
+            if (gridPositionX < 0)
+                gridPositionX -= rs.x / 2;
+            else
+                gridPositionX += rs.x / 2;
+
+            var gridPositionY = worldPosition.y / rs.y;
+            if (gridPositionY < 0)
+                gridPositionY -= rs.y / 2;
+            else
+                gridPositionY += rs.y / 2;
+
+
+            Termite.RoomX = (int)gridPositionX;
+            Termite.RoomY = (int)gridPositionY;
+
+            BlinkRoom();
+
+            PositionInRoom = new Vector3(
+                    worldPosition.x - rs.x * Termite.RoomX,
+                    worldPosition.y - rs.y * Termite.RoomY,
+                0);
+            DestinationInRoom = 
+                new Vector2(0,0);
+            gameObject.name = string.Format("Termite {0}, {1}", gridPositionX, gridPositionY);
+
+            transform.position = worldPosition;
+            Termite.IsDragging = false;
+        }
+
+        private void BlinkRoom()
+        {
+            var room =
+                LevelController.Instance.Level.Rooms.FirstOrDefault(
+                    r => r.GridLocationX == Termite.RoomX && r.GridLocationY == Termite.RoomY);
+
+            if (room != null)
+            {
+                var roomControllers = FindObjectsOfType<RoomController>().FirstOrDefault(r => r.Room == room);
+                if (roomControllers != null)
+                {
+                    roomControllers.Blink();
+                }
+            }
         }
     }
 }
