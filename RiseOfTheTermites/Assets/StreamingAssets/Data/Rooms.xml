@@ -4,18 +4,27 @@
   <Room Name="Diggable Room"
         SpritePath="Dig"
         ValidLocation="UnderGround">
-    <PossibleUpgrade>Empty Room</PossibleUpgrade>
+    <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
 
-  <Room Name="Empty Room"
+  <Room Name="Surface Empty Room"
         SpritePath="Empty"
         ValidLocation="Anywhere">
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
-    <PossibleUpgrade>Mushroom Farm level 1</PossibleUpgrade>
     <PossibleUpgrade>Barracks level 1</PossibleUpgrade>
     <PossibleUpgrade>BedRoom level 1</PossibleUpgrade>
+    <PossibleUpgrade>GatheringRoom level 1</PossibleUpgrade>
+  </Room>
+
+  <Room Name="Underground Empty Room"
+        SpritePath="Empty"
+        ValidLocation="Anywhere">
+    <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
+    <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>FarmRoom level 1</PossibleUpgrade>
+    <PossibleUpgrade>Barracks level 1</PossibleUpgrade>
+    <PossibleUpgrade>BedRoom level 1</PossibleUpgrade>
   </Room>
 
   <Room Name="Throne Room"
@@ -48,22 +57,22 @@
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="Value"/>
   </Room>
 
-  <Room Name="FarmRoom level 1"
-        SpritePath="FarmRoom"
+  <Room Name="GatheringRoom level 1"
+        SpritePath="GatheringRoom"
         ValidLocation="AboveGround"
         MaxWorker="1">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
   </Room>
 
-  <Room Name="FarmRoom level 2"
-        SpritePath="FarmRoom"
+  <Room Name="GatheringRoom level 2"
+        SpritePath="GatheringRoom"
         ValidLocation="AboveGround"        
         MaxWorker="1">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="4" ImpactType="Value"/>
   </Room>
 
-  <Room Name="FarmRoom level 3"
-        SpritePath="FarmRoom"
+  <Room Name="GatheringRoom level 3"
+        SpritePath="GatheringRoom"
         ValidLocation="AboveGround"        
         MaxWorker="2">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="5" ImpactType="Value"/>
@@ -71,50 +80,45 @@
 
 
 
-  <Room Name="Mushroom Farm level 1"
-        SpritePath="Mush"
+  <Room Name="FarmRoom level 1"
+        SpritePath="FarmRoom"
         ValidLocation="UnderGround"
         MaxWorker="1">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="2" ImpactType="Value"/>
-    <PossibleUpgrade>Mushroom Farm level 2</PossibleUpgrade>
+    <PossibleUpgrade>FarmRoom level 2</PossibleUpgrade>
   </Room>
 
-  <Room Name="Mushroom Farm level 2"
-        SpritePath="Mush"
+  <Room Name="FarmRoom level 2"
+        SpritePath="FarmRoom"
         ValidLocation="UnderGround"
         MaxWorker="1">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
-    <PossibleUpgrade>Mushroom Farm level 3</PossibleUpgrade>
+    <PossibleUpgrade>FarmRoom level 3</PossibleUpgrade>
   </Room>
 
-  <Room Name="Mushroom Farm level 3"
-        SpritePath="Mush"
+  <Room Name="FarmRoom level 3"
+        SpritePath="FarmRoom"
         ValidLocation="UnderGround"
         MaxWorker="2">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="4" ImpactType="Value"/>
   </Room>
 
-
-
-
-
-
   <Room Name="Barracks level 1"
-        SpritePath="Empty"
+        SpritePath="BarracksRoom"
         ValidLocation="Anywhere">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2" ImpactType="Value"/>
     <PossibleUpgrade>Barracks level 2</PossibleUpgrade>
   </Room>
 
   <Room Name="Barracks level 2"
-        SpritePath="Empty"
+        SpritePath="BarracksRoom"
         ValidLocation="Anywhere">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>
     <PossibleUpgrade>Barracks level 3</PossibleUpgrade>
   </Room>
 
   <Room Name="Barracks level 3"
-        SpritePath="Empty"
+        SpritePath="BarracksRoom"
         ValidLocation="Anywhere">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-3" ImpactType="Value"/>
   </Room>

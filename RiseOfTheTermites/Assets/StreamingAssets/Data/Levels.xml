@@ -15,8 +15,9 @@
     <Room Name="FarmRoom level 1" X="0" Y="-1"/>
     <Room Name="Diggable Room" X="1" Y="-1"/>
     <Room Name="Diggable Room" X="-1" Y="-1"/>
-    <Room Name="Empty Room" X="1" Y="1"/>
-    <Room Name="Empty Room" X="-1" Y="1"/>
+    <Room Name="Surface Empty Room" X="1" Y="1"/>
+    <Room Name="Surface Empty Room" X="-1" Y="1"/>
+    <Room Name="Surface Empty Room" X="1" Y="2"/>
 
     <Termite RoomX="0" RoomY="0" Job="Queen" Hp="150"/>
     <Termite RoomX="1" RoomY="1" Job="Worker" Hp="50"/>
