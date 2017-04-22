@@ -15,7 +15,7 @@ namespace Assets.Scripts.Controllers
         {
             PrototypeManager.Instance.LoadPrototypes();
             SaveManager.Instance.LoadProfiles();
-            NewGame();
+            //NewGame();
         }
 
         public IEnumerator GameTick()
@@ -33,9 +33,9 @@ namespace Assets.Scripts.Controllers
         }
 
 
-        public void NewGame()
+        public void NewGame( int level_index )
         {
-            GameManager.Instance.NewGame((Level)PrototypeManager.Instance.Levels[0].Clone());
+            GameManager.Instance.NewGame((Level)PrototypeManager.Instance.Levels[ level_index ].Clone());
             StartCoroutine(GameTick());
         }
 
