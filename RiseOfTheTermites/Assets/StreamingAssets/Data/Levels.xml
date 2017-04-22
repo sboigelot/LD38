@@ -11,8 +11,8 @@
     <Room Name="Diggable Room" X="1" Y="0"/>
     <Room Name="Diggable Room" X="2" Y="0"/>
     <Room Name="Diggable Room" X="3" Y="0"/>
-    <Room Name="Diggable Room" X="-1" Y="0"/>
-    <Room Name="Diggable Room" X="0" Y="-1"/>
+    <Room Name="BedRoom" X="-1" Y="0"/>
+    <Room Name="FarmRoom" X="0" Y="-1"/>
     <Room Name="Diggable Room" X="1" Y="-1"/>
     <Room Name="Diggable Room" X="-1" Y="-1"/>
     <Room Name="Empty Room" X="1" Y="1"/>

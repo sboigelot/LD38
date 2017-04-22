@@ -54,5 +54,10 @@ namespace Assets.Scripts.Models
                 PossibleUpgrades = PossibleUpgrades.ToList()
             };
         }
+
+        public int GetWorkerCount()
+        {
+            return 1; //TODO împlement
+        }
     }
 }

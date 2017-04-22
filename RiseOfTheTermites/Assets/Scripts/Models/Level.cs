@@ -35,7 +35,37 @@ namespace Assets.Scripts.Models
 
         public void Tick()
         {
-            
+            foreach (var room in Rooms)
+            {
+                if(room.ResourceImpactsOnTick == null)
+                    continue;
+                
+                foreach (var resourceImpact in room.ResourceImpactsOnTick)
+                {
+                    ApplyImpact(resourceImpact, room.GetWorkerCount());
+                }
+            }
+        }
+
+        public void ApplyImpact(ResourceImpact Impact, int multipliyer)
+        {
+            if (multipliyer == 0)
+                return;
+
+            var resource = Resources.FirstOrDefault(r => r.Name == Impact.ResourceName);
+            if (resource == null)
+                return;
+
+            switch (Impact.ImpactType)
+            {
+                case ResourceImpactType.Value:
+                    var desiredValue = resource.Value + Impact.ImpactValuePerWorker * multipliyer;
+                    resource.Value = Math.Min(resource.MaxValue, Math.Max(resource.MinValue, desiredValue));
+                    break;
+                case ResourceImpactType.MaxValue:
+                    resource.MaxValue += Impact.ImpactValuePerWorker * multipliyer;
+                    break;
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Assets.Scripts.Controllers
             {
                 var deltaPixel = Input.mousePosition - mouseOrigin;
 
-                var move = deltaPixel;
+                var move = deltaPixel / 100;
                 transform.Translate(-move, Space.Self);
                 transform.position = BoundCameraPostion();
 

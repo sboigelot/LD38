@@ -45,6 +45,7 @@ namespace Assets.Scripts.Controllers
                     RoomSpacing.x * room.GridLocationX,
                     RoomSpacing.y * room.GridLocationY,
                     0);
+                //newRoom.transform.localScale = new Vector3(RoomSpacing.y, RoomSpacing.x, 1);
                 newRoom.transform.SetParent(RoomsPanel, false);
                 newRoom.SetActive(true);
             }
@@ -53,6 +54,12 @@ namespace Assets.Scripts.Controllers
         public void SwapRoom(Room oldRoom, Room newRoom)
         {
             Level.Rooms[Level.Rooms.IndexOf(oldRoom)] = newRoom;
+
+            if(newRoom.ResourceImpactsOnBuilt !=null)
+            foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
+            {
+                Level.ApplyImpact(resourceImpact, 1);
+            }
         }
     }
 }
