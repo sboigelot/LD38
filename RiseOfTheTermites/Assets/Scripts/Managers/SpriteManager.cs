@@ -10,6 +10,8 @@ namespace Assets.Scripts.Managers
         
         private Sprite notFoundSprite;
 
+        private int pixelsPerUnit = 100;
+
         public SpriteManager()
         {
             if (notFoundSprite == null)
@@ -24,7 +26,11 @@ namespace Assets.Scripts.Managers
 
                 notFoundTexture2D.SetPixels32(pixels);
                 notFoundTexture2D.Apply();
-                notFoundSprite = Sprite.Create(notFoundTexture2D, new Rect(0, 0, notFoundTexture2D.width, notFoundTexture2D.height), new Vector2(0.5f, 0.5f), 32);
+                notFoundSprite = 
+                    Sprite.Create(notFoundTexture2D,
+                    new Rect(0, 0, notFoundTexture2D.width, notFoundTexture2D.height),
+                    new Vector2(0.5f, 0.5f), 
+                    pixelsPerUnit);
             }
 
             sprites = new Dictionary<string, Sprite>();
@@ -72,7 +78,11 @@ namespace Assets.Scripts.Managers
             {
                 imageTexture.filterMode = FilterMode.Point;
                 string spriteName = Path.GetFileNameWithoutExtension(filePath);
-                Sprite s = Sprite.Create(imageTexture, new Rect(0, 0, imageTexture.width, imageTexture.height), new Vector2(0.5f, 0.5f), 32);
+                Sprite s = Sprite.Create(
+                    imageTexture,
+                    new Rect(0, 0, imageTexture.width, imageTexture.height), 
+                    new Vector2(0.5f, 0.5f), 
+                    pixelsPerUnit);
                 sprites[spriteName] = s;
             }
         }

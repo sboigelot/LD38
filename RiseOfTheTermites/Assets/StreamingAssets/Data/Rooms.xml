@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <ArrayOfRoom>
 
-	<Room Name="Throne Room"/>
+  <Room Name="Diggable Room"
+        SpritePath="Dig"
+        ValidLocation="UnderGround">
+    <PossibleUpgrade>Empty Room</PossibleUpgrade>
+  </Room>
+  
+  <Room Name="Empty Room"
+        SpritePath="Empty"
+        ValidLocation="Anywhere">
+    <PossibleUpgrade>Tunel</PossibleUpgrade>
+    <PossibleUpgrade>Mushroom Farm</PossibleUpgrade>
+  </Room>
+  
+	<Room Name="Throne Room"
+        SpritePath="Throne"
+        ValidLocation="UnderGround">
+  </Room>
+
+  <Room Name="Tunel"
+        SpritePath="Tunel"
+        ValidLocation="Anywhere">
+    <PossibleUpgrade>Empty Room</PossibleUpgrade>
+  </Room>
+
+  <Room Name="Mushroom Farm"
+        SpritePath="Mush"
+        ValidLocation="UnderGround">
+    <PossibleUpgrade>Empty Room</PossibleUpgrade>
+  </Room>
+
+  <!--Staircase
+  Well
+  Barracks
+  Gathering room  (gather wood & leaf outside)
+  “Access pit” (entrance of the tower)
+  Storage room (each resource one)
+  Venom room
+  Throne room (underground)-->
 
 </ArrayOfRoom>

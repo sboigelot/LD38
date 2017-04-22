@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace Assets.Scripts.Models
@@ -9,7 +7,7 @@ namespace Assets.Scripts.Models
     {
         [XmlAttribute]
         public string Name { get; set; }
-        
+
         public object Clone()
         {
             return new PlayerProfile
