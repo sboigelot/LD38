@@ -31,7 +31,7 @@ namespace Assets.Scripts.UI
                 {
                     if (!noChange)
                     {
-                        roomController.ChangeRoomType(roomName);
+                        roomController.StartChangeRoomType(roomName);
                     }
                     DialogBoxManager.Instance.Close(typeof(UpgradeRoomPanel));
                 });

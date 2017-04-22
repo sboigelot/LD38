@@ -51,17 +51,18 @@ namespace Assets.Scripts.Models
             if(CanAfford(newRoom))
             {
                 Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
-                if (newRoom.ResourceImpactsOnBuilt != null)
+
+                if (oldRoom.ResourceImpactsOnDestroy != null)
                 {
-                    foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
+                    foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
                     {
                         ApplyImpact(resourceImpact, 1);
                     }
                 }
 
-                if (oldRoom.ResourceImpactsOnDestroy != null)
+                if (newRoom.ResourceImpactsOnBuilt != null)
                 {
-                    foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
+                    foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
                     {
                         ApplyImpact(resourceImpact, 1);
                     }

@@ -22,7 +22,8 @@
   
   <Room Name="Diggable Room"
         SpritePath="Dig"
-        ValidLocation="UnderGround">
+        ValidLocation="UnderGround"
+        DestructionTime="0">
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
 

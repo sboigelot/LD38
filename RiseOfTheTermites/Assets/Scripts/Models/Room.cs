@@ -51,6 +51,13 @@ namespace Assets.Scripts.Models
         [XmlAttribute("Y")]
         public int GridLocationY { get; set; }
 
+
+        [XmlAttribute("ConstructionTime")]
+        public int ConstructionTime { get; set; }
+
+        [XmlAttribute("DestructionTime")]
+        public int DestructionTime { get; set; }
+
         public object Clone()
         {
             return new Room
@@ -64,7 +71,9 @@ namespace Assets.Scripts.Models
                 ResourceImpactsOnDestroy = ResourceImpactsOnDestroy.ToList(),
                 ResourceImpactPrices = ResourceImpactPrices.ToList(),
                 BuildingTime = BuildingTime,
-                MaxWorker = MaxWorker
+                MaxWorker = MaxWorker,
+                ConstructionTime = ConstructionTime,
+                DestructionTime = DestructionTime
             };
         }
 
