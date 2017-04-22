@@ -12,7 +12,7 @@ namespace Assets.Scripts.Models
         public string ResourceName { get; set; }
 
         [XmlAttribute]
-        public int ImpactValuePerWorker { get; set; }
+        public float ImpactValuePerWorker { get; set; }
 
         [XmlIgnore]
         public ResourceImpactType ImpactType { get; set; }
