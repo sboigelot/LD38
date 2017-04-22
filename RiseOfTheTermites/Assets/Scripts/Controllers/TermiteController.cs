@@ -112,8 +112,7 @@ namespace Assets.Scripts.Controllers
                 gridPositionY -= rs.y / 2;
             else
                 gridPositionY += rs.y / 2;
-
-
+            
             Termite.RoomX = (int)gridPositionX;
             Termite.RoomY = (int)gridPositionY;
 

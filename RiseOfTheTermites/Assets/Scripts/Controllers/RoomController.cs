@@ -34,7 +34,7 @@ namespace Assets.Scripts.Controllers
 
         public void ChangeRoomType(string roomName)
         {
-            if (!string.IsNullOrEmpty(roomName))
+            if (!string.IsNullOrEmpty(roomName) && LevelController.Instance != null && LevelController.Instance.Level != null)
             {
                 var prototype = PrototypeManager.FindRoomPrototype(roomName);
                 if (prototype != null)
