@@ -40,7 +40,7 @@
 
   <Room Name="Underground Empty Room"
         SpritePath="Empty"
-        ValidLocation="UnderGround">
+        ValidLocation="UnderGround">     
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>FarmRoom level 1</PossibleUpgrade>
@@ -58,6 +58,8 @@
   <Room Name="BedRoom level 1"
         SpritePath="BedRoom"
         ValidLocation="UnderGround">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 2</PossibleUpgrade>
@@ -66,6 +68,8 @@
   <Room Name="BedRoom level 2"
         SpritePath="BedRoom"
         ValidLocation="UnderGround">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1.5" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 3</PossibleUpgrade>
@@ -74,6 +78,8 @@
   <Room Name="BedRoom level 3"
         SpritePath="BedRoom"
         ValidLocation="UnderGround">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="35" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="2" ImpactType="MaxValue"/>
   </Room>
@@ -82,6 +88,8 @@
         SpritePath="GatheringRoom"
         ValidLocation="AboveGround"
         MaxWorker="1">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="20" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="60" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
   </Room>
 
@@ -89,6 +97,8 @@
         SpritePath="GatheringRoom"
         ValidLocation="AboveGround"        
         MaxWorker="1">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="80" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="4" ImpactType="Value"/>
   </Room>
 
@@ -96,6 +106,8 @@
         SpritePath="GatheringRoom"
         ValidLocation="AboveGround"        
         MaxWorker="2">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="40" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="100" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="5" ImpactType="Value"/>
   </Room>
 
@@ -105,6 +117,8 @@
         SpritePath="FarmRoom"
         ValidLocation="UnderGround"
         MaxWorker="1">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="20" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="2" ImpactType="Value"/>
     <PossibleUpgrade>FarmRoom level 2</PossibleUpgrade>
   </Room>
@@ -113,6 +127,8 @@
         SpritePath="FarmRoom"
         ValidLocation="UnderGround"
         MaxWorker="1">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="40" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
     <PossibleUpgrade>FarmRoom level 3</PossibleUpgrade>
   </Room>
@@ -121,12 +137,16 @@
         SpritePath="FarmRoom"
         ValidLocation="UnderGround"
         MaxWorker="2">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="40" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="4" ImpactType="Value"/>
   </Room>
 
   <Room Name="Barracks level 1"
         SpritePath="BarracksRoom"
         ValidLocation="Anywhere">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2" ImpactType="Value"/>
     <PossibleUpgrade>Barracks level 2</PossibleUpgrade>
   </Room>
@@ -134,6 +154,8 @@
   <Room Name="Barracks level 2"
         SpritePath="BarracksRoom"
         ValidLocation="Anywhere">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="75" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="45" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>
     <PossibleUpgrade>Barracks level 3</PossibleUpgrade>
   </Room>
@@ -141,12 +163,16 @@
   <Room Name="Barracks level 3"
         SpritePath="BarracksRoom"
         ValidLocation="Anywhere">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="60" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-3" ImpactType="Value"/>
   </Room>
 
   <Room Name="StorageRoom level 1"
           SpritePath="Empty"
           ValidLocation="Anywhere">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="20" ImpactType="MaxValue"/>
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="MaxValue"/>
     <PossibleUpgrade>StorageRoom level 2</PossibleUpgrade>
@@ -155,6 +181,8 @@
   <Room Name="StorageRoom level 2"
           SpritePath="Empty"
           ValidLocation="Anywhere">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="30" ImpactType="MaxValue"/>
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="MaxValue"/>
     <PossibleUpgrade>StorageRoom level 3</PossibleUpgrade>
@@ -163,27 +191,38 @@
   <Room Name="StorageRoom level 3"
           SpritePath="Empty"
           ValidLocation="Anywhere">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="35" ImpactType="MaxValue"/>
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="35" ImpactType="MaxValue"/>
   </Room>
 
   <Room Name="Soil generator level 1"
            SpritePath="Empty"
-           ValidLocation="AboveGround">    
+           ValidLocation="AboveGround"
+           MaxWorker="1">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="60" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="0" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
     <PossibleUpgrade>Soil generator level 2</PossibleUpgrade>
   </Room>
 
   <Room Name="Soil generator level 2"
            SpritePath="Empty"
-           ValidLocation="AboveGround">
+           ValidLocation="AboveGround"
+           MaxWorker="1">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="80" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="0" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
     <PossibleUpgrade>Soil generator level 3</PossibleUpgrade>
   </Room>
 
   <Room Name="Soil generator level 3"
            SpritePath="Empty"
-           ValidLocation="AboveGround">
+           ValidLocation="AboveGround"
+           MaxWorker="2">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="0" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
     <PossibleUpgrade>Soil generator level 2</PossibleUpgrade>
   </Room>

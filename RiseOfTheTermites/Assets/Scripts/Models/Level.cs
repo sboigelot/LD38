@@ -37,24 +37,39 @@ namespace Assets.Scripts.Models
             };
         }
 
-        public void SwapRoom(Room oldRoom, Room newRoom)
+        public bool SwapRoom(Room oldRoom, Room newRoom)
         {
-            Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
-
-            if (newRoom.ResourceImpactsOnBuilt != null)
+            if(canAfford(newRoom))
             {
-                foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
+                Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
+                if (newRoom.ResourceImpactsOnBuilt != null)
                 {
-                    ApplyImpact(resourceImpact, 1);
-                }                
-            }
-
-            if(oldRoom.ResourceImpactsOnDestroy != null)
-            {
-                foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
-                {
-                    ApplyImpact(resourceImpact, 1);
+                    foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
+                    {
+                        ApplyImpact(resourceImpact, 1);
+                    }
                 }
+
+                if (oldRoom.ResourceImpactsOnDestroy != null)
+                {
+                    foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
+                    {
+                        ApplyImpact(resourceImpact, 1);
+                    }
+                }
+
+                if (newRoom.ResourceImpactPrices != null)
+                {
+                    foreach (var resourceImpact in newRoom.ResourceImpactPrices)
+                    {
+                        ApplyImpact(resourceImpact, -1);
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -77,7 +92,7 @@ namespace Assets.Scripts.Models
             if (multipliyer == 0)
                 return;
 
-            var resource = Resources.FirstOrDefault(r => r.Name == Impact.ResourceName);
+            var resource = findLevelResourceByName(Impact.ResourceName);
             if (resource == null)
                 return;
 
@@ -91,6 +106,31 @@ namespace Assets.Scripts.Models
                     resource.MaxValue += Impact.ImpactValuePerWorker * multipliyer;
                     break;
             }
+        }
+
+        private Resource findLevelResourceByName(String name)
+        {
+            return Resources.FirstOrDefault(r => r.Name == name);            
+        }
+
+        public bool canAfford(Room room)
+        {
+            bool canAfford = true;
+            if(room.ResourceImpactPrices != null)
+            {
+                foreach(var price in room.ResourceImpactPrices)
+                {
+                    var levelResource = findLevelResourceByName(price.ResourceName);
+                    if (levelResource != null)
+                    {
+                        if(levelResource.Value < price.ImpactValuePerWorker)
+                        {
+                            canAfford = false;
+                        }                        
+                    }                        
+                }
+            }
+            return canAfford;
         }
     }
 }
