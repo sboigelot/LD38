@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Models;
+using Assets.Scripts.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Controllers
 {
@@ -30,15 +32,25 @@ namespace Assets.Scripts.Controllers
 
         public string InitializeAsRoom;
 
+        public void ChangeRoomType(string roomName)
+        {
+            if (!string.IsNullOrEmpty(roomName))
+            {
+                var prototype = PrototypeManager.Instance.Rooms.SingleOrDefault(r => r.Name == roomName);
+                if (prototype != null)
+                {
+                    Room = (Room) prototype.Clone();
+                    Initialize();
+                }
+            }
+        }
+
         private void Initialize()
         {
             if (Room == null)
             {
-                if (!string.IsNullOrEmpty(InitializeAsRoom))
-                {
-                    var room = PrototypeManager.Instance.Rooms.SingleOrDefault(r => r.Name == InitializeAsRoom);
-                    Room = room;
-                }
+                ChangeRoomType(InitializeAsRoom);
+                return;
             }
 
             if (Room == null)
@@ -58,7 +70,11 @@ namespace Assets.Scripts.Controllers
 
         public void OnMouseUpAsButton()
         {
+            if(UpgradeRoomPanel.Instance.gameObject.activeSelf)
+                return;
+
             Debug.Log("OnMouseUpAsButton(" + GridLocation + ") in '" + (Room != null ? Room.Name : "No room room") +"'");
+            UpgradeRoomPanel.Instance.Open(this);
         }
     }
 }
