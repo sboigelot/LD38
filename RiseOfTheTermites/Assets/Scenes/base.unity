@@ -3144,7 +3144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PositionInRoom: {x: 0, y: 0}
   DestinationInRoom: {x: 0, y: 0}
-  movementSpeedInRoom: 0.2
+  MovementSpeedInRoom: 0.2
 --- !u!1 &1111282959
 GameObject:
   m_ObjectHideFlags: 0
@@ -3931,7 +3931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PositionInRoom: {x: 0, y: 0}
   DestinationInRoom: {x: 0, y: 0}
-  movementSpeedInRoom: 0.2
+  MovementSpeedInRoom: 0.2
 --- !u!1 &1545002656
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,8 +4,8 @@
   <Level Name="Sandbox">
     <Resource Name="Food" Value="50" MinValue="0" MaxValue="100"/>
     <Resource Name="Soil" Value="50" MinValue="0" MaxValue="100"/>
-    <Resource Name="Population" Value="1" MinValue="0" MaxValue="1"/>
-    <Resource Name="Soldier" Value="0" MinValue="0" MaxValue="5"/>
+    <Resource Name="Population" Value="2" MinValue="0" MaxValue="2" />
+    <Resource Name="Soldier" Value="0" MinValue="0" MaxValue="1"/>
 
     <Room Name="Throne Room" X="0" Y="0"/>
     <Room Name="Diggable Room" X="1" Y="0"/>
@@ -19,7 +19,7 @@
     <Room Name="Surface Empty Room" X="-1" Y="1"/>
     <Room Name="Surface Empty Room" X="1" Y="2"/>
 
-    <Termite RoomX="0" RoomY="0" Job="Queen" Hp="150"/>
+    <Termite RoomX="0" RoomY="0" Job="Queen" Hp="150" QueenBirthTimer="10"/>
     <Termite RoomX="1" RoomY="1" Job="Worker" Hp="50"/>
   </Level>
 

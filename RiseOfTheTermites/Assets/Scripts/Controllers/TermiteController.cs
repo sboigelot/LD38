@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
-using System.Text;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Models;
 using UnityEngine;
 
@@ -11,14 +10,12 @@ namespace Assets.Scripts.Controllers
     {
         public Termite Termite { get; set; }
 
-        public Vector2 PositionInRoom = new Vector2();
+        public Vector2 PositionInRoom;
 
-        public Vector2 DestinationInRoom = new Vector2();
+        public Vector2 DestinationInRoom;
 
-        public float movementSpeedInRoom = 0.5f;
-
-        //public Vector2 RoomDestination = new Vector2();
-
+        public float MovementSpeedInRoom = 0.2f;
+        
         public void FixedUpdate()
         {
             if (Termite == null)
@@ -27,26 +24,36 @@ namespace Assets.Scripts.Controllers
                 return;
             }
 
-            if (Termite.IsDragging)
+            Termite.Update(Time.fixedDeltaTime);
+
+            if (Termite.IsDragging && Termite.CanBeMoved)
             {
-                Termite.HasMouseOver = true;
-                var worldPosition = Input.mousePosition;
-                worldPosition.z = 10.0f;
-                worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
-                transform.position = worldPosition;
+                DragMoveTermite();
                 return;
             }
 
-            if (Termite.HasMouseOver)
+            if (!Termite.HasMouseOver)
             {
-                return;
+                RandomlyMoveTermite();
             }
+        }
 
+        private void DragMoveTermite()
+        {
+            Termite.HasMouseOver = true;
+            var worldPosition = Input.mousePosition;
+            worldPosition.z = 10.0f;
+            worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
+            transform.position = worldPosition;
+        }
+
+        private void RandomlyMoveTermite()
+        {
             var direction = DestinationInRoom - PositionInRoom;
 
-            if (direction.magnitude >= movementSpeedInRoom * 2)
+            if (direction.magnitude >= MovementSpeedInRoom * 2)
             {
-                var move = direction * movementSpeedInRoom * Time.fixedDeltaTime;
+                var move = direction * MovementSpeedInRoom * Time.fixedDeltaTime;
                 PositionInRoom += move;
             }
             else
@@ -54,8 +61,8 @@ namespace Assets.Scripts.Controllers
                 var halfx = LevelController.Instance.RoomSpacing.x / 2.5f;
                 var halfy = LevelController.Instance.RoomSpacing.x / 2.5f;
                 DestinationInRoom = new Vector2(
-                    UnityEngine.Random.Range(-halfx, halfx),
-                    UnityEngine.Random.Range(-halfy, halfy)
+                    Random.Range(-halfx, halfx),
+                    Random.Range(-halfy, halfy)
                     );
             }
 
@@ -70,6 +77,21 @@ namespace Assets.Scripts.Controllers
         public void SetTermiteAndRoom(Termite termite, int termiteRoomX, int termiteRoomY)
         {
             Termite = termite;
+
+            var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            switch (termite.Job)
+            {
+                case TermiteType.Queen:
+                    spriteRenderer.sprite = SpriteManager.Get("Queen");
+                    break;
+                case TermiteType.Worker:
+                    spriteRenderer.sprite = SpriteManager.Get("Worker");
+                    break;
+                case TermiteType.Soldier:
+                    spriteRenderer.sprite = SpriteManager.Get("Soldier");
+                    break;
+            }
+
             termite.RoomX = termiteRoomX;
             termite.RoomY = termiteRoomY;
             transform.position = new Vector3(
@@ -95,6 +117,12 @@ namespace Assets.Scripts.Controllers
         
         public void OnMouseUp()
         {
+            if (!Termite.CanBeMoved)
+            {
+                BlinkTermite(Color.red);
+                return;
+            }
+
             var worldPosition = Input.mousePosition;
             worldPosition.z = 10.0f;
             worldPosition = Camera.main.ScreenToWorldPoint(worldPosition);
@@ -128,6 +156,18 @@ namespace Assets.Scripts.Controllers
 
             transform.position = worldPosition;
             Termite.IsDragging = false;
+        }
+
+        private void BlinkTermite(Color color)
+        {
+            GetComponentInChildren<SpriteRenderer>().color = color;
+            StartCoroutine(RevertTermiteToWhite());
+        }
+
+        private IEnumerator RevertTermiteToWhite()
+        {
+            yield return new WaitForSeconds(0.5f);
+            GetComponentInChildren<SpriteRenderer>().color = Color.white;
         }
 
         private void BlinkRoom()
