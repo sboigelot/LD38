@@ -69,7 +69,7 @@ namespace Assets.Scripts.Controllers
             }
             else
             {
-                GetComponent<FighterComponent>().HitEnemyStructure();
+                GetComponent<FighterComponent>().HitEnemyStructure( Time.deltaTime );
             }
         }
     }

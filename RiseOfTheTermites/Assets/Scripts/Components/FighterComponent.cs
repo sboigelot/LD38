@@ -73,9 +73,15 @@ namespace Assets.Scripts.Components
         /// <summary>
         /// This hits enemy structure if there is no more enemies and that we are at target location (Throne room)
         /// </summary>
-        public void HitEnemyStructure()
+        public void HitEnemyStructure(float time)
         {
-            EnemyHiveObject.GetComponent<HiveController>().TakeDamage(Damage);
+            _combatTimer += time;
+
+            if (_combatTimer >= AttackSpeed)
+            {
+                _combatTimer = 0.0f;
+                EnemyHiveObject.GetComponent<HiveController>().TakeDamage(Damage);
+            }
         }
     }
 }
