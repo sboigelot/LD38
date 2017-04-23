@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Models
 {
@@ -32,10 +33,15 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public float WorkerEatAmount { get; set; }
 
+        public bool isDigging { get; set; }
+        public float diggingStartTime { get; set; }
+        public float diggingTimeLeft { get; set; }
+
         public object Clone()
         {
             return new Level
             {
+                isDigging = isDigging,
                 Name = Name,
                 Resources = Resources.Select(r => (Resource) r.Clone()).ToList(),
                 Rooms = Rooms.Select(r =>
@@ -52,7 +58,20 @@ namespace Assets.Scripts.Models
 
         public bool SwapRoom(Room oldRoom, Room newRoom)
         {
-            if(CanAfford(newRoom))
+            if(newRoom.Name == "Surface Empty Room" || newRoom.Name == "Underground Empty Room") //is there a better way to do this?
+            {
+                if(!isDigging)
+                { // start digging
+                    isDigging = true;                    
+                    diggingStartTime = Time.time;            
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (CanAfford(newRoom))
             {
                 Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
 
@@ -109,6 +128,16 @@ namespace Assets.Scripts.Models
         public void Tick()
         {
             lastTickChanges.Clear();
+
+            if(isDigging)
+            {
+                float t = Time.time - diggingStartTime;
+                diggingTimeLeft = 15 - t;
+                if (diggingTimeLeft < 0)
+                {
+                    isDigging = false;
+                }
+            }
 
             foreach (var room in Rooms)
             {
