@@ -335,9 +335,8 @@
         Description="A place to very slowly gather Venom">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="200" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="200" ImpactType="Value"/>
+    <ResourceImpactOnBuilt ResourceName="Venom" ImpactValuePerWorker="50" ImpactType="MaxValue"/>
     <ResourceImpactOnTick ResourceName="Venom" ImpactValuePerWorker="0.1" ImpactType="Value"/>
   </Room>
-
-  <!--Venom room-->
 
 </ArrayOfRoom>

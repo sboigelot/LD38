@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Controllers;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Models;
 using UnityEngine;
 
 namespace Assets.Scripts.Components
@@ -51,6 +52,22 @@ namespace Assets.Scripts.Components
         public bool DealDamage(int amount)
         {
             Debug.Assert(amount > 0);
+
+            if (PlayerFighter)
+            {
+                var level = LevelController.Instance.Level;
+                var venom = level.FindLevelResourceByName("Venom");
+                if (venom != null && venom.Value >= 1)
+                {
+                    level.ApplyImpact(new ResourceImpact
+                    {
+                        ResourceName = "Venom",
+                        ImpactValuePerWorker = -1,
+                        ImpactType = ResourceImpactType.Value,
+                    }, 1);
+                    amount *= 2;
+                }
+            }
 
             if (initialHitpoint == 0)
             {

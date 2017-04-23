@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Controllers;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
@@ -58,7 +59,7 @@ namespace Assets.Scripts.UI
             if (stat == null)
                 return;
 
-            count.text = string.Format("{0} / {1}", stat.Value, stat.MaxValue);
+            count.text = string.Format("{0} / {1}", (int)Mathf.FloorToInt(stat.Value), Mathf.FloorToInt(stat.MaxValue));
 
             if (rate != null)
             {

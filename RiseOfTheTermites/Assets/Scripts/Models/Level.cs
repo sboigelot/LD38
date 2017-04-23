@@ -73,42 +73,40 @@ namespace Assets.Scripts.Models
 
         public bool SwapRoom(Room oldRoom, Room newRoom)
         {
-            if (CanAfford(newRoom))
-            {
-                newRoom.GridLocationX = oldRoom.GridLocationX;
-                newRoom.GridLocationY = oldRoom.GridLocationY;
-
-                Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
-
-                if (oldRoom.ResourceImpactsOnDestroy != null)
-                {
-                    foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
-                    {
-                        ApplyImpact(resourceImpact, 1);
-                    }
-                }
-
-                if (newRoom.ResourceImpactsOnBuilt != null)
-                {
-                    foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
-                    {
-                        ApplyImpact(resourceImpact, 1);
-                    }
-                }
-
-                if (newRoom.ResourceImpactPrices != null)
-                {
-                    foreach (var resourceImpact in newRoom.ResourceImpactPrices)
-                    {
-                        ApplyImpact(resourceImpact, -1);
-                    }
-                }
-                return true;
-            }
-            else
+            if (!CanAfford(newRoom))
             {
                 return false;
             }
+
+            newRoom.GridLocationX = oldRoom.GridLocationX;
+            newRoom.GridLocationY = oldRoom.GridLocationY;
+
+            Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
+
+            if (oldRoom.ResourceImpactsOnDestroy != null)
+            {
+                foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
+                {
+                    ApplyImpact(resourceImpact, 1);
+                }
+            }
+
+            if (newRoom.ResourceImpactsOnBuilt != null)
+            {
+                foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
+                {
+                    ApplyImpact(resourceImpact, 1);
+                }
+            }
+
+            if (newRoom.ResourceImpactPrices != null)
+            {
+                foreach (var resourceImpact in newRoom.ResourceImpactPrices)
+                {
+                    ApplyImpact(resourceImpact, -1);
+                }
+            }
+            return true;
         }
 
         private readonly Dictionary<string, float> lastTickChanges = new Dictionary<string, float>();
