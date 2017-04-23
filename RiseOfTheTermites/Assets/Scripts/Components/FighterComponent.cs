@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Controllers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Assets.Scripts.Components
         public int Damage;
         public float AttackSpeed;
         public bool PlayerFighter;
+        public GameObject EnemyHiveObject;
 
         private float _combatTimer;
 
@@ -66,6 +68,14 @@ namespace Assets.Scripts.Components
             HitPoints = Mathf.Max(HitPoints, 0);
 
             return HitPoints == 0;
+        }
+
+        /// <summary>
+        /// This hits enemy structure if there is no more enemies and that we are at target location (Throne room)
+        /// </summary>
+        public void HitEnemyStructure()
+        {
+            EnemyHiveObject.GetComponent<HiveController>().TakeDamage(Damage);
         }
     }
 }

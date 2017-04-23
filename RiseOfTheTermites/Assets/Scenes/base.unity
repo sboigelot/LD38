@@ -823,6 +823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 293717172}
   - component: {fileID: 293717171}
+  - component: {fileID: 293717173}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -866,6 +867,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &293717173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 293717170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b996b11b02fdcb43a0193612baed527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitPoints: 1000
 --- !u!1 &304542911
 GameObject:
   m_ObjectHideFlags: 0
@@ -4326,7 +4339,6 @@ MonoBehaviour:
   DestinationInRoom: {x: 0, y: 0}
   MovementSpeedInRoom: 0.2
   Selector: {fileID: 0}
-  Velocity: 0.2
   ItIsInCombat: 0
 --- !u!1 &1103351354 stripped
 GameObject:
@@ -6092,6 +6104,7 @@ MonoBehaviour:
   Damage: 5
   AttackSpeed: 1
   PlayerFighter: 1
+  EnemyHiveObject: {fileID: 0}
 --- !u!1 &1545002656
 GameObject:
   m_ObjectHideFlags: 0
@@ -9085,6 +9098,7 @@ MonoBehaviour:
   Damage: 5
   AttackSpeed: 1
   PlayerFighter: 0
+  EnemyHiveObject: {fileID: 293717170}
 --- !u!1 &1991537042
 GameObject:
   m_ObjectHideFlags: 0

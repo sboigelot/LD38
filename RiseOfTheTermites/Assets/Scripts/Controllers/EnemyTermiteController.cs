@@ -67,6 +67,10 @@ namespace Assets.Scripts.Controllers
             {
                 transform.position = new Vector3(transform.position.x - Velocity * Time.deltaTime, transform.position.y, transform.position.z);
             }
+            else
+            {
+                GetComponent<FighterComponent>().HitEnemyStructure();
+            }
         }
     }
 }
