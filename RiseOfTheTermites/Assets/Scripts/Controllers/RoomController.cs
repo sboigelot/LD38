@@ -19,7 +19,10 @@ namespace Assets.Scripts.Controllers
         private Room room;
 
         public SpriteRenderer TimerBackground;
+
         public SpriteRenderer Timer;
+
+        public GameObject Selector;
 
         public Room Room
         {
@@ -120,6 +123,16 @@ namespace Assets.Scripts.Controllers
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             Initialize();
+        }
+
+        public void OnMouseEnter()
+        {
+            Selector.SetActive(true);
+        }
+
+        public void OnMouseExit()
+        {
+            Selector.SetActive(false);
         }
 
         public void OnMouseUpAsButton()

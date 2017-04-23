@@ -43,11 +43,9 @@ namespace Assets.Scripts.UI
 
                 var newItem = Instantiate(ItemTemplate);
                 
-                //newItem.name = "Item " + upgrade;
                 newItem.transform.SetParent(ItemPanel, false);
                 newItem.SetActive(true);
-
-                //newItem.GetComponentInChildren<Text>().text = (index == 0 ? "Stay a " : "Upgrade to ") + upgrade;
+                
                 var index1 = index;
                 var bt = newItem.GetComponentInChildren<Button>();
 
@@ -60,6 +58,11 @@ namespace Assets.Scripts.UI
                     CloseDialog();
                 });
             }
+        }
+
+        public void Back()
+        {
+            DialogBoxManager.Instance.Show(typeof(MainMenuController));
         }
     }
 }
