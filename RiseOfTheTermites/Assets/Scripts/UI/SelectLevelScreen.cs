@@ -23,7 +23,7 @@ namespace Assets.Scripts.UI
 
         public void OnBackButtonClick()
         {
-            DialogBoxManager.Instance.Show(typeof(SelectLevelScreen));
+            DialogBoxManager.Instance.Show(typeof(MainMenuController));
         }
         
         protected override void OnDialogOpen()
@@ -58,11 +58,6 @@ namespace Assets.Scripts.UI
                     CloseDialog();
                 });
             }
-        }
-
-        public void Back()
-        {
-            DialogBoxManager.Instance.Show(typeof(MainMenuController));
         }
     }
 }

@@ -11,11 +11,18 @@ namespace Assets.Scripts.UI
     {
         public Button SelectLevelButton;
         public Button AboutButton;
-        
+        public Button ExitButton;
+
         public void Start()
         {
             SelectLevelButton.onClick.AddListener(OnSelectLevel);
             AboutButton.onClick.AddListener(AboutClicked);
+            ExitButton.onClick.AddListener(ExitButtonClicked);
+        }
+
+        private void ExitButtonClicked()
+        {
+            Application.Quit();
         }
 
         protected override void OnDialogOpen()
