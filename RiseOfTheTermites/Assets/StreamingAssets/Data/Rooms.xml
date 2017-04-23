@@ -58,7 +58,7 @@
   </Room>
 
   <Room Name="Throne Room"
-        SpritePath="ThroneRoom2"
+        SpritePath="throne_room"
         ValidLocation="UnderGround"
         MaxWorker="0">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="1" ImpactType="Value"/>

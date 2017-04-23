@@ -57,16 +57,12 @@ namespace Assets.Scripts.Models
         [XmlAttribute("Y")]
         public int GridLocationY { get; set; }
 
+
         [XmlAttribute("ConstructionTime")]
         public int ConstructionTime { get; set; }
 
         [XmlAttribute("DestructionTime")]
         public int DestructionTime { get; set; }
-
-        public Room()
-        {
-            
-        }
 
         public object Clone()
         {
@@ -89,9 +85,7 @@ namespace Assets.Scripts.Models
             };
         }
 
-        [XmlIgnore]
         private int lastComputedWorkforce;
-
         public int GetWorkforce()
         {
             lastComputedWorkforce = LevelController.Instance.Level.Termites.Count(
@@ -99,7 +93,7 @@ namespace Assets.Scripts.Models
                      t.RoomY == GridLocationY &&
                      t.Job == TermiteType.Worker);
 
-            return Math.Min(1 + lastComputedWorkforce, MaxWorker);
+            return 1 + Math.Min(lastComputedWorkforce, MaxWorker);
         }
     }
 }
