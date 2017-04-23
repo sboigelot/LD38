@@ -22,6 +22,36 @@
     <Room Name="Surface Empty Room" X="-1" Y="1"/>
     <Room Name="Surface Empty Room" X="1" Y="2"/>
 
+    <Room Name="Diggable Room" X="-2" Y="0"/>
+    <Room Name="Diggable Room" X="-3" Y="0"/>
+    <Room Name="Diggable Room" X="-4" Y="0"/>
+    <Room Name="Diggable Room" X="-5" Y="0"/>
+    <Room Name="Diggable Room" X="-6" Y="0"/>
+
+    <Room Name="Diggable Room" X="-2" Y="1"/>
+    <Room Name="Diggable Room" X="-3" Y="1"/>
+    <Room Name="Diggable Room" X="-4" Y="1"/>
+    <Room Name="Diggable Room" X="-5" Y="1"/>
+    <Room Name="Diggable Room" X="-6" Y="1"/>
+
+    <Room Name="Diggable Room" X="-2" Y="2"/>
+    <Room Name="Diggable Room" X="-3" Y="2"/>
+    <Room Name="Diggable Room" X="-4" Y="2"/>
+    <Room Name="Diggable Room" X="-5" Y="2"/>
+    <Room Name="Diggable Room" X="-6" Y="2"/>
+
+    <Room Name="Diggable Room" X="2" Y="2"/>
+    <Room Name="Diggable Room" X="3" Y="2"/>
+    <Room Name="Diggable Room" X="4" Y="2"/>
+    <Room Name="Diggable Room" X="5" Y="2"/>
+
+    <Room Name="Diggable Room" X="2" Y="3"/>
+    <Room Name="Diggable Room" X="3" Y="3"/>
+    <Room Name="Diggable Room" X="4" Y="3"/>
+    <Room Name="Diggable Room" X="5" Y="3"/>
+    
+    
+
     <Termite RoomX="0" RoomY="0" Job="Queen" Hp="150" QueenBirthTimer="10"/>
     <Termite RoomX="1" RoomY="1" Job="Worker" Hp="50"/>
 
@@ -62,6 +92,19 @@
     <Room Name="Diggable Room" X="-1" Y="-2"/>
     <Room Name="Diggable Room" X="0" Y="-2"/>
     <Room Name="Diggable Room" X="1" Y="-2"/>
+
+    <Termite RoomX="0" RoomY="-1" Job="Queen" Hp="150" QueenBirthTimer="10"/>
+    <Termite RoomX="0" RoomY="-1" Job="Worker" Hp="50"/>
+
+    <Room Name="Enemy Room" X="6" Y="-1"/>
+    <Room Name="Enemy Room" X="6" Y="0"/>
+    <Room Name="Enemy Room" X="6" Y="1"/>
+
+    <Enemy StartPosition="6" HitPoint="100">
+      <Spawn RatePerSecond="0.0" SoldierLevel ="1" Duration="1" />
+      <Spawn RatePerSecond="0.2" SoldierLevel ="1" Duration="240" />
+      <Spawn RatePerSecond="0.1" SoldierLevel ="1" />
+    </Enemy>
   </Level>
 
   <Level Name="Level 2">
@@ -104,6 +147,8 @@
     <Room Name="Diggable Room" X="0" Y="-4"/>
     <Room Name="Diggable Room" X="1" Y="-4"/>
     <Room Name="Diggable Room" X="2" Y="-4"/>
+    
+    
   </Level>
 
 

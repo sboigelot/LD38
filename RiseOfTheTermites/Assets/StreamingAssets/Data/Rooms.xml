@@ -29,7 +29,7 @@
   <Room Name="Diggable Room"
         SpritePath="Dig"
         ValidLocation="UnderGround"
-        DestructionTime="0">
+        DestructionTime="5">
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
 
@@ -88,8 +88,7 @@
         ValidLocation="UnderGround"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
-    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="35" ImpactType="Value"/>
-    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>-->
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="35" ImpactType="Value"/>    
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="2" ImpactType="MaxValue"/>
   </Room>
 
@@ -155,7 +154,6 @@
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
-    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2" ImpactType="Value"/>-->
     <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>Barracks level 2</PossibleUpgrade>
   </Room>
@@ -166,8 +164,7 @@
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="75" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="45" ImpactType="Value"/>
-    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-2.5" ImpactType="Value"/>-->
-    <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="3" ImpactType="MaxValue"/>
+    <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>Barracks level 3</PossibleUpgrade>
   </Room>
 
@@ -177,8 +174,7 @@
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="60" ImpactType="Value"/>
-    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-3" ImpactType="Value"/>-->
-    <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="5" ImpactType="MaxValue"/>
+    <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
   </Room>
 
   <Room Name="StorageRoom level 1"

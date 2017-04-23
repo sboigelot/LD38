@@ -36,7 +36,7 @@ namespace Assets.Scripts.Models
         public bool isDigging { get; set; }
         public float diggingStartTime { get; set; }
         public float diggingTimeLeft { get; set; }
-
+        
         public object Clone()
         {
             return new Level
