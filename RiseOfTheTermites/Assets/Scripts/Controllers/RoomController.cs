@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.DialogBoxes;
@@ -40,31 +41,10 @@ namespace Assets.Scripts.Controllers
         public string InitializeAsRoom;
 
         public float startSwapTime;
+
         public float completedSwapTime;
+
         public string SwapTarget;
-
-        public void ShowHideRoom()
-        {
-            if (Room == null)
-            {
-                spriteRenderer.enabled = false;
-                return;
-            }
-
-            if (Room.HideIfNoNeighboard)
-            {
-                spriteRenderer.enabled = HasBuiltNeighboard();
-            }
-            else
-            {
-                spriteRenderer.enabled = true;
-            }
-        }
-
-        private bool HasBuiltNeighboard()
-        {
-            return true;
-        }
 
         public void StartChangeRoomType(string roomName)
         {
@@ -92,8 +72,13 @@ namespace Assets.Scripts.Controllers
         public void Update()
         {
             bool isSwapping = !string.IsNullOrEmpty(SwapTarget);
+            
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.enabled = Room != null && Room.IsVisible;
+            }
 
-            if(TimerBackground!= null)
+            if (TimerBackground!= null)
                 TimerBackground.gameObject.SetActive(isSwapping);
 
             if (Timer != null)
@@ -107,7 +92,7 @@ namespace Assets.Scripts.Controllers
             if (Time.time < completedSwapTime)
             {
                 var workerCount = Room.GetWorkforce() - 1;
-                startSwapTime += workerCount * Time.deltaTime;
+                startSwapTime -= workerCount * Time.deltaTime;
 
                 var elapsed = Time.time - startSwapTime;
                 var duration = completedSwapTime - startSwapTime;
@@ -134,8 +119,9 @@ namespace Assets.Scripts.Controllers
                     if(swapped)
                     {
                         Room = room;
+                        Room.ShowHideRoomNeighboard();
                         Initialize();
-                    }                    
+                    }
                 }
             }
         }
@@ -155,6 +141,8 @@ namespace Assets.Scripts.Controllers
             {
                 StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.RoomFolder, Room.SpritePath));
             }
+            
+            Room.ShowHideRoom();
         }
 
         public void Start()
@@ -165,6 +153,9 @@ namespace Assets.Scripts.Controllers
 
         public void OnMouseEnter()
         {
+            if(Room == null || !Room.IsVisible)
+                return;
+
             if(Selector != null)
                 Selector.SetActive(true);
         }
@@ -177,6 +168,9 @@ namespace Assets.Scripts.Controllers
 
         public void OnMouseUpAsButton()
         {
+            if (Room == null || !Room.IsVisible)
+                return;
+
             if (DialogBoxManager.Instance.AnyActiveModal)
                 return;
 

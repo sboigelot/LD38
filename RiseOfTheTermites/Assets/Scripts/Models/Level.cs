@@ -72,6 +72,9 @@ namespace Assets.Scripts.Models
         {
             if (CanAfford(newRoom))
             {
+                newRoom.GridLocationX = oldRoom.GridLocationX;
+                newRoom.GridLocationY = oldRoom.GridLocationY;
+
                 Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
 
                 if (oldRoom.ResourceImpactsOnDestroy != null)
