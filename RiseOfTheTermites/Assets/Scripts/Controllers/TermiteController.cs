@@ -136,10 +136,10 @@ namespace Assets.Scripts.Controllers
             var rs = LevelController.Instance.RoomSpacing;
 
             var gridPositionX = worldPosition.x / rs.x;
-            if (gridPositionX < 0)
-                gridPositionX -= rs.x / 2;
+           if (gridPositionX < 0)
+                gridPositionX -= rs.x - 1;
             else
-                gridPositionX += rs.x / 2;
+                gridPositionX += rs.x - 1;
 
             var gridPositionY = worldPosition.y / rs.y;
             if (gridPositionY < 0)
