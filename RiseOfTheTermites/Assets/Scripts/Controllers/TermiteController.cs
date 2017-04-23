@@ -121,6 +121,8 @@ namespace Assets.Scripts.Controllers
         
         public void OnMouseUp()
         {
+            Termite.IsDragging = false;
+            
             if (!Termite.CanBeMoved)
             {
                 BlinkTermite(Color.red);
@@ -159,7 +161,6 @@ namespace Assets.Scripts.Controllers
             gameObject.name = string.Format("Termite {0}, {1}", gridPositionX, gridPositionY);
 
             transform.position = worldPosition;
-            Termite.IsDragging = false;
         }
 
         private void BlinkTermite(Color color)
