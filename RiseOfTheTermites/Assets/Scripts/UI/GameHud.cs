@@ -12,6 +12,8 @@ namespace Assets.Scripts.UI
         public Text LifeRate;
 
         public Button PauseButton;
+        public Button MenuButton;
+
         public Text SoilAmount;
         public Text SoilRate;
         public Text SoldierCount;
@@ -20,7 +22,18 @@ namespace Assets.Scripts.UI
 
         private void Start()
         {
-            PauseButton.onClick.AddListener(() => { });
+            PauseButton.onClick.AddListener(() =>
+            {
+                var ttp = PauseButton.GetComponent<TooltipProvider>();
+                ttp.content =
+                    "Well tried ^^ But we told you this wouldn't pause the game.";
+                TooltipController.Instance.Show(ttp.content);
+
+            });
+            MenuButton.onClick.AddListener(() =>
+            {
+                GameController.Instance.GameOver(false);
+            });
         }
 
         public void OnGameTick()

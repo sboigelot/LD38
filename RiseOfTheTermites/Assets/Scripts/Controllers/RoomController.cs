@@ -137,6 +137,10 @@ namespace Assets.Scripts.Controllers
             if (Room == null)
                 return;
 
+            var tooltip = gameObject.GetComponent<LevelTooltipProvider>() ?? gameObject.AddComponent<LevelTooltipProvider>();
+            tooltip.content = Room.Description;
+            tooltip.CheckIfTooltipShouldBeDisplayed = () => Room.IsVisible;
+
             SpawnTermitesOnBuilt();
 
             if (spriteRenderer != null)

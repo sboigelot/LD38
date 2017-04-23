@@ -5,6 +5,7 @@ using Assets.Scripts.Components;
 using Assets.Scripts.Models;
 using UnityEngine;
 using System.Collections.Generic;
+using Assets.Scripts.UI;
 
 namespace Assets.Scripts.Controllers
 {
@@ -161,21 +162,28 @@ namespace Assets.Scripts.Controllers
             gameObject.SetActive(true);
 
             var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+            var tooltip = gameObject.GetComponent<LevelTooltipProvider>() ?? gameObject.AddComponent<LevelTooltipProvider>();
             switch (termite.Job)
             {
                 case TermiteType.Queen:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Queen"));
                     LayerIndexNonSelected = 1;
                     Destroy(GetComponentInChildren<FighterComponent>());
+                    tooltip.content =
+                        "Your <b>Queen</b> will lay new soldier and worker if you have enougth space in your colony. Protect it!";
                     break;
                 case TermiteType.Worker:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
                     LayerIndexNonSelected = 3;
-                    GetComponentInChildren<FighterComponent>().Damage = 0; // Allow the worker to be target for attack
+                    GetComponentInChildren<FighterComponent>().Damage = 0; // Allow the worker to be target for attack ? TODO (need algo change)
+                    tooltip.content = "A <b>Worker</b> termite. Try to drag it around in different room. It may work and help you produce resources faster.";
                     break;
                 case TermiteType.Soldier:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));
                     LayerIndexNonSelected = 2;
+                    tooltip.content =
+                        "A <b>Soldier</b> termite. It will attack any enemy in sigth and become stronger if you produce <b>Venom</b>";
                     break;
             }
             spriteRenderer.sortingOrder = LayerIndexNonSelected;

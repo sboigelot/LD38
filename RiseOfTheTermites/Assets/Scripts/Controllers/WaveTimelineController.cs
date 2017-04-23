@@ -3,6 +3,7 @@ using Assets.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Components;
+using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -51,6 +52,10 @@ namespace Assets.Scripts.Controllers
             newEnemy.SetActive(true);
 
             newEnemy.GetComponent<FighterComponent>().HitPoints = wave.HitPoint;
+
+            var tooltip = newEnemy.GetComponent<LevelTooltipProvider>() ?? newEnemy.AddComponent<LevelTooltipProvider>();
+            tooltip.content =
+                "A <b>Enemy</b> termite. It will attack your soldier and then your Queen. <b><color=red>Kill it before it kills you!</color></b>";
 
             var spriteRenderer = newEnemy.GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Enemy"));

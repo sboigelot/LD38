@@ -74,6 +74,9 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public bool IsPassable { get; set; }
 
+        [XmlAttribute("Description")]
+        public string Description { get; set; }
+
         public Room()
         {
             
@@ -99,7 +102,8 @@ namespace Assets.Scripts.Models
                 IsDiggingAction = IsDiggingAction,
                 HideIfNoNeighboard = HideIfNoNeighboard,
                 IsPassable = IsPassable,
-                SpawnTermitesOnBuild = SpawnTermitesOnBuild
+                SpawnTermitesOnBuild = SpawnTermitesOnBuild,
+                Description = Description
             };
         }
 

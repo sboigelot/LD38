@@ -15,11 +15,13 @@ namespace Assets.Scripts.UI
         public Text NameText;
         public Image Image;
         public Text CostText;
+        public TooltipProvider TooltipProvider;
         
         public void Setup(RoomController roomController, bool noChange, string roomName)
         {
             var room = PrototypeManager.FindRoomPrototype(roomName);
-            
+
+            TooltipProvider.content = noChange ? "Don't change anything" : room.Description;
             NameText.text = room.Name;
             
             bool diggingConflict = !noChange && roomController.Room.IsDiggingAction && LevelController.Instance.Level.IsDigging;

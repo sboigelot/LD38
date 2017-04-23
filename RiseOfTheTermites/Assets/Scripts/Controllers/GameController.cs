@@ -52,18 +52,6 @@ namespace Assets.Scripts.Controllers
         public void RebuildUi()
         {
             GameHud.Instance.OnGameTick();
-
-            var resources = "";
-
-            /*foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.ColonyStats)
-            {
-                resources += string.Format("{0}: {1} / {2}",
-                                 currentLevelResource.Name,
-                                 currentLevelResource.Value,
-                                 currentLevelResource.MaxValue) + Environment.NewLine;
-            }*/
-
-            GameObject.Find("DebugText").GetComponent<Text>().text = resources;
         }
 
         /// <summary>
