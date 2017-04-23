@@ -107,6 +107,7 @@ namespace Assets.Scripts.Controllers
 
             if (distance > FORCED_VELOCITY)
             {
+                transform.rotation = transform.position.x > TargetLocation.x ? new Quaternion(0f, 0f, 0f, 0f) : new Quaternion(0f, 180f, 0f, 0f);
                 transform.position = new Vector3(transform.position.x - FORCED_VELOCITY * Time.deltaTime, transform.position.y, transform.position.z);
             }
         }
@@ -124,6 +125,8 @@ namespace Assets.Scripts.Controllers
         private void RandomlyMoveTermite()
         {
             var direction = DestinationInRoom - PositionInRoom;
+
+            transform.rotation = PositionInRoom.x > DestinationInRoom.x ? new Quaternion(0f, 0f, 0f, 0f) : new Quaternion(0f, 180f, 0f, 0f);
 
             if (direction.magnitude >= MovementSpeedInRoom * 2)
             {
