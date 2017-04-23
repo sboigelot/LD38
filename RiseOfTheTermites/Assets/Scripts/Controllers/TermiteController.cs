@@ -37,16 +37,16 @@ namespace Assets.Scripts.Controllers
         
         public void FixedUpdate()
         {
+            if (Termite == null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
             if (Termite.Job == TermiteType.Soldier && ItIsInCombat)
             {
                 UpdateCombat();
 
-                return;
-            }
-
-            if (Termite == null)
-            {
-                gameObject.SetActive(false);
                 return;
             }
 
@@ -162,9 +162,9 @@ namespace Assets.Scripts.Controllers
                     Destroy(GetComponentInChildren<FighterComponent>());
                     break;
                 case TermiteType.Worker:
-                    Destroy(GetComponentInChildren<FighterComponent>());
-                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Queen"));
+                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
                     LayerIndexNonSelected = 3;
+                    Destroy(GetComponentInChildren<FighterComponent>());
                     break;
                 case TermiteType.Soldier:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));

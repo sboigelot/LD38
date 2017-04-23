@@ -43,6 +43,29 @@ namespace Assets.Scripts.Controllers
         public float completedSwapTime;
         public string SwapTarget;
 
+        public void ShowHideRoom()
+        {
+            if (Room == null)
+            {
+                spriteRenderer.enabled = false;
+                return;
+            }
+
+            if (Room.HideIfNoNeighboard)
+            {
+                spriteRenderer.enabled = HasBuiltNeighboard();
+            }
+            else
+            {
+                spriteRenderer.enabled = true;
+            }
+        }
+
+        private bool HasBuiltNeighboard()
+        {
+            return true;
+        }
+
         public void StartChangeRoomType(string roomName)
         {
             if (string.IsNullOrEmpty(roomName))
