@@ -4326,6 +4326,8 @@ MonoBehaviour:
   DestinationInRoom: {x: 0, y: 0}
   MovementSpeedInRoom: 0.2
   Selector: {fileID: 0}
+  Velocity: 0.2
+  ItIsInCombat: 0
 --- !u!1 &1103351354 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1903408068680722, guid: 98556f1035d26594091528d707fd59cc,
@@ -6075,6 +6077,21 @@ Transform:
   m_PrefabParentObject: {fileID: 4969999607838748, guid: 3f01d25d60dfa6947bce53765ef76c9d,
     type: 2}
   m_PrefabInternal: {fileID: 1765104164}
+--- !u!114 &1535355028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1535355026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec76cd530b43e94fbfb8de14695f60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitPoints: 10
+  Damage: 5
+  AttackSpeed: 1
+  PlayerFighter: 1
 --- !u!1 &1545002656
 GameObject:
   m_ObjectHideFlags: 0
@@ -8978,6 +8995,7 @@ GameObject:
   - component: {fileID: 1984369016}
   - component: {fileID: 1984369017}
   - component: {fileID: 1984369018}
+  - component: {fileID: 1984369019}
   m_Layer: 0
   m_Name: TermiteTemplateVisual
   m_TagString: Untagged
@@ -9052,6 +9070,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Velocity: 0.2
+--- !u!114 &1984369019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1984369015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec76cd530b43e94fbfb8de14695f60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitPoints: 10
+  Damage: 5
+  AttackSpeed: 1
+  PlayerFighter: 0
 --- !u!1 &1991537042
 GameObject:
   m_ObjectHideFlags: 0
