@@ -6,6 +6,8 @@ using Assets.Scripts.Models;
 using Assets.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.Components;
+using System.Linq;
 
 namespace Assets.Scripts.Controllers
 {
@@ -32,6 +34,7 @@ namespace Assets.Scripts.Controllers
                 if (GameManager.Instance.CurrentLevel != null)
                 {
                     GameManager.Instance.CurrentLevel.Tick();
+                    RemoveDeadFighters();
                     RebuildUi();
                 }
 
@@ -54,6 +57,38 @@ namespace Assets.Scripts.Controllers
             }*/
 
             GameObject.Find("DebugText").GetComponent<Text>().text = resources;
+        }
+
+        /// <summary>
+        /// After all updates are done we can safely removed dead bodies
+        /// </summary>
+        void RemoveDeadFighters()
+        {
+            var deadEnemies = LevelController.Instance.EnemyLayer.GetComponentsInChildren<FighterComponent>().ToList<FighterComponent>().FindAll(o => o.HitPoints == 0);
+
+            foreach (var f in deadEnemies)
+            {
+                f.gameObject.SetActive(false);
+
+                Destroy(f.gameObject);
+            }
+
+            var deadFighters = LevelController.Instance.TermitesPanel.GetComponentsInChildren<FighterComponent>().ToList<FighterComponent>().FindAll(o => o.HitPoints == 0);
+
+            foreach (var f in deadFighters)
+            {
+                var termiteController = f.GetComponentInParent<TermiteController>();
+
+                GameManager.Instance.CurrentLevel.Termites.Remove(termiteController.Termite);
+
+                var soldierLimit = GameManager.Instance.CurrentLevel.ColonyStats.FirstOrDefault(r => r.Name == "Soldier");
+                if (soldierLimit != null && soldierLimit.Value > 0)
+                    soldierLimit.Value--;
+
+                f.gameObject.SetActive(false);
+
+                Destroy(f.gameObject);
+            }
         }
     }
 }

@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Components;
+using Assets.Scripts.Controllers;
 using UnityEngine;
 
 namespace Assets.Scripts.Models
 {
     public class Level : ICloneable
     {
+        const float ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD = 20.0f;
+        const float ROUGHT_ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD = ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD * 2.0f;
+
         [XmlAttribute]
         public string Name { get; set; }
 
@@ -158,6 +163,73 @@ namespace Assets.Scripts.Models
                 ImpactValuePerWorker = WorkerEatAmount
             }, workerCount);
 
+            CheckEnemyProximity();
+        }
+
+        /// <summary>
+        /// Verifies if there are enemies nearing the 
+        /// </summary>
+        /// <returns></returns>
+        void CheckEnemyProximity()
+        {
+            var classedRooms = Rooms.FindAll(r => r.Name.Contains("BedRoom")
+                    || r.Name.Contains("Throne")
+                    || r.Name.Contains("GatheringRoom")
+                    || r.Name.Contains("FarmRoom")
+                    || r.Name.Contains("Barracks")
+                    || r.Name.Contains("StorageRoom")
+                    || r.Name.Contains("Soil generator"));
+
+            var orderedRooms = classedRooms.OrderBy(o => o.GridLocationX).ToList();
+
+            var referenceRoom = orderedRooms.Find(r => r.GridLocationY == 0);
+
+            var roomAbsolutePosition = new Vector2(
+                LevelController.Instance.RoomSpacing.x * referenceRoom.GridLocationX,
+                LevelController.Instance.RoomSpacing.y * referenceRoom.GridLocationY
+            );
+
+            var lst = new List<FighterComponent>();
+
+            var fightComp = LevelController.Instance.EnemyLayer.GetComponentsInChildren<FighterComponent>();
+
+            lst.AddRange(fightComp);
+            //get only next termites (those who have already passed through are ignored to simplify handling of directions
+            lst = lst.FindAll(it => it.HitPoints > 0
+                && !it.PlayerFighter
+                && it.transform.position.y - roomAbsolutePosition.x < ROUGHT_ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD
+                && it.transform.position.x - roomAbsolutePosition.x > 0.0f);
+
+            foreach( var enemy in lst)
+            {
+                float squareEnemyDistance = (roomAbsolutePosition.x - enemy.transform.position.x) * (roomAbsolutePosition.x - enemy.transform.position.x) + (roomAbsolutePosition.y - enemy.transform.position.y) * (roomAbsolutePosition.y - enemy.transform.position.y);
+                if (squareEnemyDistance < ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD * ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD)
+                {
+                    MoveTermitesForBattle(roomAbsolutePosition );
+                    break;
+                }
+            }
+        }
+
+        void MoveTermitesForBattle(Vector2 combatDestinationTarget )
+        {
+            var lst = new List<FighterComponent>();
+
+            lst.AddRange(LevelController.Instance.TermitesPanel.GetComponentsInChildren<FighterComponent>());
+            //get only next termites (those who have already passed through are ignored to simplify handling of directions
+            lst = lst.FindAll(it => it.HitPoints > 0 && it.PlayerFighter);
+
+            foreach(var soldier in lst)
+            {
+                var termiteController = soldier.GetComponentInParent<TermiteController>();
+
+                if ( !termiteController.ItIsInCombat)
+                {
+                    termiteController.ItIsInCombat = true;
+                    termiteController.TargetLocation = new Vector3(combatDestinationTarget.x, combatDestinationTarget.y, 0.0f );
+                    termiteController.StartLocation = termiteController.transform.position;
+                }
+            }
         }
 
         public void ApplyImpact(ResourceImpact Impact, int multipliyer)

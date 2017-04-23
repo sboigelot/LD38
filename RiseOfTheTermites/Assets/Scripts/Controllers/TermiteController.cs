@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Linq;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Components;
 using Assets.Scripts.Models;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Controllers
 {
     public class TermiteController : MonoBehaviour
     {
+        public int LayerIndexNonSelected = 1;
+        public const int LayerIndexSelected = 1000;
+
         public Termite Termite { get; set; }
 
         public Vector2 PositionInRoom;
@@ -18,8 +23,27 @@ namespace Assets.Scripts.Controllers
 
         public GameObject Selector;
 
+        #region COMBAT
+
+        const float ENEMY_COMBAT_DISTANCE = 0.2f;
+        float FORCED_VELOCITY = -0.2f; // Dirty : Should calculate according to startLocation.x - targetLocation.x
+        public Vector3 StartLocation { get; set; }
+        public Vector3 TargetLocation { get; set; } // CombatLocation
+        public bool ItIsInCombat = false;
+
+        #endregion
+
+        private GameObject _enemyTermiteTarget;
+        
         public void FixedUpdate()
         {
+            if (Termite.Job == TermiteType.Soldier && ItIsInCombat)
+            {
+                UpdateCombat();
+
+                return;
+            }
+
             if (Termite == null)
             {
                 gameObject.SetActive(false);
@@ -39,6 +63,54 @@ namespace Assets.Scripts.Controllers
                 RandomlyMoveTermite();
             }
         }
+
+        #region COMBAT
+        private void UpdateCombat()
+        {
+            if (_enemyTermiteTarget && _enemyTermiteTarget.GetComponent<FighterComponent>().HitPoints > 0)
+            {
+                //Do the fighting
+                //enemyTermiteTarget.
+
+                GetComponent<FighterComponent>().PerformCombatWith(_enemyTermiteTarget.GetComponent<FighterComponent>(), Time.deltaTime);
+
+                if (_enemyTermiteTarget.GetComponent<FighterComponent>().HitPoints <= 0)
+                    _enemyTermiteTarget = null;
+
+                return;
+            }
+            else
+            {
+                var lst = new List<FighterComponent>();
+
+                lst.AddRange(LevelController.Instance.EnemyLayer.GetComponentsInChildren<FighterComponent>());
+                //get only next termites (those who have already passed through are ignored to simplify handling of directions
+                lst = lst.FindAll(it => it.HitPoints > 0 && !it.PlayerFighter && (Mathf.Abs(it.transform.position.x - transform.position.x) < ENEMY_COMBAT_DISTANCE * 2.0f) );
+
+                foreach (var fighter in lst)
+                {
+                    float squareEnemyDistance = (transform.position.x - fighter.transform.position.x) * (transform.position.x - fighter.transform.position.x) + (transform.position.y - fighter.transform.position.y) * (transform.position.y - fighter.transform.position.y);
+
+                    if (squareEnemyDistance < ENEMY_COMBAT_DISTANCE * ENEMY_COMBAT_DISTANCE)
+                    {
+                        //Now they are fighting
+                        _enemyTermiteTarget = fighter.gameObject;
+
+                        return;
+                    }
+                }
+            }
+
+            //Advance normally
+            float distance = (transform.position.x - TargetLocation.x) * (transform.position.x - TargetLocation.x) + (transform.position.y - TargetLocation.y) * (transform.position.y - TargetLocation.y);
+            distance = Mathf.Sqrt(distance);
+
+            if (distance > FORCED_VELOCITY)
+            {
+                transform.position = new Vector3(transform.position.x - FORCED_VELOCITY * Time.deltaTime, transform.position.y, transform.position.z);
+            }
+        }
+        #endregion
 
         private void DragMoveTermite()
         {
@@ -86,14 +158,20 @@ namespace Assets.Scripts.Controllers
             {
                 case TermiteType.Queen:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Queen"));
+                    LayerIndexNonSelected = 1;
+                    Destroy(GetComponentInChildren<FighterComponent>());
                     break;
                 case TermiteType.Worker:
-                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
+                    Destroy(GetComponentInChildren<FighterComponent>());
+                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Queen"));
+                    LayerIndexNonSelected = 3;
                     break;
                 case TermiteType.Soldier:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));
+                    LayerIndexNonSelected = 2;
                     break;
             }
+            spriteRenderer.sortingOrder = LayerIndexNonSelected;
 
             termite.RoomX = termiteRoomX;
             termite.RoomY = termiteRoomY;
@@ -106,7 +184,8 @@ namespace Assets.Scripts.Controllers
         public void OnMouseEnter()
         {
             Termite.HasMouseOver = true;
-            Selector.SetActive(true);
+            if (Termite.CanBeMoved)
+                Selector.SetActive(true);
         }
 
         public void OnMouseExit()
@@ -118,17 +197,23 @@ namespace Assets.Scripts.Controllers
         public void OnMouseDown()
         {
             Termite.IsDragging = true;
+            var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.sortingOrder = LayerIndexSelected;
         }
         
         public void OnMouseUp()
         {
             Termite.IsDragging = false;
-            
+            Termite.HasMouseOver = false;
+
             if (!Termite.CanBeMoved)
             {
                 BlinkTermite(Color.red);
                 return;
             }
+            
+            var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.sortingOrder = LayerIndexNonSelected;
 
             var worldPosition = Input.mousePosition;
             worldPosition.z = 10.0f;
