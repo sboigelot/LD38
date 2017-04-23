@@ -67,7 +67,7 @@
   </Room>
 
   <Room Name="BedRoom level 1"
-        SpritePath="BedRoom"
+        SpritePath="bedroom_1"
         ValidLocation="UnderGround"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
@@ -78,7 +78,7 @@
   </Room>
 
   <Room Name="BedRoom level 2"
-        SpritePath="BedRoom"
+        SpritePath="bedroom_2"
         ValidLocation="UnderGround"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
@@ -89,7 +89,7 @@
   </Room>
 
   <Room Name="BedRoom level 3"
-        SpritePath="BedRoom"
+        SpritePath="bedroom_3"
         ValidLocation="UnderGround"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
@@ -125,7 +125,7 @@
   </Room>
 
   <Room Name="FarmRoom level 1"
-        SpritePath="FarmRoom"
+        SpritePath="farm_room_1"
         ValidLocation="UnderGround"
         MaxWorker="1">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="20" ImpactType="Value"/>
@@ -135,7 +135,7 @@
   </Room>
 
   <Room Name="FarmRoom level 2"
-        SpritePath="FarmRoom"
+        SpritePath="farm_room_2"
         ValidLocation="UnderGround"
         MaxWorker="1">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
@@ -145,7 +145,7 @@
   </Room>
 
   <Room Name="FarmRoom level 3"
-        SpritePath="FarmRoom"
+        SpritePath="farm_room_3"
         ValidLocation="UnderGround"
         MaxWorker="2">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="40" ImpactType="Value"/>
@@ -154,7 +154,7 @@
   </Room>
 
   <Room Name="Barracks level 1"
-        SpritePath="BarracksRoom"
+        SpritePath="barracks_1"
         ValidLocation="Anywhere"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
@@ -164,7 +164,7 @@
   </Room>
 
   <Room Name="Barracks level 2"
-        SpritePath="BarracksRoom"
+        SpritePath="barracks_2"
         ValidLocation="Anywhere"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="75" ImpactType="Value"/>
@@ -174,7 +174,7 @@
   </Room>
 
   <Room Name="Barracks level 3"
-        SpritePath="BarracksRoom"
+        SpritePath="barracks_3"
         ValidLocation="Anywhere"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
@@ -183,7 +183,7 @@
   </Room>
 
   <Room Name="StorageRoom level 1"
-          SpritePath="Empty"
+          SpritePath="storage_1"
           ValidLocation="Anywhere"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
@@ -194,7 +194,7 @@
   </Room>
 
   <Room Name="StorageRoom level 2"
-          SpritePath="Empty"
+          SpritePath="storage_2"
           ValidLocation="Anywhere"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
@@ -205,7 +205,7 @@
   </Room>
 
   <Room Name="StorageRoom level 3"
-          SpritePath="Empty"
+          SpritePath="storage_3"
           ValidLocation="Anywhere"
         MaxWorker="0">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>

@@ -93,7 +93,7 @@ namespace Assets.Scripts.Models
                      t.RoomY == GridLocationY &&
                      t.Job == TermiteType.Worker);
 
-            return 1 + Math.Min(lastComputedWorkforce, MaxWorker);
+            return Math.Min(1 + lastComputedWorkforce, MaxWorker);
         }
     }
 }
