@@ -72,6 +72,7 @@
     <PossibleUpgrade>FarmRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>Barracks level 1</PossibleUpgrade>
     <PossibleUpgrade>BedRoom level 1</PossibleUpgrade>
+    <PossibleUpgrade>Venom room</PossibleUpgrade>
     <PossibleUpgrade>Throne Room</PossibleUpgrade>
   </Room>
 
@@ -300,6 +301,16 @@
     <PossibleUpgrade>Soil generator level 2</PossibleUpgrade>
   </Room>
 
+  <Room Name="Venom room"
+           SpritePath="venom_room"
+           ValidLocation="UnderGround"
+           MaxWorker="2"
+        HideIfNoNeighboard="false"
+        IsPassable="true">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="200" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="200" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Venom" ImpactValuePerWorker="0.1" ImpactType="Value"/>
+  </Room>
 
   <!--Venom room-->
 

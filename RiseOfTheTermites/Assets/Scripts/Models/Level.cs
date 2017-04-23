@@ -296,7 +296,7 @@ namespace Assets.Scripts.Models
         {
             ApplyImpact(new ResourceImpact
             {
-                ImpactValuePerWorker = 1,
+                ImpactValuePerWorker = -damage,
                 ResourceName = "ColonyLife",
                 ImpactType = ResourceImpactType.Value
                 
