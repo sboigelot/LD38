@@ -22,13 +22,9 @@ namespace Assets.Scripts.UI
             
             NameText.text = room.Name;
             
-            bool enable = noChange || LevelController.Instance.Level.CanAfford(room);
-                        
-            if (!noChange && roomController.Room.IsDiggingAction)
-            {
-                enable = !LevelController.Instance.Level.IsDigging;
-            }
-
+            bool diggingConflict = !noChange && roomController.Room.IsDiggingAction && LevelController.Instance.Level.IsDigging;
+            bool enable = !diggingConflict && (noChange || LevelController.Instance.Level.CanAfford(room));
+        
             var button = GetComponent<Button>();
             button.interactable = enable;
             if (enable)
@@ -68,7 +64,7 @@ namespace Assets.Scripts.UI
                 }
             }
 
-            if (!noChange && LevelController.Instance.Level.IsDigging)
+            if (diggingConflict)
             {
                 costs = "You can only dig one room at a time!";
             }
