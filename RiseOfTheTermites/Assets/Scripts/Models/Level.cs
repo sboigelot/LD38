@@ -291,5 +291,26 @@ namespace Assets.Scripts.Models
             }
             return canAfford;
         }
+        
+        public void ColonyTakeDamage(int damage)
+        {
+            ApplyImpact(new ResourceImpact
+            {
+                ImpactValuePerWorker = 1,
+                ResourceName = "ColonyLife",
+                ImpactType = ResourceImpactType.Value
+                
+            }, 1);
+
+            var colonyLife = ColonyStats.FirstOrDefault(s => s.Name == "ColonyLife");
+            if(colonyLife == null)
+                return;
+            
+            if (colonyLife.Value <= 0)
+            {
+                //Game is lost
+                GameController.Instance.GameOver(false);
+            }
+        }
     }
 }

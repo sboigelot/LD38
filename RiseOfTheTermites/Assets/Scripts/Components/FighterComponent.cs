@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts.Components
@@ -78,7 +79,7 @@ namespace Assets.Scripts.Components
             if (_combatTimer >= AttackSpeed)
             {
                 _combatTimer = 0.0f;
-                EnemyHiveObject.GetComponent<HiveController>().TakeDamage(Damage);
+                LevelController.Instance.Level.ColonyTakeDamage(Damage);
             }
         }
     }
