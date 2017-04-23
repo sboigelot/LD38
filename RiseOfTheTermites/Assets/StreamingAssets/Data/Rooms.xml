@@ -38,7 +38,7 @@
   </Room>
 
   <Room Name="Surface Empty Room"
-        SpritePath="Empty"
+        SpritePath="empty_room_aboveground"
         ValidLocation="AboveGround">
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
@@ -48,7 +48,7 @@
   </Room>
 
   <Room Name="Underground Empty Room"
-        SpritePath="Empty"
+        SpritePath="empty_room_underground"
         ValidLocation="UnderGround">     
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
