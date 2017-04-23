@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1636184532227900
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4969999607838748}
   - component: {fileID: 114864337732586470}
   - component: {fileID: 61000213251181514}
+  - component: {fileID: 114082089308604134}
   m_Layer: 0
   m_Name: TermiteTemplate
   m_TagString: Untagged
@@ -126,6 +127,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &114082089308604134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636184532227900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec76cd530b43e94fbfb8de14695f60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackSpeed: 1
+  Damage: 5
+  EnemyHiveObject: {fileID: 0}
+  InitialHitpoint: 0
+  HitPoints: 10
+  PlayerFighter: 1
+  HitpointSpriteRenderer: {fileID: 212896624342751594}
 --- !u!114 &114864337732586470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,10 +156,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455a126b2fe7cd844b701e2ca8d6b28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LayerIndexNonSelected: 1
   PositionInRoom: {x: 0, y: 0}
   DestinationInRoom: {x: 0, y: 0}
   MovementSpeedInRoom: 0.2
   Selector: {fileID: 1499170195016902}
+  ItIsInCombat: 0
 --- !u!212 &212896624342751594
 SpriteRenderer:
   m_ObjectHideFlags: 1

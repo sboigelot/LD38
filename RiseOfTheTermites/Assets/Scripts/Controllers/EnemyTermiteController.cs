@@ -58,6 +58,10 @@ namespace Assets.Scripts.Controllers
 
             if (distance > Velocity)
             {
+                transform.rotation = transform.position.x > TargetLocation.x ? 
+                    new Quaternion(0f, 0f, 0f, 0f) :
+                    new Quaternion(0f, 180f, 0f, 0f);
+
                 transform.position =
                     new Vector3(
                         transform.position.x - Velocity * Time.deltaTime,
@@ -78,12 +82,13 @@ namespace Assets.Scripts.Controllers
                 GetComponentsInChildren<FighterComponent>().
                 ToList();
 
-            //get only next termites (those who have already passed through are ignored to simplify handling of directions
+            //removed ? //get only next termites (those who have already passed through are ignored to simplify handling of directions
             figthers = figthers.
                 FindAll(it => it.HitPoints > 0 &&
-                              it.PlayerFighter &&
+                              it.PlayerFighter);/* &&
                               Mathf.Abs(it.transform.position.x - transform.position.x) < ENEMY_COMBAT_DISTANCE * 2.0f);
-
+                              */
+            
             foreach (var fighter in figthers)
             {
                 var squareEnemyDistance =
@@ -91,6 +96,8 @@ namespace Assets.Scripts.Controllers
                     (transform.position.x - fighter.transform.position.x) +
                     (transform.position.y - fighter.transform.position.y) *
                     (transform.position.y - fighter.transform.position.y);
+
+                squareEnemyDistance = Mathf.Abs(squareEnemyDistance);
 
                 if (squareEnemyDistance < ENEMY_COMBAT_DISTANCE * ENEMY_COMBAT_DISTANCE)
                 {

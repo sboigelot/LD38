@@ -881,18 +881,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114578036097157828, guid: c7e8691c282e486438ba9b89bce50c68,
+    - target: {fileID: 114783280091861890, guid: c7e8691c282e486438ba9b89bce50c68,
         type: 2}
       propertyPath: EnemyHiveObject
       value: 
       objectReference: {fileID: 293717170}
-    - target: {fileID: 1472692482915882, guid: c7e8691c282e486438ba9b89bce50c68, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 114783280091861890, guid: c7e8691c282e486438ba9b89bce50c68,
+        type: 2}
+      propertyPath: HitPoints
+      value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114813562671875984, guid: c7e8691c282e486438ba9b89bce50c68, type: 2}
-    - {fileID: 114578036097157828, guid: c7e8691c282e486438ba9b89bce50c68, type: 2}
+    - target: {fileID: 114783280091861890, guid: c7e8691c282e486438ba9b89bce50c68,
+        type: 2}
+      propertyPath: InitialHitpoint
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7e8691c282e486438ba9b89bce50c68, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &279791745
@@ -4859,11 +4863,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7901f4b36e6d147be1e9ba87e9ce78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RetryButton: {fileID: 2078907457}
-  NextLevelButton: {fileID: 609814065}
-  TitleText: {fileID: 1631937247}
-  ScoreText: {fileID: 0}
   GameIsSuccessful: 1
+  NextLevelButton: {fileID: 609814065}
+  RetryButton: {fileID: 2078907457}
+  ScoreText: {fileID: 0}
+  TitleText: {fileID: 1631937247}
 --- !u!1 &1168787517
 GameObject:
   m_ObjectHideFlags: 0
@@ -6575,22 +6579,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4969999607838748, guid: 3f01d25d60dfa6947bce53765ef76c9d,
     type: 2}
   m_PrefabInternal: {fileID: 1765104164}
---- !u!114 &1535355028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1535355026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec76cd530b43e94fbfb8de14695f60a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackSpeed: 1
-  Damage: 5
-  EnemyHiveObject: {fileID: 0}
-  HitPoints: 10
-  PlayerFighter: 1
 --- !u!1 &1545002656
 GameObject:
   m_ObjectHideFlags: 0
@@ -8343,9 +8331,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1499170195016902, guid: 3f01d25d60dfa6947bce53765ef76c9d, type: 2}
-      propertyPath: m_IsActive
+    - target: {fileID: 114082089308604134, guid: 3f01d25d60dfa6947bce53765ef76c9d,
+        type: 2}
+      propertyPath: InitialHitpoint
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114082089308604134, guid: 3f01d25d60dfa6947bce53765ef76c9d,
+        type: 2}
+      propertyPath: HitPoints
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3f01d25d60dfa6947bce53765ef76c9d, type: 2}
@@ -9013,34 +9007,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4604806016519042, guid: c7e8691c282e486438ba9b89bce50c68,
     type: 2}
   m_PrefabInternal: {fileID: 254414704}
---- !u!114 &1878030581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1878030579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec76cd530b43e94fbfb8de14695f60a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackSpeed: 1
-  Damage: 5
-  EnemyHiveObject: {fileID: 293717170}
-  HitPoints: 10
-  PlayerFighter: 0
---- !u!114 &1878030582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1878030579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 846b46f150f4ac048b3c64e682c36aa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Velocity: 0.2
 --- !u!1 &1889279137
 GameObject:
   m_ObjectHideFlags: 0

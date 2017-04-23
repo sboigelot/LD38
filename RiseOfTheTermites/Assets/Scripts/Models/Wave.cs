@@ -23,6 +23,9 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public int Duration { get; set; }
 
+        [XmlAttribute]
+        public int HitPoint { get; set; }
+
         [XmlIgnore]
         public float AccumulatedSpawnTimer { get; set; }
 
@@ -37,7 +40,8 @@ namespace Assets.Scripts.Models
                 SoldierLevel = SoldierLevel,
                 Duration = Duration,
                 AccumulatedSpawnTimer = AccumulatedSpawnTimer,
-                AccumulatedDuration = AccumulatedDuration
+                AccumulatedDuration = AccumulatedDuration,
+                HitPoint = HitPoint
             };
         }
     }

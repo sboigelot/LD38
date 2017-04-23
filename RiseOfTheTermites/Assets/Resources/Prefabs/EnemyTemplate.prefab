@@ -123,8 +123,10 @@ MonoBehaviour:
   AttackSpeed: 1
   Damage: 5
   EnemyHiveObject: {fileID: 0}
+  InitialHitpoint: 0
   HitPoints: 10
   PlayerFighter: 0
+  HitpointSpriteRenderer: {fileID: 212515518717133302}
 --- !u!212 &212515518717133302
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Components
 {
@@ -8,11 +9,15 @@ namespace Assets.Scripts.Components
         public float AttackSpeed;
         public int Damage;
         public GameObject EnemyHiveObject;
+        private int initialHitpoint;
         public int HitPoints;
         public bool PlayerFighter;
 
+        public SpriteRenderer HitpointSpriteRenderer;
+
         public FighterComponent()
         {
+            initialHitpoint = 0;
             HitPoints = 0;
             Damage = 0;
             AttackSpeed = 1.0f;
@@ -46,9 +51,19 @@ namespace Assets.Scripts.Components
         {
             Debug.Assert(amount > 0);
 
-            HitPoints -= amount;
+            if (initialHitpoint == 0)
+            {
+                initialHitpoint = HitPoints;
+            }
 
+            HitPoints -= amount;
             HitPoints = Mathf.Max(HitPoints, 0);
+            
+            if (HitpointSpriteRenderer != null)
+            {
+                var hitpointPercent = (float)HitPoints / initialHitpoint;
+                HitpointSpriteRenderer.color = Color.Lerp(Color.black, Color.white, hitpointPercent);
+            }
 
             return HitPoints == 0;
         }

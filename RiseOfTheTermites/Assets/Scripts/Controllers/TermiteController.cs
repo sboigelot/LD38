@@ -91,6 +91,8 @@ namespace Assets.Scripts.Controllers
                 {
                     float squareEnemyDistance = (transform.position.x - fighter.transform.position.x) * (transform.position.x - fighter.transform.position.x) + (transform.position.y - fighter.transform.position.y) * (transform.position.y - fighter.transform.position.y);
 
+                    squareEnemyDistance = Mathf.Abs(squareEnemyDistance);
+
                     if (squareEnemyDistance < ENEMY_COMBAT_DISTANCE * ENEMY_COMBAT_DISTANCE)
                     {
                         //Now they are fighting
@@ -126,7 +128,9 @@ namespace Assets.Scripts.Controllers
         {
             var direction = DestinationInRoom - PositionInRoom;
 
-            transform.rotation = PositionInRoom.x > DestinationInRoom.x ? new Quaternion(0f, 0f, 0f, 0f) : new Quaternion(0f, 180f, 0f, 0f);
+            transform.rotation = PositionInRoom.x > DestinationInRoom.x ?
+                new Quaternion(0f, 0f, 0f, 0f) : 
+                new Quaternion(0f, 180f, 0f, 0f);
 
             if (direction.magnitude >= MovementSpeedInRoom * 2)
             {
@@ -167,7 +171,7 @@ namespace Assets.Scripts.Controllers
                 case TermiteType.Worker:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
                     LayerIndexNonSelected = 3;
-                    Destroy(GetComponentInChildren<FighterComponent>());
+                    GetComponentInChildren<FighterComponent>().Damage = 0; // Allow the worker to be target for attack
                     break;
                 case TermiteType.Soldier:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));

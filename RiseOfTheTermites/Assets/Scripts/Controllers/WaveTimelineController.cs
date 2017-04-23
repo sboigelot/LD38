@@ -2,6 +2,7 @@
 using Assets.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Components;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -37,17 +38,19 @@ namespace Assets.Scripts.Controllers
             {
                 //spawn
                 wave.AccumulatedSpawnTimer = 0.0f;
-                SpawnEnemy();
+                SpawnEnemy(wave);
             }
         }
 
-        private void SpawnEnemy()
+        private void SpawnEnemy(Wave wave)
         {
             var newEnemy = Instantiate(EnemyTemplate);
             newEnemy.transform.parent = this.transform;
             var startLocation = new Vector3(6.0f * LevelController.Instance.RoomSpacing.x, 0.0f, 0.0f); //TODO this is a static location, not related to the position of the enemy room
             newEnemy.transform.position = startLocation;
             newEnemy.SetActive(true);
+
+            newEnemy.GetComponent<FighterComponent>().HitPoints = wave.HitPoint;
 
             var spriteRenderer = newEnemy.GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Enemy"));

@@ -20,10 +20,7 @@ namespace Assets.Scripts.Models
 
         [XmlAttribute]
         public int StartPosition { get; set; }
-
-        [XmlAttribute]
-        public int HitPoint { get; set; }
-
+        
         [XmlIgnore]
         public int WaveIndex { get; set; }
 
@@ -37,7 +34,6 @@ namespace Assets.Scripts.Models
                 Waves = Waves,
                 StartTime = StartTime,
                 StartPosition = StartPosition,
-                HitPoint = HitPoint,
                 WaveIndex = WaveIndex,
                 IsEnabled  = IsEnabled
             };

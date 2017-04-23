@@ -1,48 +1,32 @@
-﻿using Assets.Scripts.Managers.DialogBoxes;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using UnityEngine.UI;
-using Assets.Scripts.Controllers;
+﻿using Assets.Scripts.Controllers;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.DialogBoxes;
+using Assets.Scripts.UI;
+using UnityEngine.UI;
 
-public class EndGameController :  DialogBoxBase<EndGameController>
+public class EndGameController : DialogBoxBase<EndGameController>
 {
-    public Button RetryButton;
-    public Button NextLevelButton;
-    public Text TitleText;
-    public Text ScoreText;
-
     public bool GameIsSuccessful = true;
+    public Button NextLevelButton;
+    public Button RetryButton;
+    public Text ScoreText;
+    public Text TitleText;
 
     protected override void OnDialogOpen()
     {
-        if (GameIsSuccessful)
-            TitleText.text = "Congratulations";
-        else
-            TitleText.text = "Game over";
-            
-        NextLevelButton.gameObject.SetActive( GameIsSuccessful );
+        TitleText.text = GameIsSuccessful ? "Congratulations" : "Game over";
 
-        RetryButton.onClick.AddListener( () => {
-            //TODO
-            //GameController.Instance.NewGame(GameManager.Instance.CurrentLevel.Index);
+        NextLevelButton.gameObject.SetActive(GameIsSuccessful);
+
+        RetryButton.onClick.AddListener(() =>
+        {
+            GameController.Instance.NewGame(GameManager.Instance.CurrentLevel.Index);
+            CloseDialog();
         });
-        NextLevelButton.onClick.AddListener(() => {
-            //TODO
+
+        NextLevelButton.onClick.AddListener(() =>
+        {
+            DialogBoxManager.Instance.Show(typeof(SelectLevelScreen));
         });
     }
-
-    // Use this for initialization
-    void Start ()
-    {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 }
