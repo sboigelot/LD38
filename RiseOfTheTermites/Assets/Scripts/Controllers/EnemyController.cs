@@ -50,7 +50,8 @@ namespace Assets.Scripts.Controllers
                 enemy.transform.parent = this.transform;
 
                 var spriteRenderer = enemy.GetComponentInChildren<SpriteRenderer>();
-                spriteRenderer.sprite = SpriteManager.Get("Soldier");
+                StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));
+
                 enemy.SetActive(true);
 
                 var enemyTermiteController = enemy.GetComponentInChildren<EnemyTermiteController>();

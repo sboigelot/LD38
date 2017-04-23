@@ -10,6 +10,9 @@ namespace Assets.Scripts.Controllers
 {
     public class TermiteController : MonoBehaviour
     {
+        public int LayerIndexNonSelected = 1;
+        public const int LayerIndexSelected = 1000;
+
         public Termite Termite { get; set; }
 
         public Vector2 PositionInRoom;
@@ -31,7 +34,7 @@ namespace Assets.Scripts.Controllers
         #endregion
 
         private GameObject _enemyTermiteTarget;
-
+        
         public void FixedUpdate()
         {
             if (Termite.Job == TermiteType.Soldier && ItIsInCombat)
@@ -148,22 +151,27 @@ namespace Assets.Scripts.Controllers
         public void SetTermiteAndRoom(Termite termite, int termiteRoomX, int termiteRoomY)
         {
             Termite = termite;
+            gameObject.SetActive(true);
 
             var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             switch (termite.Job)
             {
                 case TermiteType.Queen:
-                    spriteRenderer.sprite = SpriteManager.Get("Queen");
+                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Queen"));
+                    LayerIndexNonSelected = 1;
                     Destroy(GetComponentInChildren<FighterComponent>());
                     break;
                 case TermiteType.Worker:
-                    spriteRenderer.sprite = SpriteManager.Get("Worker");
                     Destroy(GetComponentInChildren<FighterComponent>());
+                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Queen"));
+                    LayerIndexNonSelected = 3;
                     break;
                 case TermiteType.Soldier:
-                    spriteRenderer.sprite = SpriteManager.Get("Soldier");
+                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));
+                    LayerIndexNonSelected = 2;
                     break;
             }
+            spriteRenderer.sortingOrder = LayerIndexNonSelected;
 
             termite.RoomX = termiteRoomX;
             termite.RoomY = termiteRoomY;
@@ -176,7 +184,8 @@ namespace Assets.Scripts.Controllers
         public void OnMouseEnter()
         {
             Termite.HasMouseOver = true;
-            Selector.SetActive(true);
+            if (Termite.CanBeMoved)
+                Selector.SetActive(true);
         }
 
         public void OnMouseExit()
@@ -188,15 +197,23 @@ namespace Assets.Scripts.Controllers
         public void OnMouseDown()
         {
             Termite.IsDragging = true;
+            var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.sortingOrder = LayerIndexSelected;
         }
         
         public void OnMouseUp()
         {
+            Termite.IsDragging = false;
+            Termite.HasMouseOver = false;
+
             if (!Termite.CanBeMoved)
             {
                 BlinkTermite(Color.red);
                 return;
             }
+            
+            var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.sortingOrder = LayerIndexNonSelected;
 
             var worldPosition = Input.mousePosition;
             worldPosition.z = 10.0f;
@@ -205,10 +222,10 @@ namespace Assets.Scripts.Controllers
             var rs = LevelController.Instance.RoomSpacing;
 
             var gridPositionX = worldPosition.x / rs.x;
-            if (gridPositionX < 0)
-                gridPositionX -= rs.x / 2;
+           if (gridPositionX < 0)
+                gridPositionX -= rs.x - 1;
             else
-                gridPositionX += rs.x / 2;
+                gridPositionX += rs.x - 1;
 
             var gridPositionY = worldPosition.y / rs.y;
             if (gridPositionY < 0)
@@ -230,7 +247,6 @@ namespace Assets.Scripts.Controllers
             gameObject.name = string.Format("Termite {0}, {1}", gridPositionX, gridPositionY);
 
             transform.position = worldPosition;
-            Termite.IsDragging = false;
         }
 
         private void BlinkTermite(Color color)

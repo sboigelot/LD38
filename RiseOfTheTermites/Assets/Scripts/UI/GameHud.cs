@@ -12,6 +12,8 @@ namespace Assets.Scripts.UI
         public Text SoilAmount;
         public Text FoodAmount;
         public Text FoodRate;
+        public Text SoilRate;
+        public Text DiggingCooldown;
 
         public Color OkColor;
         public Color KOColor;
@@ -28,37 +30,34 @@ namespace Assets.Scripts.UI
             var level = LevelController.Instance.Level;
 
             //Population
-            var population = level.Resources.Find(res => res.Name == "Population" );
+            var population = level.ColonyStats.Find(res => res.Name == "Population" );
 
             if (population == null)
                 return;
 
             WorkerCount.text = string.Format("{0} / {1}", population.Value, population.MaxValue );
             float percentage = Mathf.Min(1.0f, ((population.MaxValue - population.Value) / population.MaxValue) * 10.0f);
-            WorkerCount.color = (OkColor * percentage) + KOColor * (1.0f - percentage);
 
             //Soldiers
-            var soldiers = level.Resources.Find(res => res.Name == "Soldier");
+            var soldiers = level.ColonyStats.Find(res => res.Name == "Soldier");
 
             if (soldiers == null)
                 return;
 
             SoldierCount.text = string.Format("{0} / {1}", soldiers.Value, soldiers.MaxValue);
             percentage = Mathf.Min(1.0f, ((soldiers.MaxValue - soldiers.Value) / soldiers.MaxValue) * 10.0f);
-            SoldierCount.color = (OkColor * percentage) + KOColor * (1.0f - percentage);
 
             //Soil
-            var soil = level.Resources.Find(res => res.Name == "Soil");
+            var soil = level.ColonyStats.Find(res => res.Name == "Soil");
 
             if (soil == null)
                 return;
 
             SoilAmount.text = string.Format("{0} / {1}", soil.Value, soil.MaxValue);
             percentage = Mathf.Min(1.0f, ((soil.MaxValue - soil.Value) / soil.MaxValue) * 10.0f);
-            SoilAmount.color = (OkColor * percentage) + KOColor * (1.0f - percentage);
 
             //Food
-            var food = level.Resources.Find(res => res.Name == "Food");
+            var food = level.ColonyStats.Find(res => res.Name == "Food");
 
             if (food == null)
                 return;
@@ -66,9 +65,11 @@ namespace Assets.Scripts.UI
             FoodAmount.text = string.Format("{0} / {1}", food.Value, food.MaxValue);
 
             percentage = Mathf.Min(1.0f, ((food.MaxValue - food.Value) / food.MaxValue) * 10.0f);
-            FoodAmount.color = (OkColor * percentage) + KOColor * (1.0f - percentage);
 
-            FoodRate.text = string.Format("{0:0.00}", level.GetLastTickChange( food.Name ));
+            FoodRate.text = string.Format("+ {0:0.00}", level.GetLastTickChange( food.Name ));
+            SoilRate.text = string.Format("+ {0:0.00}", level.GetLastTickChange(soil.Name));
+            
+            DiggingCooldown.text = string.Format("{0} sec left", (int)level.DiggingTimeLeft);
         }
     }
 }

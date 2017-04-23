@@ -15,8 +15,9 @@ namespace Assets.Scripts.Controllers
     {
         public void Awake()
         {
-            PrototypeManager.Instance.LoadPrototypes();
-            SaveManager.Instance.LoadProfiles();
+            StartCoroutine(PrototypeManager.Instance.LoadPrototypes());
+
+            //SaveManager.Instance.LoadProfiles();
             DialogBoxManager.Instance.Show(typeof(MainMenuController));
         }
 
@@ -47,7 +48,7 @@ namespace Assets.Scripts.Controllers
 
             var resources = "";
 
-            /*foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.Resources)
+            /*foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.ColonyStats)
             {
                 resources += string.Format("{0}: {1} / {2}",
                                  currentLevelResource.Name,
@@ -80,7 +81,7 @@ namespace Assets.Scripts.Controllers
 
                 GameManager.Instance.CurrentLevel.Termites.Remove(termiteController.Termite);
 
-                var soldierLimit = GameManager.Instance.CurrentLevel.Resources.FirstOrDefault(r => r.Name == "Soldier");
+                var soldierLimit = GameManager.Instance.CurrentLevel.ColonyStats.FirstOrDefault(r => r.Name == "Soldier");
                 if (soldierLimit != null && soldierLimit.Value > 0)
                     soldierLimit.Value--;
 

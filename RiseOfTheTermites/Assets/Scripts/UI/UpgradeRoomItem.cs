@@ -19,10 +19,12 @@ namespace Assets.Scripts.UI
         public void Setup(RoomController roomController, bool noChange, string roomName)
         {
             var room = PrototypeManager.FindRoomPrototype(roomName);
-
+            
             NameText.text = room.Name;
-            bool enable = noChange || LevelController.Instance.Level.CanAfford(room);
-
+            
+            bool diggingConflict = !noChange && roomController.Room.IsDiggingAction && LevelController.Instance.Level.IsDigging;
+            bool enable = !diggingConflict && (noChange || LevelController.Instance.Level.CanAfford(room));
+        
             var button = GetComponent<Button>();
             button.interactable = enable;
             if (enable)
@@ -37,7 +39,7 @@ namespace Assets.Scripts.UI
                 });
             }
 
-            Image.sprite = SpriteManager.Get(room.SpritePath);
+            StartCoroutine(SpriteManager.Set(Image, SpriteManager.RoomFolder, room.SpritePath));
 
             string costs = "Costs:" + Environment.NewLine;
             if (noChange || room.ResourceImpactPrices == null || !room.ResourceImpactPrices.Any())
@@ -60,6 +62,16 @@ namespace Assets.Scripts.UI
                 {
                     costs += string.Format("{0} {1}", price.ImpactValuePerWorker, price.ResourceName) + Environment.NewLine;
                 }
+            }
+
+            if (diggingConflict)
+            {
+                costs = "You can only dig one room at a time!";
+            }
+
+            if (noChange)
+            {
+                costs = "Do not change anything!";
             }
 
             CostText.text = costs;

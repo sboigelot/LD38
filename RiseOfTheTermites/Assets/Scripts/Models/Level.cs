@@ -17,8 +17,8 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public string Name { get; set; }
 
-        [XmlElement("Resource")]
-        public List<Resource> Resources { get; set; }
+        [XmlElement("ColonyStat")]
+        public List<ColonyStat> ColonyStats { get; set; }
 
         [XmlElement("Room")]
         public List<Room> Rooms { get; set; }
@@ -38,12 +38,19 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public float WorkerEatAmount { get; set; }
 
+        public bool IsDigging { get; set; }
+
+        public Room DiggingRoom { get; set; }
+
+        public float DiggingTimeLeft { get; set; }
+
         public object Clone()
         {
             return new Level
             {
+                IsDigging = IsDigging,
                 Name = Name,
-                Resources = Resources.Select(r => (Resource) r.Clone()).ToList(),
+                ColonyStats = ColonyStats.Select(r => (ColonyStat) r.Clone()).ToList(),
                 Rooms = Rooms.Select(r =>
                 {
                     var r2 = (Room) PrototypeManager.FindRoomPrototype(r.Name).Clone();
@@ -56,9 +63,14 @@ namespace Assets.Scripts.Models
             };
         }
 
+        public Level()
+        {
+
+        }
+
         public bool SwapRoom(Room oldRoom, Room newRoom)
         {
-            if(CanAfford(newRoom))
+            if (CanAfford(newRoom))
             {
                 Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
 
@@ -115,7 +127,7 @@ namespace Assets.Scripts.Models
         public void Tick()
         {
             lastTickChanges.Clear();
-
+            
             foreach (var room in Rooms)
             {
                 if(room.ResourceImpactsOnTick == null)
@@ -243,9 +255,9 @@ namespace Assets.Scripts.Models
             }
         }
 
-        public Resource FindLevelResourceByName(String name)
+        public ColonyStat FindLevelResourceByName(String name)
         {
-            return Resources.FirstOrDefault(r => r.Name == name);            
+            return ColonyStats.FirstOrDefault(r => r.Name == name);            
         }
 
         public bool CanAfford(string roomName)
