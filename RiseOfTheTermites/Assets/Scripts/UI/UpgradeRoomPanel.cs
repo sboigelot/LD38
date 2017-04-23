@@ -38,20 +38,12 @@ namespace Assets.Scripts.UI
 
             for (var index = 0; index < possibleUpgrades.Count; index++)
             {
-                var upgrade = possibleUpgrades[index];
+                var roomName = possibleUpgrades[index];
                 var newItem = Instantiate(ItemTemplate);
-                newItem.name = "Item " + upgrade;
+                newItem.name = "Item " + roomName;
                 newItem.transform.SetParent(ItemPanel, false);
                 newItem.SetActive(true);
-
-                newItem.GetComponentInChildren<Text>().text = (index == 0 ? "Stay a " : "Upgrade to ") + upgrade;
-                var index1 = index;
-                newItem.GetComponentInChildren<Button>().onClick.AddListener(() =>
-                {
-                    if (index1 != 0)
-                        roomController.ChangeRoomType(upgrade);
-                    CloseDialog();
-                });
+                newItem.GetComponent<UpgradeRoomItem>().Setup(roomController, index == 0, roomName);
             }
         }
     }

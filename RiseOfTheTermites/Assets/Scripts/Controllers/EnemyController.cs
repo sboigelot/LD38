@@ -26,6 +26,9 @@ namespace Assets.Scripts.Controllers
 
         private void Spawn()
         {
+            if (Enemy.WaveIndex >= Enemy.Waves.Count)
+                return;
+
             var wave = Enemy.Waves[Enemy.WaveIndex];
 
             wave.AccumulatedDuration += Time.deltaTime;

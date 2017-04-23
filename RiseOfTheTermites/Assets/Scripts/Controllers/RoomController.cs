@@ -18,6 +18,12 @@ namespace Assets.Scripts.Controllers
 
         private Room room;
 
+        public SpriteRenderer TimerBackground;
+
+        public SpriteRenderer Timer;
+
+        public GameObject Selector;
+
         public Room Room
         {
             get { return room; }
@@ -33,7 +39,52 @@ namespace Assets.Scripts.Controllers
 
         public string InitializeAsRoom;
 
-        public void ChangeRoomType(string roomName)
+        public float startSwapTime;
+        public float completedSwapTime;
+        public string SwapTarget;
+
+        public void StartChangeRoomType(string roomName)
+        {
+            if (string.IsNullOrEmpty(roomName))
+                return;
+
+            startSwapTime = Time.time;
+            SwapTarget = roomName;
+            var otherRoom = PrototypeManager.FindRoomPrototype(roomName);
+            completedSwapTime = startSwapTime + Room.DestructionTime + otherRoom.ConstructionTime;
+        }
+
+        public void Update()
+        {
+            bool isSwapping = !string.IsNullOrEmpty(SwapTarget);
+
+            if(TimerBackground!= null)
+                TimerBackground.gameObject.SetActive(isSwapping);
+
+            if (Timer != null)
+                Timer.gameObject.SetActive(isSwapping);
+
+            if (!isSwapping)
+            {
+                return;
+            }
+
+            if (Time.time < completedSwapTime)
+            {
+                var elapsed = Time.time - startSwapTime;
+                var duration = completedSwapTime - startSwapTime;
+                float percentProgress = Mathf.Clamp(elapsed / duration, 0f, 1f);
+                Debug.Log(percentProgress);
+                Timer.size = new Vector2(TimerBackground.size.x * percentProgress, TimerBackground.size.y);
+            }
+            else
+            {
+                ChangeRoomType(SwapTarget);
+                SwapTarget = null;
+            }
+        }
+
+        private void ChangeRoomType(string roomName)
         {
             if (!string.IsNullOrEmpty(roomName) && LevelController.Instance != null && LevelController.Instance.Level != null)
             {
@@ -72,6 +123,18 @@ namespace Assets.Scripts.Controllers
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             Initialize();
+        }
+
+        public void OnMouseEnter()
+        {
+            if(Selector != null)
+                Selector.SetActive(true);
+        }
+
+        public void OnMouseExit()
+        {
+            if (Selector != null)
+                Selector.SetActive(false);
         }
 
         public void OnMouseUpAsButton()

@@ -52,20 +52,21 @@ namespace Assets.Scripts.Models
 
         public bool SwapRoom(Room oldRoom, Room newRoom)
         {
-            if(canAfford(newRoom))
+            if(CanAfford(newRoom))
             {
                 Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
-                if (newRoom.ResourceImpactsOnBuilt != null)
+
+                if (oldRoom.ResourceImpactsOnDestroy != null)
                 {
-                    foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
+                    foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
                     {
                         ApplyImpact(resourceImpact, 1);
                     }
                 }
 
-                if (oldRoom.ResourceImpactsOnDestroy != null)
+                if (newRoom.ResourceImpactsOnBuilt != null)
                 {
-                    foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
+                    foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
                     {
                         ApplyImpact(resourceImpact, 1);
                     }
@@ -116,7 +117,7 @@ namespace Assets.Scripts.Models
                 
                 foreach (var resourceImpact in room.ResourceImpactsOnTick)
                 {
-                    ApplyImpact(resourceImpact, room.GetWorkerCount());
+                    ApplyImpact(resourceImpact, room.GetWorkforce());
                 }
             }
 
@@ -151,7 +152,7 @@ namespace Assets.Scripts.Models
             if (multipliyer == 0)
                 return;
 
-            var resource = findLevelResourceByName(Impact.ResourceName);
+            var resource = FindLevelResourceByName(Impact.ResourceName);
             if (resource == null)
                 return;
 
@@ -169,19 +170,25 @@ namespace Assets.Scripts.Models
             }
         }
 
-        private Resource findLevelResourceByName(String name)
+        public Resource FindLevelResourceByName(String name)
         {
             return Resources.FirstOrDefault(r => r.Name == name);            
         }
 
-        public bool canAfford(Room room)
+        public bool CanAfford(string roomName)
+        {
+            var room = PrototypeManager.FindRoomPrototype(roomName);
+            return CanAfford(room);
+        }
+
+        public bool CanAfford(Room room)
         {
             bool canAfford = true;
             if(room.ResourceImpactPrices != null)
             {
                 foreach(var price in room.ResourceImpactPrices)
                 {
-                    var levelResource = findLevelResourceByName(price.ResourceName);
+                    var levelResource = FindLevelResourceByName(price.ResourceName);
                     if (levelResource != null)
                     {
                         if(levelResource.Value < price.ImpactValuePerWorker)

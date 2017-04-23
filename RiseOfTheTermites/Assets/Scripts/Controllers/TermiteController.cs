@@ -15,7 +15,9 @@ namespace Assets.Scripts.Controllers
         public Vector2 DestinationInRoom;
 
         public float MovementSpeedInRoom = 0.2f;
-        
+
+        public GameObject Selector;
+
         public void FixedUpdate()
         {
             if (Termite == null)
@@ -99,15 +101,17 @@ namespace Assets.Scripts.Controllers
                 LevelController.Instance.RoomSpacing.y * termite.RoomY,
                 0);
         }
-
+        
         public void OnMouseEnter()
         {
             Termite.HasMouseOver = true;
+            Selector.SetActive(true);
         }
 
         public void OnMouseExit()
         {
             Termite.HasMouseOver = false;
+            Selector.SetActive(false);
         }
 
         public void OnMouseDown()

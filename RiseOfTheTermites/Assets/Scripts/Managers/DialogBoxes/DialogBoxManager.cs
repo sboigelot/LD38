@@ -46,5 +46,14 @@ namespace Assets.Scripts.Managers.DialogBoxes
                 }
             }
         }
+
+        public void Close(Type screenType)
+        {
+            if (screens.ContainsKey(screenType))
+            {
+                var dialogBox = screens[screenType];
+                dialogBox.CloseDialog();
+            }
+        }
     }
 }

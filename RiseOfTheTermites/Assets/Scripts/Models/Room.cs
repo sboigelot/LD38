@@ -54,6 +54,13 @@ namespace Assets.Scripts.Models
         [XmlAttribute("Y")]
         public int GridLocationY { get; set; }
 
+
+        [XmlAttribute("ConstructionTime")]
+        public int ConstructionTime { get; set; }
+
+        [XmlAttribute("DestructionTime")]
+        public int DestructionTime { get; set; }
+
         public object Clone()
         {
             return new Room
@@ -68,15 +75,21 @@ namespace Assets.Scripts.Models
                 ResourceImpactPrices = ResourceImpactPrices.ToList(),
                 BuildingTime = BuildingTime,
                 MaxWorker = MaxWorker,
-                CanAttack = CanAttack
+                CanAttack = CanAttack,
+                ConstructionTime = ConstructionTime,
+                DestructionTime = DestructionTime
             };
         }
 
-        public int GetWorkerCount()
+        private int lastComputedWorkforce;
+        public int GetWorkforce()
         {
-            return 1+
-                LevelController.Instance.Level.Termites.Count(
-                    t => t.RoomX == GridLocationX && t.RoomY == GridLocationY && t.Job == TermiteType.Worker);
+            lastComputedWorkforce = LevelController.Instance.Level.Termites.Count(
+                t => t.RoomX == GridLocationX &&
+                     t.RoomY == GridLocationY &&
+                     t.Job == TermiteType.Worker);
+
+            return 1 + Math.Min(lastComputedWorkforce, MaxWorker);
         }
     }
 }
