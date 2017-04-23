@@ -14,6 +14,8 @@ namespace Assets.Scripts.Models
         const float ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD = 20.0f;
         const float ROUGHT_ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD = ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD * 2.0f;
 
+        public int Index { get; set; }
+
         [XmlAttribute]
         public string Name { get; set; }
 
@@ -59,7 +61,8 @@ namespace Assets.Scripts.Models
                     return r2;
                 }).ToList(),
                 Termites = Termites.Select(t=>(Termite)t.Clone()).ToList(),
-                Enemies = Enemies
+                Enemies = Enemies,
+                Index = Index
             };
         }
 
