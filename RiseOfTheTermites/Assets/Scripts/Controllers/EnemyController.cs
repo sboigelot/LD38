@@ -51,6 +51,16 @@ namespace Assets.Scripts.Controllers
 
                 var spriteRenderer = enemy.GetComponentInChildren<SpriteRenderer>();
                 spriteRenderer.sprite = SpriteManager.Get("Soldier");
+                enemy.SetActive(true);
+
+                var enemyTermiteController = enemy.GetComponentInChildren<EnemyTermiteController>();
+
+                var throneRoom = GameManager.Instance.CurrentLevel.Rooms.Find(room => room.Name == "Throne Room" );
+                enemyTermiteController.StartLocation = new Vector3(6.0f * LevelController.Instance.RoomSpacing.x, 0.0f, 0.0f);
+
+                var transform = enemy.GetComponentInChildren<Transform>();
+
+                transform.position = enemyTermiteController.StartLocation;
             }
         }
     }
