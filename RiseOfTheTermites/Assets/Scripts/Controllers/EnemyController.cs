@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Models;
+﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,9 @@ namespace Assets.Scripts.Controllers
                 var enemy = Instantiate(EnemyTemplate);
 
                 enemy.transform.parent = this.transform;
+
+                var spriteRenderer = enemy.GetComponentInChildren<SpriteRenderer>();
+                spriteRenderer.sprite = SpriteManager.Get("Soldier");
             }
         }
     }
