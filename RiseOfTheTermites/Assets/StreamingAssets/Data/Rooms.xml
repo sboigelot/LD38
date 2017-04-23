@@ -19,6 +19,12 @@
     <ResourceImpactOnDestroy ResourceName="Soil" ImpactValuePerWorker="100" ImpactType="Value"/>
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
+
+  <Room Name="Enemy Room"
+        SpritePath="EnemyRoom"
+        ValidLocation="Anywhere"
+        CanAttack="true">
+  </Room>
   
   <Room Name="Diggable Room"
         SpritePath="Dig"

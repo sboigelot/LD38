@@ -20,8 +20,17 @@ namespace Assets.Scripts.UI
         {
             var room = PrototypeManager.FindRoomPrototype(roomName);
 
+            
+            
+
             NameText.text = room.Name;
+            
             bool enable = noChange || LevelController.Instance.Level.CanAfford(room);
+                        
+            if (roomName == "Surface Empty Room" || roomName == "Underground Empty Room") //is there a better way to do this?
+            {
+                enable = !LevelController.Instance.Level.isDigging;
+            }
 
             var button = GetComponent<Button>();
             button.interactable = enable;

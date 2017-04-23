@@ -12,6 +12,7 @@ namespace Assets.Scripts.UI
         public Text SoilAmount;
         public Text FoodAmount;
         public Text FoodRate;
+        public Text DiggingCooldown;
 
         public Color OkColor;
         public Color KOColor;
@@ -69,6 +70,8 @@ namespace Assets.Scripts.UI
             FoodAmount.color = (OkColor * percentage) + KOColor * (1.0f - percentage);
 
             FoodRate.text = string.Format("{0:0.00}", level.GetLastTickChange( food.Name ));
+
+            DiggingCooldown.text = string.Format("{0} sec left", (int)level.diggingTimeLeft);
         }
     }
 }
