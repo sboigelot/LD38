@@ -83,7 +83,7 @@ namespace Assets.Scripts.Models
             var level = LevelController.Instance.Level;
             if (level != null)
             {
-                var soldierLimit = level.Resources.FirstOrDefault(r => r.Name == "Soldier");
+                var soldierLimit = level.ColonyStats.FirstOrDefault(r => r.Name == "Soldier");
                 if (soldierLimit != null && soldierLimit.Value < soldierLimit.MaxValue)
                 {
                     soldierLimit.Value++;
@@ -100,7 +100,7 @@ namespace Assets.Scripts.Models
                     return;
                 }
 
-                var population = level.Resources.FirstOrDefault(r => r.Name == "Population");
+                var population = level.ColonyStats.FirstOrDefault(r => r.Name == "Population");
                 if (population != null && population.Value < population.MaxValue)
                 {
                     population.Value++;

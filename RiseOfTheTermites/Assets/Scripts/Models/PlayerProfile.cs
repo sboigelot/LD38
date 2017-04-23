@@ -8,6 +8,11 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public string Name { get; set; }
 
+        public PlayerProfile()
+        {
+            
+        }
+
         public object Clone()
         {
             return new PlayerProfile

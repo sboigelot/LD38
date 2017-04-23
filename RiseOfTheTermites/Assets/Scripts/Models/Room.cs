@@ -57,12 +57,16 @@ namespace Assets.Scripts.Models
         [XmlAttribute("Y")]
         public int GridLocationY { get; set; }
 
-
         [XmlAttribute("ConstructionTime")]
         public int ConstructionTime { get; set; }
 
         [XmlAttribute("DestructionTime")]
         public int DestructionTime { get; set; }
+
+        public Room()
+        {
+            
+        }
 
         public object Clone()
         {
@@ -85,7 +89,9 @@ namespace Assets.Scripts.Models
             };
         }
 
+        [XmlIgnore]
         private int lastComputedWorkforce;
+
         public int GetWorkforce()
         {
             lastComputedWorkforce = LevelController.Instance.Level.Termites.Count(

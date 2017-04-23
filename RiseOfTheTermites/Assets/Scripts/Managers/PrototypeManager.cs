@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Localization;
 using Assets.Scripts.Models;
@@ -15,18 +16,33 @@ namespace Assets.Scripts.Managers
 
         public PlayerProfile PlayerTemplate { get; set; }
 
-        public void LoadPrototypes()
+        public IEnumerator LoadPrototypes()
         {
-            Rooms = Load<List<Room>>("Rooms.xml");
-            Levels = Load<List<Level>>("Levels.xml");
+            Rooms = new List<Room>();
+            var sub = Load<List<Room>, Room>(Rooms, "Rooms.xml");
+            foreach (var s in sub)
+            {
+                yield return s;
+            }
 
-            PlayerTemplate = Load<PlayerProfile>("PlayerTemplate.xml");
-            Localizer.Instance.EnsureAllLocalKeyExist();
+            Levels = new  List<Level>();
+            sub = Load<List<Level>, Level>(Levels, "Levels.xml");
+            foreach (var s in sub)
+            {
+                yield return s;
+            }
+
+            //PlayerTemplate = Load<PlayerProfile>("PlayerTemplate.xml");
+            //Localizer.Instance.EnsureAllLocalKeyExist();
         }
 
-        private T Load<T>(string fileName) where T : class, new()
+        private IEnumerable Load<T,TI>(T store, string fileName) where T : class, IList<TI>, new() where TI: class, new()
         {
-            return DataSerializer.Instance.LoadFromStreamingAssets<T>("Data", fileName);
+            var sub = DataSerializer.Instance.LoadFromStreamingAssets<T, TI>(store, "Data", fileName);
+            foreach (var s in sub)
+            {
+                yield return s;
+            }
         }
 
         public static Room FindRoomPrototype(string roomName)

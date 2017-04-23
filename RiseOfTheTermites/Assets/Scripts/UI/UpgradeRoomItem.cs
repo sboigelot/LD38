@@ -43,7 +43,7 @@ namespace Assets.Scripts.UI
                 });
             }
 
-            Image.sprite = SpriteManager.Get(room.SpritePath);
+            StartCoroutine(SpriteManager.Set(Image, SpriteManager.RoomFolder, room.SpritePath));
 
             string costs = "Costs:" + Environment.NewLine;
             if (noChange || room.ResourceImpactPrices == null || !room.ResourceImpactPrices.Any())

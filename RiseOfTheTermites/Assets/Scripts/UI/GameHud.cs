@@ -29,7 +29,7 @@ namespace Assets.Scripts.UI
             var level = LevelController.Instance.Level;
 
             //Population
-            var population = level.Resources.Find(res => res.Name == "Population" );
+            var population = level.ColonyStats.Find(res => res.Name == "Population" );
 
             if (population == null)
                 return;
@@ -39,7 +39,7 @@ namespace Assets.Scripts.UI
             WorkerCount.color = (OkColor * percentage) + KOColor * (1.0f - percentage);
 
             //Soldiers
-            var soldiers = level.Resources.Find(res => res.Name == "Soldier");
+            var soldiers = level.ColonyStats.Find(res => res.Name == "Soldier");
 
             if (soldiers == null)
                 return;
@@ -49,7 +49,7 @@ namespace Assets.Scripts.UI
             SoldierCount.color = (OkColor * percentage) + KOColor * (1.0f - percentage);
 
             //Soil
-            var soil = level.Resources.Find(res => res.Name == "Soil");
+            var soil = level.ColonyStats.Find(res => res.Name == "Soil");
 
             if (soil == null)
                 return;
@@ -59,7 +59,7 @@ namespace Assets.Scripts.UI
             SoilAmount.color = (OkColor * percentage) + KOColor * (1.0f - percentage);
 
             //Food
-            var food = level.Resources.Find(res => res.Name == "Food");
+            var food = level.ColonyStats.Find(res => res.Name == "Food");
 
             if (food == null)
                 return;
