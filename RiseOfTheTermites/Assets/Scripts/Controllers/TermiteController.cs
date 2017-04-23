@@ -8,6 +8,9 @@ namespace Assets.Scripts.Controllers
 {
     public class TermiteController : MonoBehaviour
     {
+        public int LayerIndexNonSelected = 1;
+        public const int LayerIndexSelected = 1000;
+
         public Termite Termite { get; set; }
 
         public Vector2 PositionInRoom;
@@ -17,7 +20,7 @@ namespace Assets.Scripts.Controllers
         public float MovementSpeedInRoom = 0.2f;
 
         public GameObject Selector;
-
+        
         public void FixedUpdate()
         {
             if (Termite == null)
@@ -86,14 +89,18 @@ namespace Assets.Scripts.Controllers
             {
                 case TermiteType.Queen:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Queen"));
+                    LayerIndexNonSelected = 1;
                     break;
                 case TermiteType.Worker:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
+                    LayerIndexNonSelected = 3;
                     break;
                 case TermiteType.Soldier:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));
+                    LayerIndexNonSelected = 2;
                     break;
             }
+            spriteRenderer.sortingOrder = LayerIndexNonSelected;
 
             termite.RoomX = termiteRoomX;
             termite.RoomY = termiteRoomY;
@@ -106,7 +113,8 @@ namespace Assets.Scripts.Controllers
         public void OnMouseEnter()
         {
             Termite.HasMouseOver = true;
-            Selector.SetActive(true);
+            if (Termite.CanBeMoved)
+                Selector.SetActive(true);
         }
 
         public void OnMouseExit()
@@ -118,17 +126,23 @@ namespace Assets.Scripts.Controllers
         public void OnMouseDown()
         {
             Termite.IsDragging = true;
+            var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.sortingOrder = LayerIndexSelected;
         }
         
         public void OnMouseUp()
         {
             Termite.IsDragging = false;
-            
+            Termite.HasMouseOver = false;
+
             if (!Termite.CanBeMoved)
             {
                 BlinkTermite(Color.red);
                 return;
             }
+            
+            var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.sortingOrder = LayerIndexNonSelected;
 
             var worldPosition = Input.mousePosition;
             worldPosition.z = 10.0f;
