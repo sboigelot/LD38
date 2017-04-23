@@ -54,7 +54,7 @@
         SpritePath="empty_room_aboveground"
         ValidLocation="AboveGround"
         HideIfNoNeighboard="true"
-        IsPassable="true">
+        IsPassable="false">
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>Barracks level 1</PossibleUpgrade>    
