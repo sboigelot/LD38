@@ -7,7 +7,7 @@
   </Room>
 
   <Room Name="Food bonus"
-        SpritePath="FoodBonus"
+        SpritePath="food_bonus"
         ValidLocation="UnderGround"
         DestructionTime="40"
         IsDiggingAction="true"
@@ -17,7 +17,7 @@
   </Room>
 
   <Room Name="Soil bonus"
-        SpritePath="SoilBonus"
+        SpritePath="soil_bonus"
         ValidLocation="UnderGround"
         DestructionTime="40"
         IsDiggingAction="true"
@@ -27,7 +27,7 @@
   </Room>
   
   <Room Name="Diggable Room"
-        SpritePath="Dig"
+        SpritePath="shovel"
         ValidLocation="UnderGround"
         DestructionTime="30"
         IsDiggingAction="true"
