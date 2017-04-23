@@ -24,7 +24,7 @@ namespace Assets.Scripts.UI
             
             bool enable = noChange || LevelController.Instance.Level.CanAfford(room);
                         
-            if (roomController.Room.IsDiggingAction)
+            if (!noChange && roomController.Room.IsDiggingAction)
             {
                 enable = !LevelController.Instance.Level.IsDigging;
             }
@@ -68,9 +68,14 @@ namespace Assets.Scripts.UI
                 }
             }
 
-            if (LevelController.Instance.Level.IsDigging)
+            if (!noChange && LevelController.Instance.Level.IsDigging)
             {
                 costs = "You can only dig one room at a time!";
+            }
+
+            if (noChange)
+            {
+                costs = "Do not change anything!";
             }
 
             CostText.text = costs;
