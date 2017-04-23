@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Models;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -53,11 +54,14 @@ namespace Assets.Scripts.Controllers
             if (Level == null || !Level.Rooms.Any())
                 return;
 
+            var roomControllers = new List<RoomController>();
             foreach (var room in Level.Rooms)
             {
                 var newRoom = Instantiate(RoomTemplate);
                 newRoom.name = string.Format("Room {0}, {1}", room.GridLocationX, room.GridLocationY);
-                newRoom.GetComponent<RoomController>().Room = room;
+                var roomController = newRoom.GetComponent<RoomController>();
+                roomController.Room = room;
+                roomControllers.Add(roomController);
                 newRoom.transform.position = new Vector3(
                     RoomSpacing.x * room.GridLocationX,
                     RoomSpacing.y * room.GridLocationY,
@@ -65,6 +69,11 @@ namespace Assets.Scripts.Controllers
                 //newRoom.transform.localScale = new Vector3(RoomSpacing.y, RoomSpacing.x, 1);
                 newRoom.transform.SetParent(RoomsPanel, false);
                 newRoom.SetActive(true);
+            }
+
+            foreach (var roomController in roomControllers)
+            {
+                roomController.Room.ShowHideRoom();
             }
         }
 
