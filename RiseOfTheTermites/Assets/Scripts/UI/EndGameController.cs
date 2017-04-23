@@ -22,13 +22,16 @@ public class EndGameController :  DialogBoxBase<EndGameController>
             TitleText.text = "Congratulations";
         else
             TitleText.text = "Game over";
-
-        NextLevelButton.enabled = GameIsSuccessful;
+            
+        NextLevelButton.gameObject.SetActive( GameIsSuccessful );
 
         RetryButton.onClick.AddListener( () => {
-            GameController.Instance.NewGame(GameManager.Instance.CurrentLevel.Index);
+            //TODO
+            //GameController.Instance.NewGame(GameManager.Instance.CurrentLevel.Index);
         });
-        NextLevelButton.onClick.AddListener(() => { });
+        NextLevelButton.onClick.AddListener(() => {
+            //TODO
+        });
     }
 
     // Use this for initialization

@@ -952,8 +952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b996b11b02fdcb43a0193612baed527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitPoints: 0
-  MaximumHitPoints: 0
+  HitPoints: 100
+  MaximumHitPoints: 100
 --- !u!1 &299565336
 GameObject:
   m_ObjectHideFlags: 0
@@ -4809,6 +4809,7 @@ MonoBehaviour:
   NextLevelButton: {fileID: 609814065}
   TitleText: {fileID: 1631937247}
   ScoreText: {fileID: 0}
+  GameIsSuccessful: 1
 --- !u!1 &1168787517
 GameObject:
   m_ObjectHideFlags: 0
@@ -9589,7 +9590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846b46f150f4ac048b3c64e682c36aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Velocity: 0.2
+  Velocity: 5
 --- !u!114 &1984369019
 MonoBehaviour:
   m_ObjectHideFlags: 0

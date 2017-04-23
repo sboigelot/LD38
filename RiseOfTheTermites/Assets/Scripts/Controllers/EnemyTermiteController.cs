@@ -10,7 +10,7 @@ namespace Assets.Scripts.Controllers
     public class EnemyTermiteController : MonoBehaviour
     {
         const float ENEMY_COMBAT_DISTANCE = 0.2f;
-        public float Velocity = 0.2f;
+        public float Velocity = 5.2f;
 
         public Vector3 StartLocation { get; set; }
         public Vector3 TargetLocation { get; set; }
