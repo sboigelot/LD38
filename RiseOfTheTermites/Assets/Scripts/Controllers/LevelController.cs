@@ -37,7 +37,12 @@ namespace Assets.Scripts.Controllers
             {
                 var workforce = Level.DiggingRoom.GetWorkforce();
                 Level.DiggingTimeLeft -= (Time.fixedDeltaTime* workforce);
-                Level.IsDigging = Level.DiggingTimeLeft <= 0;
+                if (Level.DiggingTimeLeft <= 0)
+                {
+                    Level.IsDigging = false;
+                    Level.DiggingRoom = null;
+                    Level.DiggingTimeLeft = 0f;
+                }
             }
         }
 

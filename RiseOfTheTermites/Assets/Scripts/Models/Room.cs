@@ -80,7 +80,8 @@ namespace Assets.Scripts.Models
                 MaxWorker = MaxWorker,
                 CanAttack = CanAttack,
                 ConstructionTime = ConstructionTime,
-                DestructionTime = DestructionTime
+                DestructionTime = DestructionTime,
+                IsDiggingAction = IsDiggingAction
             };
         }
 
