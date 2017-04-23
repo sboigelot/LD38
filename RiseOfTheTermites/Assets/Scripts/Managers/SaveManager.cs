@@ -8,14 +8,14 @@ namespace Assets.Scripts.Managers
     {
         public PlayerProfile PlayerProfile { get; set; }
 
-        public void LoadProfiles()
-        {
-            PlayerProfile = DataSerializer.Instance.LoadFromAppData<PlayerProfile>(string.Empty, "Profile.xml");
-            if (PlayerProfile == null)
-            {
-                PlayerProfile = (PlayerProfile)PrototypeManager.Instance.PlayerTemplate.Clone();
-                DataSerializer.Instance.SaveToAppData(string.Empty, "Profile.xml", PlayerProfile);
-            }
-        }
+        //public void LoadProfiles()
+        //{
+        //    PlayerProfile = DataSerializer.Instance.LoadFromAppData<PlayerProfile>(string.Empty, "Profile.xml");
+        //    if (PlayerProfile == null)
+        //    {
+        //        PlayerProfile = (PlayerProfile)PrototypeManager.Instance.PlayerTemplate.Clone();
+        //        DataSerializer.Instance.SaveToAppData(string.Empty, "Profile.xml", PlayerProfile);
+        //    }
+        //}
     }
 }

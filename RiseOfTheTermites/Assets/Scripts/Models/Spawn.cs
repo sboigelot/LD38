@@ -28,8 +28,7 @@ namespace Assets.Scripts.Models
 
         [XmlIgnore]
         public float AccumulatedDuration { get; set; }
-
-
+        
         public object Clone()
         {
             return new Spawn

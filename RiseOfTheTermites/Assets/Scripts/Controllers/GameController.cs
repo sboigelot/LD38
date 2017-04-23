@@ -13,8 +13,9 @@ namespace Assets.Scripts.Controllers
     {
         public void Awake()
         {
-            PrototypeManager.Instance.LoadPrototypes();
-            SaveManager.Instance.LoadProfiles();
+            StartCoroutine(PrototypeManager.Instance.LoadPrototypes());
+
+            //SaveManager.Instance.LoadProfiles();
             DialogBoxManager.Instance.Show(typeof(MainMenuController));
         }
 
@@ -44,7 +45,7 @@ namespace Assets.Scripts.Controllers
 
             var resources = "";
 
-            /*foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.Resources)
+            /*foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.ColonyStats)
             {
                 resources += string.Format("{0}: {1} / {2}",
                                  currentLevelResource.Name,

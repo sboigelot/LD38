@@ -30,7 +30,7 @@ namespace Assets.Scripts.UI
             var level = LevelController.Instance.Level;
 
             //Population
-            var population = level.Resources.Find(res => res.Name == "Population" );
+            var population = level.ColonyStats.Find(res => res.Name == "Population" );
 
             if (population == null)
                 return;
@@ -39,7 +39,7 @@ namespace Assets.Scripts.UI
             float percentage = Mathf.Min(1.0f, ((population.MaxValue - population.Value) / population.MaxValue) * 10.0f);
 
             //Soldiers
-            var soldiers = level.Resources.Find(res => res.Name == "Soldier");
+            var soldiers = level.ColonyStats.Find(res => res.Name == "Soldier");
 
             if (soldiers == null)
                 return;
@@ -48,7 +48,7 @@ namespace Assets.Scripts.UI
             percentage = Mathf.Min(1.0f, ((soldiers.MaxValue - soldiers.Value) / soldiers.MaxValue) * 10.0f);
 
             //Soil
-            var soil = level.Resources.Find(res => res.Name == "Soil");
+            var soil = level.ColonyStats.Find(res => res.Name == "Soil");
 
             if (soil == null)
                 return;
@@ -57,7 +57,7 @@ namespace Assets.Scripts.UI
             percentage = Mathf.Min(1.0f, ((soil.MaxValue - soil.Value) / soil.MaxValue) * 10.0f);
 
             //Food
-            var food = level.Resources.Find(res => res.Name == "Food");
+            var food = level.ColonyStats.Find(res => res.Name == "Food");
 
             if (food == null)
                 return;

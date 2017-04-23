@@ -17,7 +17,7 @@ namespace Assets.Scripts.Controllers
         public Transform TermitesPanel;
         public GameObject TermitesTemplate;
         public Level Level { get; private set; }
-
+        
         public void StartLevel(Level level)
         {
             Level = level;

@@ -79,18 +79,19 @@ namespace Assets.Scripts.Controllers
         public void SetTermiteAndRoom(Termite termite, int termiteRoomX, int termiteRoomY)
         {
             Termite = termite;
+            gameObject.SetActive(true);
 
             var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             switch (termite.Job)
             {
                 case TermiteType.Queen:
-                    spriteRenderer.sprite = SpriteManager.Get("Queen");
+                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Queen"));
                     break;
                 case TermiteType.Worker:
-                    spriteRenderer.sprite = SpriteManager.Get("Worker");
+                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
                     break;
                 case TermiteType.Soldier:
-                    spriteRenderer.sprite = SpriteManager.Get("Soldier");
+                    StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));
                     break;
             }
 

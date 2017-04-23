@@ -33,9 +33,12 @@ namespace Assets.Scripts.UI
 
         private void RebuildChildren()
         {
-            List<Level> lvls = PrototypeManager.Instance.Levels;
-
             ItemPanel.ClearChildren();
+
+            if (PrototypeManager.Instance.Levels == null)
+                return;
+
+            List<Level> lvls = PrototypeManager.Instance.Levels;
 
             for (var index = 0; index < lvls.Count; index++)
             {

@@ -36,7 +36,7 @@ namespace Assets.Scripts.Controllers
                 Initialize();
             }
         }
-
+        
         public string InitializeAsRoom;
 
         public float startSwapTime;
@@ -130,7 +130,7 @@ namespace Assets.Scripts.Controllers
 
             if (spriteRenderer != null)
             {
-                spriteRenderer.sprite = SpriteManager.Get(Room.SpritePath);
+                StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.RoomFolder, Room.SpritePath));
             }
         }
 

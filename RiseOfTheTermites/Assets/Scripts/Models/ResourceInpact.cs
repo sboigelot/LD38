@@ -20,5 +20,10 @@ namespace Assets.Scripts.Models
             get { return Enum.GetName(typeof(ResourceImpactType), ImpactType); }
             set { ImpactType = (ResourceImpactType)Enum.Parse(typeof(ResourceImpactType), value); }
         }
+
+        public ResourceImpact()
+        {
+            
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Assets.Scripts.Models
 {
-    public class Resource : ICloneable
+    public class ColonyStat : ICloneable
     {
         [XmlAttribute]
         public string Name { get; set; }
@@ -23,9 +23,14 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public bool IsVisible { get; set; }
 
+        public ColonyStat()
+        {
+            
+        }
+
         public object Clone()
         {
-            return new Resource
+            return new ColonyStat
             {
                 Name = Name,
                 SpritePath = SpritePath,
