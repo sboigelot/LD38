@@ -42,7 +42,7 @@ namespace Assets.Scripts.Managers.DialogBoxes
                 foreach (var otherDialogBox in screens.Values)
                 {
                     if(otherDialogBox != dialogBox)
-                    otherDialogBox.CloseDialog();
+                        otherDialogBox.CloseDialog();
                 }
             }
         }
