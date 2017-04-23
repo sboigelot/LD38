@@ -28,8 +28,8 @@ namespace Assets.Scripts.Models
         [XmlElement("Termite")]
         public List<Termite> Termites { get; set; }
 
-        [XmlElement("Enemy")]
-        public List<Enemy> Enemies { get; set; }
+        [XmlElement("WaveTimeline")]
+        public List<WaveTimeline> Enemies { get; set; }
 
         [XmlAttribute]
         public float QueenEatAmount { get; set; }

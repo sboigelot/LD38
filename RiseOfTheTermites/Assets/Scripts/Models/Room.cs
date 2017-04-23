@@ -46,6 +46,9 @@ namespace Assets.Scripts.Models
         [XmlElement("ResourceImpactPrice")]
         public List<ResourceImpact> ResourceImpactPrices { get; set; }
 
+        [XmlElement("SpawnTermiteOnBuild")]
+        public List<Termite> SpawnTermitesOnBuild { get; set; }
+
         [XmlAttribute]
         public int BuildingTime { get; set; }
 
@@ -95,7 +98,8 @@ namespace Assets.Scripts.Models
                 DestructionTime = DestructionTime,
                 IsDiggingAction = IsDiggingAction,
                 HideIfNoNeighboard = HideIfNoNeighboard,
-                IsPassable = IsPassable
+                IsPassable = IsPassable,
+                SpawnTermitesOnBuild = SpawnTermitesOnBuild
             };
         }
 

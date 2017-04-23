@@ -11,15 +11,9 @@ namespace Assets.Scripts.Components
     {
         public int HitPoints;
         public int MaximumHitPoints;
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
+        
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
             ComputeMaximumHitPointsMaximum();
         }
@@ -44,10 +38,10 @@ namespace Assets.Scripts.Components
             {
                 //Game is lost
                 HitPoints = 0;
-                
-                var screen = DialogBoxManager.Instance.Show( typeof( EndGameController ) ) as EndGameController;
 
-                if (screen )
+                var screen = DialogBoxManager.Instance.Show(typeof(EndGameController)) as EndGameController;
+
+                if (screen)
                 {
                     screen.GameIsSuccessful = false;
                 }

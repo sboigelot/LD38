@@ -137,12 +137,41 @@ namespace Assets.Scripts.Controllers
             if (Room == null)
                 return;
 
+            SpawnTermitesOnBuilt();
+
             if (spriteRenderer != null)
             {
                 StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.RoomFolder, Room.SpritePath));
             }
             
             Room.ShowHideRoom();
+        }
+
+        private void SpawnTermitesOnBuilt()
+        {
+            if (Room.SpawnTermitesOnBuild != null)
+            {
+                foreach (var termiteTemplate in Room.SpawnTermitesOnBuild.ToList())
+                {
+                    Room.SpawnTermitesOnBuild.Remove(termiteTemplate);
+                    var population = LevelController.Instance.Level.ColonyStats.FirstOrDefault(r => r.Name == "Population");
+                    if (population != null)
+                    {
+                        population.Value++;
+
+                        var newborn = new Termite
+                        {
+                            RoomX =Room.GridLocationX,
+                            RoomY = Room.GridLocationY,
+                            Job = termiteTemplate.Job,
+                            Hp = termiteTemplate.Hp,
+                            QueenBirthTimer = termiteTemplate.QueenBirthTimer
+                        };
+                        LevelController.Instance.Level.Termites.Add(newborn);
+                        LevelController.Instance.InstanciateTermite(newborn);
+                    }
+                }
+            }
         }
 
         public void Start()

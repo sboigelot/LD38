@@ -3,9 +3,9 @@ using System.Xml.Serialization;
 
 namespace Assets.Scripts.Models
 {
-    public class Spawn : ICloneable
+    public class Wave : ICloneable
     {
-        public Spawn()
+        public Wave()
         {
             RatePerSecond = 0.05f;
             SoldierLevel = 1;
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Models
         
         public object Clone()
         {
-            return new Spawn
+            return new Wave
             {
                 RatePerSecond = RatePerSecond,
                 SoldierLevel = SoldierLevel,

@@ -72,6 +72,7 @@
     <PossibleUpgrade>FarmRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>Barracks level 1</PossibleUpgrade>
     <PossibleUpgrade>BedRoom level 1</PossibleUpgrade>
+    <PossibleUpgrade>Throne Room</PossibleUpgrade>
   </Room>
 
   <Room Name="Throne Room"
@@ -82,6 +83,9 @@
         IsPassable="true">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="1" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="1" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="300" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="200" ImpactType="Value"/>
+    <SpawnTermiteOnBuild Job="Queen" Hp="150" QueenBirthTimer="10"/>
   </Room>
 
   <Room Name="BedRoom level 1"
@@ -92,7 +96,6 @@
         IsPassable="true">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
-    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1" ImpactType="Value"/> TODO replace by Level Food consumption per termite type, speak with Paris-->
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 2</PossibleUpgrade>
   </Room>
@@ -105,7 +108,6 @@
         IsPassable="true">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
-    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1.5" ImpactType="Value"/>-->
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 3</PossibleUpgrade>
   </Room>

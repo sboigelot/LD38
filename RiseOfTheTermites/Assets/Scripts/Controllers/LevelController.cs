@@ -25,6 +25,14 @@ namespace Assets.Scripts.Controllers
             RebuildChildren();
         }
 
+        public void StopLevel()
+        {
+            EnemyLayer.ClearChildren();
+            RoomsPanel.ClearChildren();
+            TermitesPanel.ClearChildren();
+            Level = null;
+        }
+
         public void RebuildChildren()
         {
             RebuildRooms();
@@ -87,15 +95,17 @@ namespace Assets.Scripts.Controllers
             var enemy_index = 0;
             foreach (var enemy in Level.Enemies)
             {
-                var newEnemy = Instantiate(EnemyTemplate);
+                var newEnemy = new GameObject();
                 newEnemy.transform.SetParent(EnemyLayer, false);
-                newEnemy.name = string.Format("Enemy {0}", enemy_index++);
+                newEnemy.name = string.Format("WaveTimeline {0}", enemy_index++);
                 newEnemy.SetActive(true);
                 newEnemy.transform.position = new Vector3(
                     0.0f,
                     0.0f,
                     0);
-                newEnemy.GetComponent<EnemyController>().Enemy = enemy;
+                var controller = newEnemy.AddComponent<WaveTimelineController>();
+                controller.WaveTimeline = enemy;
+                controller.EnemyTemplate = EnemyTemplate;
             }
         }
 

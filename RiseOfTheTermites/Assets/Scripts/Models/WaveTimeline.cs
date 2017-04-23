@@ -4,16 +4,16 @@ using System.Xml.Serialization;
 
 namespace Assets.Scripts.Models
 {
-    public class Enemy : ICloneable
+    public class WaveTimeline : ICloneable
     {
-        public Enemy()
+        public WaveTimeline()
         {
             WaveIndex = 0;
             IsEnabled = true;
         }
 
-        [XmlElement("Spawn")]
-        public List<Spawn> Waves { get; set; }
+        [XmlElement("Wave")]
+        public List<Wave> Waves { get; set; }
 
         [XmlAttribute]
         public float StartTime { get; set; }
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Models
 
         public object Clone()
         {
-            return new Enemy
+            return new WaveTimeline
             {
                 Waves = Waves,
                 StartTime = StartTime,
