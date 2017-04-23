@@ -37,16 +37,16 @@ namespace Assets.Scripts.Controllers
         
         public void FixedUpdate()
         {
+            if (Termite == null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
             if (Termite.Job == TermiteType.Soldier && ItIsInCombat)
             {
                 UpdateCombat();
 
-                return;
-            }
-
-            if (Termite == null)
-            {
-                gameObject.SetActive(false);
                 return;
             }
 

@@ -63,6 +63,9 @@ namespace Assets.Scripts.Models
         [XmlAttribute("DestructionTime")]
         public int DestructionTime { get; set; }
 
+        [XmlAttribute]
+        public bool HideIfNoNeighboard { get; set; }
+
         public Room()
         {
             
@@ -85,7 +88,8 @@ namespace Assets.Scripts.Models
                 CanAttack = CanAttack,
                 ConstructionTime = ConstructionTime,
                 DestructionTime = DestructionTime,
-                IsDiggingAction = IsDiggingAction
+                IsDiggingAction = IsDiggingAction,
+                HideIfNoNeighboard = HideIfNoNeighboard
             };
         }
 
