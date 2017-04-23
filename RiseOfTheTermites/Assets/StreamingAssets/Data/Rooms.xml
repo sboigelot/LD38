@@ -43,7 +43,7 @@
   </Room>
 
   <Room Name="Surface Empty Room"
-        SpritePath="Empty"
+        SpritePath="empty_room_aboveground"
         ValidLocation="AboveGround"
         HideIfNoNeighboard="false">
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
@@ -54,9 +54,9 @@
   </Room>
 
   <Room Name="Underground Empty Room"
-        SpritePath="Empty"
+        SpritePath="empty_room_underground"
         ValidLocation="UnderGround"
-        HideIfNoNeighboard="false">     
+        HideIfNoNeighboard="false">
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>FarmRoom level 1</PossibleUpgrade>
@@ -65,7 +65,7 @@
   </Room>
 
   <Room Name="Throne Room"
-        SpritePath="ThroneRoom2"
+        SpritePath="throne_room"
         ValidLocation="UnderGround"
         MaxWorker="0"
         HideIfNoNeighboard="false">
@@ -74,7 +74,7 @@
   </Room>
 
   <Room Name="BedRoom level 1"
-        SpritePath="BedRoom"
+        SpritePath="bedroom_1"
         ValidLocation="UnderGround"
         MaxWorker="0"
         HideIfNoNeighboard="false">
@@ -86,7 +86,7 @@
   </Room>
 
   <Room Name="BedRoom level 2"
-        SpritePath="BedRoom"
+        SpritePath="bedroom_2"
         ValidLocation="UnderGround"
         MaxWorker="0"
         HideIfNoNeighboard="false">
@@ -98,7 +98,7 @@
   </Room>
 
   <Room Name="BedRoom level 3"
-        SpritePath="BedRoom"
+        SpritePath="bedroom_3"
         ValidLocation="UnderGround"
         MaxWorker="0"
         HideIfNoNeighboard="false">
@@ -138,7 +138,7 @@
   </Room>
 
   <Room Name="FarmRoom level 1"
-        SpritePath="FarmRoom"
+        SpritePath="farm_room_1"
         ValidLocation="UnderGround"
         MaxWorker="1"
         HideIfNoNeighboard="false">
@@ -149,7 +149,7 @@
   </Room>
 
   <Room Name="FarmRoom level 2"
-        SpritePath="FarmRoom"
+        SpritePath="farm_room_2"
         ValidLocation="UnderGround"
         MaxWorker="1"
         HideIfNoNeighboard="false">
@@ -160,7 +160,7 @@
   </Room>
 
   <Room Name="FarmRoom level 3"
-        SpritePath="FarmRoom"
+        SpritePath="farm_room_3"
         ValidLocation="UnderGround"
         MaxWorker="2"
         HideIfNoNeighboard="false">
@@ -170,7 +170,7 @@
   </Room>
 
   <Room Name="Barracks level 1"
-        SpritePath="BarracksRoom"
+        SpritePath="barracks_1"
         ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false">
@@ -181,7 +181,7 @@
   </Room>
 
   <Room Name="Barracks level 2"
-        SpritePath="BarracksRoom"
+        SpritePath="barracks_2"
         ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false">
@@ -192,7 +192,7 @@
   </Room>
 
   <Room Name="Barracks level 3"
-        SpritePath="BarracksRoom"
+        SpritePath="barracks_3"
         ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false">
@@ -202,7 +202,7 @@
   </Room>
 
   <Room Name="StorageRoom level 1"
-          SpritePath="Empty"
+          SpritePath="storage_1"
           ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false">
@@ -214,7 +214,7 @@
   </Room>
 
   <Room Name="StorageRoom level 2"
-          SpritePath="Empty"
+          SpritePath="storage_2"
           ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false">
@@ -226,7 +226,7 @@
   </Room>
 
   <Room Name="StorageRoom level 3"
-          SpritePath="Empty"
+          SpritePath="storage_3"
           ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false">
