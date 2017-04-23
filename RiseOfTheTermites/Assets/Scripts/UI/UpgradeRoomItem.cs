@@ -19,17 +19,14 @@ namespace Assets.Scripts.UI
         public void Setup(RoomController roomController, bool noChange, string roomName)
         {
             var room = PrototypeManager.FindRoomPrototype(roomName);
-
             
-            
-
             NameText.text = room.Name;
             
             bool enable = noChange || LevelController.Instance.Level.CanAfford(room);
                         
-            if (roomName == "Surface Empty Room" || roomName == "Underground Empty Room") //is there a better way to do this?
+            if (roomController.Room.IsDiggingAction)
             {
-                enable = !LevelController.Instance.Level.isDigging;
+                enable = !LevelController.Instance.Level.IsDigging;
             }
 
             var button = GetComponent<Button>();
@@ -69,6 +66,11 @@ namespace Assets.Scripts.UI
                 {
                     costs += string.Format("{0} {1}", price.ImpactValuePerWorker, price.ResourceName) + Environment.NewLine;
                 }
+            }
+
+            if (LevelController.Instance.Level.IsDigging)
+            {
+                costs = "You can only dig one room at a time!";
             }
 
             CostText.text = costs;

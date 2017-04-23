@@ -20,6 +20,9 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public bool CanAttack { get; set; }
 
+        [XmlAttribute]
+        public bool IsDiggingAction { get; set; }
+
         [XmlAttribute("ValidLocation")]
         public string XmlValidLocation
         {
