@@ -73,6 +73,8 @@ namespace Assets.Scripts.Serialization
         {
             return new[]
             {
+                typeof(Enemy),
+                typeof(Spawn),
                 typeof(Level),
                 typeof(PlayerProfile),
                 typeof(Resources),

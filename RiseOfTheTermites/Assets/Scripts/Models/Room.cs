@@ -17,6 +17,9 @@ namespace Assets.Scripts.Models
         [XmlIgnore]
         public RoomValidLocation ValidLocation { get; set; }
 
+        [XmlAttribute]
+        public bool CanAttack { get; set; }
+
         [XmlAttribute("ValidLocation")]
         public string XmlValidLocation
         {
@@ -64,7 +67,8 @@ namespace Assets.Scripts.Models
                 ResourceImpactsOnDestroy = ResourceImpactsOnDestroy.ToList(),
                 ResourceImpactPrices = ResourceImpactPrices.ToList(),
                 BuildingTime = BuildingTime,
-                MaxWorker = MaxWorker
+                MaxWorker = MaxWorker,
+                CanAttack = CanAttack
             };
         }
 

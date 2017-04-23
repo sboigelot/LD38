@@ -20,6 +20,9 @@ namespace Assets.Scripts.Models
         [XmlElement("Termite")]
         public List<Termite> Termites { get; set; }
 
+        [XmlElement("Enemy")]
+        public List<Enemy> Enemies { get; set; }
+
         [XmlAttribute]
         public float QueenEatAmount { get; set; }
 
@@ -42,7 +45,8 @@ namespace Assets.Scripts.Models
                     r2.GridLocationY = r.GridLocationY;
                     return r2;
                 }).ToList(),
-                Termites = Termites.Select(t=>(Termite)t.Clone()).ToList()
+                Termites = Termites.Select(t=>(Termite)t.Clone()).ToList(),
+                Enemies = Enemies
             };
         }
 

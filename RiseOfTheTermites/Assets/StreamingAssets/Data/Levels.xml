@@ -24,6 +24,19 @@
 
     <Termite RoomX="0" RoomY="0" Job="Queen" Hp="150" QueenBirthTimer="10"/>
     <Termite RoomX="1" RoomY="1" Job="Worker" Hp="50"/>
+
+    <Room Name="Enemy Room" X="6" Y="-1"/>
+    <Room Name="Enemy Room" X="6" Y="0"/>
+    <Room Name="Enemy Room" X="6" Y="1"/>
+
+    <Enemy StartTime="180" StartPosition="6" HitPoint="100">
+      <Spawn RatePerSecond="0.05" SoldierLevel ="1" Duration="240" />
+      <Spawn RatePerSecond="0.1" SoldierLevel ="1" />
+    </Enemy>
+
+    <Victory>
+      
+    </Victory>
   </Level>
 
   <Level Name="Level 1">

@@ -20,6 +20,8 @@ namespace Assets.Scripts.Controllers
         }
 
         public Transform RoomsPanel;
+        public Transform EnemyLayer;
+        public GameObject EnemyTemplate;
         public GameObject RoomTemplate;
         public Vector2 RoomSpacing = new Vector2(1.6f, 0.9f);
 
@@ -29,6 +31,7 @@ namespace Assets.Scripts.Controllers
         public void RebuildChildren()
         {
             RebuildRooms();
+            RebuildEnemies();
             DisplayTermites();
         }
 
@@ -54,6 +57,27 @@ namespace Assets.Scripts.Controllers
             }
         }
 
+        private void RebuildEnemies()
+        {
+            EnemyLayer.ClearChildren();
+
+            if (Level == null || !Level.Enemies.Any())
+                return;
+
+            int enemy_index = 0;
+            foreach( var enemy in Level.Enemies ) 
+            {
+                var newEnemy = Instantiate(EnemyTemplate);
+                newEnemy.transform.SetParent( EnemyLayer, false);
+                newEnemy.name = string.Format("Enemy {0}", enemy_index++);
+                newEnemy.SetActive(true);
+                newEnemy.transform.position = new Vector3(
+                    0.0f,
+                    0.0f,
+                    0);
+                newEnemy.GetComponent<EnemyController>().Enemy = enemy;
+            }
+        }
 
         private void DisplayTermites()
         {
