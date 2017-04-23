@@ -127,12 +127,14 @@ namespace Assets.Scripts.Controllers
 
         public void OnMouseEnter()
         {
-            Selector.SetActive(true);
+            if(Selector != null)
+                Selector.SetActive(true);
         }
 
         public void OnMouseExit()
         {
-            Selector.SetActive(false);
+            if (Selector != null)
+                Selector.SetActive(false);
         }
 
         public void OnMouseUpAsButton()
