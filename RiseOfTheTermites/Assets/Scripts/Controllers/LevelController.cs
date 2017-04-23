@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
+﻿using System.Linq;
 using Assets.Scripts.Models;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -11,6 +7,15 @@ namespace Assets.Scripts.Controllers
 {
     public class LevelController : MonoBehaviourSingleton<LevelController>
     {
+        public Transform EnemyLayer;
+        public GameObject EnemyTemplate;
+        public Vector2 RoomSpacing = new Vector2(1.6f, 0.9f);
+
+        public Transform RoomsPanel;
+        public GameObject RoomTemplate;
+
+        public Transform TermitesPanel;
+        public GameObject TermitesTemplate;
         public Level Level { get; private set; }
 
         public void StartLevel(Level level)
@@ -19,15 +24,6 @@ namespace Assets.Scripts.Controllers
             RebuildChildren();
         }
 
-        public Transform RoomsPanel;
-        public Transform EnemyLayer;
-        public GameObject EnemyTemplate;
-        public GameObject RoomTemplate;
-        public Vector2 RoomSpacing = new Vector2(1.6f, 0.9f);
-
-        public Transform TermitesPanel;
-        public GameObject TermitesTemplate;
-
         public void RebuildChildren()
         {
             RebuildRooms();
@@ -35,11 +31,21 @@ namespace Assets.Scripts.Controllers
             DisplayTermites();
         }
 
+        public void FixedUpdate()
+        {
+            if (Level != null && Level.IsDigging)
+            {
+                var workforce = Level.DiggingRoom.GetWorkforce();
+                Level.DiggingTimeLeft -= (Time.fixedDeltaTime* workforce);
+                Level.IsDigging = Level.DiggingTimeLeft <= 0;
+            }
+        }
+
         private void RebuildRooms()
         {
             RoomsPanel.ClearChildren();
 
-            if(Level == null || !Level.Rooms.Any())
+            if (Level == null || !Level.Rooms.Any())
                 return;
 
             foreach (var room in Level.Rooms)
@@ -64,11 +70,11 @@ namespace Assets.Scripts.Controllers
             if (Level == null || !Level.Enemies.Any())
                 return;
 
-            int enemy_index = 0;
-            foreach( var enemy in Level.Enemies ) 
+            var enemy_index = 0;
+            foreach (var enemy in Level.Enemies)
             {
                 var newEnemy = Instantiate(EnemyTemplate);
-                newEnemy.transform.SetParent( EnemyLayer, false);
+                newEnemy.transform.SetParent(EnemyLayer, false);
                 newEnemy.name = string.Format("Enemy {0}", enemy_index++);
                 newEnemy.SetActive(true);
                 newEnemy.transform.position = new Vector3(

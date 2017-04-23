@@ -48,6 +48,18 @@ namespace Assets.Scripts.Controllers
             if (string.IsNullOrEmpty(roomName))
                 return;
 
+            if (Room.IsDiggingAction)
+            {
+                var level = LevelController.Instance.Level;
+                if (level.IsDigging)
+                    return;
+                
+                // start digging
+                level.IsDigging = true;
+                level.DiggingRoom = Room;
+                level.DiggingTimeLeft = (float)Room.DestructionTime;
+            }
+
             startSwapTime = Time.time;
             SwapTarget = roomName;
             var otherRoom = PrototypeManager.FindRoomPrototype(roomName);
@@ -71,11 +83,14 @@ namespace Assets.Scripts.Controllers
 
             if (Time.time < completedSwapTime)
             {
+                var workerCount = Room.GetWorkforce() - 1;
+                startSwapTime += workerCount * Time.deltaTime;
+
                 var elapsed = Time.time - startSwapTime;
                 var duration = completedSwapTime - startSwapTime;
                 float percentProgress = Mathf.Clamp(elapsed / duration, 0f, 1f);
-                Debug.Log(percentProgress);
-                Timer.size = new Vector2(TimerBackground.size.x * percentProgress, TimerBackground.size.y);
+                var sizeX = TimerBackground.size.x * percentProgress;
+                Timer.size = new Vector2(sizeX, TimerBackground.size.y);
             }
             else
             {

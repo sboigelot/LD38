@@ -71,7 +71,7 @@ namespace Assets.Scripts.UI
 
             FoodRate.text = string.Format("{0:0.00}", level.GetLastTickChange( food.Name ));
 
-            DiggingCooldown.text = string.Format("{0} sec left", (int)level.diggingTimeLeft);
+            DiggingCooldown.text = string.Format("{0} sec left", (int)level.DiggingTimeLeft);
         }
     }
 }

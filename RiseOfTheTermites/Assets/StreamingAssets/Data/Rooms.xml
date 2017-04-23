@@ -8,15 +8,27 @@
 
   <Room Name="Food bonus"
         SpritePath="FoodBonus"
-        ValidLocation="UnderGround">
+        ValidLocation="UnderGround"
+        DestructionTime="40"
+        IsDiggingAction="true">
     <ResourceImpactOnDestroy ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
 
   <Room Name="Soil bonus"
         SpritePath="SoilBonus"
-        ValidLocation="UnderGround">
+        ValidLocation="UnderGround"
+        DestructionTime="40"
+        IsDiggingAction="true">
     <ResourceImpactOnDestroy ResourceName="Soil" ImpactValuePerWorker="100" ImpactType="Value"/>
+    <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
+  </Room>
+  
+  <Room Name="Diggable Room"
+        SpritePath="Dig"
+        ValidLocation="UnderGround"
+        DestructionTime="30"
+        IsDiggingAction="true">
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
 
@@ -24,13 +36,6 @@
         SpritePath="EnemyRoom"
         ValidLocation="Anywhere"
         CanAttack="true">
-  </Room>
-  
-  <Room Name="Diggable Room"
-        SpritePath="Dig"
-        ValidLocation="UnderGround"
-        DestructionTime="0">
-    <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
 
   <Room Name="Surface Empty Room"

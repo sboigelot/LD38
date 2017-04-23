@@ -841,11 +841,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47537510c602dd040827ba7093bc88f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomsPanel: {fileID: 247999225}
   EnemyLayer: {fileID: 1108931677}
   EnemyTemplate: {fileID: 1878030579}
-  RoomTemplate: {fileID: 1320733382}
   RoomSpacing: {x: 1.6, y: 0.9}
+  RoomsPanel: {fileID: 247999225}
+  RoomTemplate: {fileID: 1320733382}
   TermitesPanel: {fileID: 369099801}
   TermitesTemplate: {fileID: 1535355026}
 --- !u!4 &293717172
