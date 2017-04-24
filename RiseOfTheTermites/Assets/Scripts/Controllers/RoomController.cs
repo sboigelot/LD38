@@ -23,6 +23,8 @@ namespace Assets.Scripts.Controllers
 
         public SpriteRenderer Timer;
 
+        public SpriteRenderer UnderConstructionOverlay;
+
         public GameObject Selector;
 
         public SpriteRenderer[] WorkerSlots;
@@ -88,6 +90,9 @@ namespace Assets.Scripts.Controllers
             if (Timer != null)
                 Timer.gameObject.SetActive(isSwapping);
 
+            if (UnderConstructionOverlay != null)
+                UnderConstructionOverlay.gameObject.SetActive(isSwapping);
+            
             if (!isSwapping)
             {
                 return;
