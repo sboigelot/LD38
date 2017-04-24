@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Managers.DialogBoxes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,8 +21,10 @@ namespace Assets.Scripts.UI
         public Text SoldierCount;
         public Text VenomAmount;
         public Text WorkerCount;
+        
+        public Button ShowObjectiveButton;
 
-        private void Start()
+        public void Start()
         {
             PauseButton.onClick.AddListener(() =>
             {
@@ -31,9 +34,15 @@ namespace Assets.Scripts.UI
                 TooltipController.Instance.Show(ttp.content);
 
             });
+
             MenuButton.onClick.AddListener(() =>
             {
                 GameController.Instance.GameOver(false);
+            });
+
+            ShowObjectiveButton.onClick.AddListener(() =>
+            {
+                DialogBoxManager.Instance.Show(typeof(ObjectiveMenuController));
             });
         }
 

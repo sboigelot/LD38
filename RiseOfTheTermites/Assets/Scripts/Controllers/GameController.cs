@@ -35,6 +35,7 @@ namespace Assets.Scripts.Controllers
 
             GameManager.Instance.NewGame((Level) PrototypeManager.Instance.Levels[level_index].Clone());
             StartCoroutine(GameTick());
+            DialogBoxManager.Instance.Show(typeof(ObjectiveMenuController));
         }
 
         public IEnumerator GameTick()
@@ -70,21 +71,28 @@ namespace Assets.Scripts.Controllers
 
             var allStatAchieved = level.ColonyStatGoals.All(g => g.IsAchieved());
 
+            var waveAchieved = IsWaveGoalAchieved();
+
+            return allStatAchieved && waveAchieved;
+        }
+
+        public bool IsWaveGoalAchieved()
+        {
             var waveAchieved = true;
+            var level = LevelController.Instance.Level;
             if (level.WaveIndexGoal != 0)
             {
                 var waveControllers = FindObjectsOfType<WaveTimelineController>();
                 foreach (var waveTimelineController in waveControllers)
                 {
-                    if(waveTimelineController.WaveTimeline != null)
+                    if (waveTimelineController.WaveTimeline != null)
                         continue;
 
-                    var waveIndex =  waveTimelineController.WaveTimeline.WaveIndex;
+                    var waveIndex = waveTimelineController.WaveTimeline.WaveIndex;
                     waveAchieved &= (waveIndex >= level.WaveIndexGoal);
                 }
             }
-
-            return allStatAchieved && waveAchieved;
+            return waveAchieved;
         }
 
         public void RebuildUi()
