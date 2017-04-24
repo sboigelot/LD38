@@ -1033,15 +1033,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4395206787264700, guid: 189dbc1198ed4c245b2fc9c766660d33, type: 2}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4395206787264700, guid: 189dbc1198ed4c245b2fc9c766660d33, type: 2}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4395206787264700, guid: 189dbc1198ed4c245b2fc9c766660d33, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 189dbc1198ed4c245b2fc9c766660d33, type: 2}
@@ -1964,7 +1964,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1858133666}
   m_Direction: 0
   m_Value: 0.5
-  m_Size: 0
+  m_Size: 0.5004762
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
