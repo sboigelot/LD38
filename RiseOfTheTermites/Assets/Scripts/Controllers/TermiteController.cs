@@ -1,28 +1,27 @@
 ﻿using System.Collections;
 using System.Linq;
-using Assets.Scripts.Managers;
 using Assets.Scripts.Components;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Models;
-using UnityEngine;
-using System.Collections.Generic;
 using Assets.Scripts.UI;
+using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
     public class TermiteController : MonoBehaviour
     {
-        public int LayerIndexNonSelected = 1;
         public const int LayerIndexSelected = 1000;
 
-        public Termite Termite { get; set; }
+        public Vector2 DestinationInRoom;
+        public int LayerIndexNonSelected = 1;
+
+        public float MovementSpeedInRoom = 0.1f;
 
         public Vector2 PositionInRoom;
 
-        public Vector2 DestinationInRoom;
-
-        public float MovementSpeedInRoom = 0.2f;
-
         public GameObject Selector;
+
+        public Termite Termite { get; set; }
 
         public void Start()
         {
@@ -39,7 +38,10 @@ namespace Assets.Scripts.Controllers
 
             if (Termite.Job == TermiteType.Soldier)
             {
-                if(UpdateCombat())
+                if (UpdateCombat())
+                    return;
+
+                if (MoveToBarrack())
                     return;
             }
 
@@ -57,81 +59,42 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        #region COMBAT
-
-        private FighterComponent targetEnemy;
-
-        private FighterComponent fighterComponent;
-
-        private const float ENEMY_COMBAT_DISTANCE = 0.6f;
-
-        public float CombatSpeed = 0.5f;
-
-        private bool UpdateCombat()
+        private bool MoveToBarrack()
         {
-            if (targetEnemy == null || targetEnemy.HitPoints <= 0)
+            var barrack =
+                LevelController
+                    .Instance
+                    .Level
+                    .Rooms
+                    .Where(r => r.Name.Contains("Barracks")) //This is bad but not time to do better
+                    .OrderBy(
+                        r =>
+                            Vector2.Distance(new Vector2(Termite.RoomX, Termite.RoomY),
+                                new Vector2(r.GridLocationX, r.GridLocationY)))
+                    .FirstOrDefault();
+
+            if (barrack == null)
             {
-                targetEnemy = SearchNextValidEnemy();
+                return false;
             }
 
-            if (targetEnemy != null)
+            var soldierRoom = new Vector2(Termite.RoomX, Termite.RoomY);
+            var barrackRoom = new Vector2(barrack.GridLocationX, barrack.GridLocationY);
+
+            if (soldierRoom == barrackRoom)
             {
-                var distanceToTarget = Vector3.Distance(transform.position, targetEnemy.transform.position);
-                if (distanceToTarget <= ENEMY_COMBAT_DISTANCE)
-                {
-                    AttackTaget();
-                }
-                else
-                {
-                    MoveToTarget();
-                }
+                return false;
             }
 
-            return targetEnemy != null;
-        }
-
-        private FighterComponent SearchNextValidEnemy()
-        {
-            return LevelController.
-                Instance.
-                EnemyLayer.
-                GetComponentsInChildren<FighterComponent>().
-                ToList()
-                .FindAll(it => it.HitPoints > 0 &&
-                               !it.PlayerFighter)
-                .OrderBy(f => Random.Range(0f, 100f)).
-                FirstOrDefault();
-        }
-
-        private void MoveToTarget()
-        {
-            var direction = targetEnemy.transform.position - transform.position;
-
-            transform.rotation = transform.position.x > targetEnemy.transform.position.x ?
-                new Quaternion(0f, 0f, 0f, 0f) :
-                new Quaternion(0f, 180f, 0f, 0f);
-
-            if (direction.magnitude >= ENEMY_COMBAT_DISTANCE)
+            if (!MoveToTarget(barrackRoom))
             {
-                var move = direction * CombatSpeed * Time.deltaTime;
-                transform.position = new Vector3(
-                    transform.position.x + move.x,
-                    transform.position.y + move.y,
-                    transform.position.z
-                );
+                return true;
             }
-        }
 
-        private void AttackTaget()
-        {
-            fighterComponent.PerformCombatWith(targetEnemy, Time.deltaTime);
-
-            if (targetEnemy.HitPoints <= 0)
-            {
-                targetEnemy = null;
-            }
+            Termite.RoomX = barrack.GridLocationX;
+            Termite.RoomY = barrack.GridLocationY;
+            return false;
         }
-        #endregion
 
         private void DragMoveTermite()
         {
@@ -146,13 +109,13 @@ namespace Assets.Scripts.Controllers
         {
             var direction = DestinationInRoom - PositionInRoom;
 
-            transform.rotation = PositionInRoom.x > DestinationInRoom.x ?
-                new Quaternion(0f, 0f, 0f, 0f) : 
-                new Quaternion(0f, 180f, 0f, 0f);
+            transform.rotation = PositionInRoom.x > DestinationInRoom.x
+                ? new Quaternion(0f, 0f, 0f, 0f)
+                : new Quaternion(0f, 180f, 0f, 0f);
 
             if (direction.magnitude >= MovementSpeedInRoom * 2)
             {
-                var move = direction * MovementSpeedInRoom * Time.fixedDeltaTime;
+                var move = direction.normalized * MovementSpeedInRoom * Time.fixedDeltaTime;
                 PositionInRoom += move;
             }
             else
@@ -162,7 +125,7 @@ namespace Assets.Scripts.Controllers
                 DestinationInRoom = new Vector2(
                     Random.Range(-halfx, halfx),
                     Random.Range(-halfy, halfy)
-                    );
+                );
             }
 
             gameObject.SetActive(true);
@@ -180,7 +143,8 @@ namespace Assets.Scripts.Controllers
 
             var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-            var tooltip = gameObject.GetComponent<LevelTooltipProvider>() ?? gameObject.AddComponent<LevelTooltipProvider>();
+            var tooltip = gameObject.GetComponent<LevelTooltipProvider>() ??
+                          gameObject.AddComponent<LevelTooltipProvider>();
             switch (termite.Job)
             {
                 case TermiteType.Queen:
@@ -193,7 +157,8 @@ namespace Assets.Scripts.Controllers
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
                     LayerIndexNonSelected = 3;
                     GetComponentInChildren<FighterComponent>().Damage = 0; // Allow the worker to be target for attack ?
-                    tooltip.content = "A <b>Worker</b> termite. Try to drag it around in different rooms. It may work and help you produce resources faster.";
+                    tooltip.content =
+                        "A <b>Worker</b> termite. Try to drag it around in different rooms. It may work and help you produce resources faster.";
                     break;
                 case TermiteType.Soldier:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));
@@ -211,7 +176,7 @@ namespace Assets.Scripts.Controllers
                 LevelController.Instance.RoomSpacing.y * termite.RoomY,
                 0);
         }
-        
+
         public void OnMouseEnter()
         {
             Termite.HasMouseOver = true;
@@ -231,7 +196,7 @@ namespace Assets.Scripts.Controllers
             var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             spriteRenderer.sortingOrder = LayerIndexSelected;
         }
-        
+
         public void OnMouseUp()
         {
             Termite.IsDragging = false;
@@ -242,7 +207,7 @@ namespace Assets.Scripts.Controllers
                 BlinkTermite(Color.red);
                 return;
             }
-            
+
             var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             spriteRenderer.sortingOrder = LayerIndexNonSelected;
 
@@ -253,7 +218,7 @@ namespace Assets.Scripts.Controllers
             var rs = LevelController.Instance.RoomSpacing;
 
             var gridPositionX = worldPosition.x / rs.x;
-           if (gridPositionX < 0)
+            if (gridPositionX < 0)
                 gridPositionX -= rs.x - 1;
             else
                 gridPositionX += rs.x - 1;
@@ -263,18 +228,18 @@ namespace Assets.Scripts.Controllers
                 gridPositionY -= rs.y / 2;
             else
                 gridPositionY += rs.y / 2;
-            
-            Termite.RoomX = (int)gridPositionX;
-            Termite.RoomY = (int)gridPositionY;
+
+            Termite.RoomX = (int) gridPositionX;
+            Termite.RoomY = (int) gridPositionY;
 
             BlinkRoom();
 
             PositionInRoom = new Vector3(
-                    worldPosition.x - rs.x * Termite.RoomX,
-                    worldPosition.y - rs.y * Termite.RoomY,
+                worldPosition.x - rs.x * Termite.RoomX,
+                worldPosition.y - rs.y * Termite.RoomY,
                 0);
-            DestinationInRoom = 
-                new Vector2(0,0);
+            DestinationInRoom =
+                new Vector2(0, 0);
             gameObject.name = string.Format("Termite {0}, {1}", gridPositionX, gridPositionY);
 
             transform.position = worldPosition;
@@ -307,5 +272,85 @@ namespace Assets.Scripts.Controllers
                 }
             }
         }
+
+        #region COMBAT
+
+        private FighterComponent targetEnemy;
+
+        private FighterComponent fighterComponent;
+
+        private const float ENEMY_COMBAT_DISTANCE = 0.6f;
+
+        public float CombatSpeed = 0.5f;
+
+        private bool UpdateCombat()
+        {
+            if (targetEnemy == null || targetEnemy.HitPoints <= 0)
+            {
+                targetEnemy = SearchNextValidEnemy();
+            }
+
+            if (targetEnemy != null)
+            {
+                var distanceToTarget = Vector3.Distance(transform.position, targetEnemy.transform.position);
+                if (distanceToTarget <= ENEMY_COMBAT_DISTANCE)
+                {
+                    AttackTaget();
+                }
+                else
+                {
+                    MoveToTarget(targetEnemy.transform.position);
+                }
+            }
+
+            return targetEnemy != null;
+        }
+
+        private FighterComponent SearchNextValidEnemy()
+        {
+            return LevelController.
+                Instance.
+                EnemyLayer.
+                GetComponentsInChildren<FighterComponent>().
+                ToList()
+                .FindAll(it => it.HitPoints > 0 &&
+                               !it.PlayerFighter)
+                .OrderBy(f => Random.Range(0f, 100f)).
+                FirstOrDefault();
+        }
+
+        private bool MoveToTarget(Vector3 target)
+        {
+            var direction = target - transform.position;
+
+            transform.rotation = transform.position.x > target.x
+                ? new Quaternion(0f, 0f, 0f, 0f)
+                : new Quaternion(0f, 180f, 0f, 0f);
+
+            if (direction.magnitude >= ENEMY_COMBAT_DISTANCE)
+            {
+                var move = direction.normalized * CombatSpeed * Time.deltaTime;
+                transform.position = new Vector3(
+                    transform.position.x + move.x,
+                    transform.position.y + move.y,
+                    transform.position.z
+                );
+                return false;
+            }
+
+            return true;
+        }
+
+        private void AttackTaget()
+        {
+            fighterComponent.PerformCombatWith(targetEnemy, Time.deltaTime);
+
+            if (targetEnemy.HitPoints <= 0)
+            {
+                targetEnemy = null;
+            }
+        }
+
+        #endregion
     }
 }

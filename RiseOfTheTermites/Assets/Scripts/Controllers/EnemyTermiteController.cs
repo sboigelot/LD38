@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Components;
 using Assets.Scripts.Models;
 using UnityEngine;
@@ -56,7 +57,7 @@ namespace Assets.Scripts.Controllers
             
             if (direction.magnitude >= ENEMY_COMBAT_DISTANCE)
             {
-                var move = direction * Speed * Time.deltaTime;
+                var move = direction.normalized * Speed * Time.deltaTime;
                 transform.position = new Vector3(
                     transform.position.x + move.x,
                     transform.position.y + move.y,
@@ -93,6 +94,7 @@ namespace Assets.Scripts.Controllers
                 targetEnemy = null;
             }
         }
+        
 
         private FighterComponent SearchNextValidEnemy()
         {
@@ -104,14 +106,19 @@ namespace Assets.Scripts.Controllers
                 .FindAll(it => it.HitPoints > 0 &&
                                it.PlayerFighter);
 
-            var queens = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Queen).ToList();
-            var others = figthers.Where(f => !queens.Contains(f)).ToList();
-
-            if (others.Any())
+            var soldier = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Soldier).ToList();
+            if (soldier.Any())
             {
-                return others.OrderBy(f => Random.Range(0f, 100f)).First();
+                return soldier.OrderBy(f => Random.Range(0f, 100f)).First();
             }
 
+            var workers = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Worker).ToList();
+            if (workers.Any())
+            {
+                return workers.OrderBy(f => Random.Range(0f, 100f)).First();
+            }
+
+            var queens = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Queen).ToList();
             return queens.OrderBy(f => Random.Range(0f, 100f)).FirstOrDefault();
         }
     }
