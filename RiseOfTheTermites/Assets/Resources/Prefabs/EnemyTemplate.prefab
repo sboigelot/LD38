@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 61652328482712638}
   - component: {fileID: 114365382139325818}
   - component: {fileID: 114783280091861890}
+  - component: {fileID: 82267525570789908}
   m_Layer: 0
   m_Name: EnemyTemplate
   m_TagString: Untagged
@@ -97,6 +98,86 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
+--- !u!82 &82267525570789908
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1298495163430964}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114365382139325818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846b46f150f4ac048b3c64e682c36aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Velocity: 0.2
+  Speed: 0.6
 --- !u!114 &114783280091861890
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,11 +203,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackSpeed: 1
   Damage: 5
-  EnemyHiveObject: {fileID: 0}
-  InitialHitpoint: 0
-  HitPoints: 10
+  HitPoints: 100
   PlayerFighter: 0
+  SpitSound: {fileID: 8300000, guid: 779e12847a4b84543a90dd780ac33d29, type: 3}
   HitpointSpriteRenderer: {fileID: 212515518717133302}
+  SpitTemplate: {fileID: 0}
 --- !u!212 &212515518717133302
 SpriteRenderer:
   m_ObjectHideFlags: 1
