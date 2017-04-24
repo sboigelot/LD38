@@ -85,10 +85,11 @@ namespace Assets.Scripts.Controllers
             var level = LevelController.Instance.Level;
             if (level.WaveIndexGoal != 0)
             {
+                waveAchieved = false;
                 var waveControllers = FindObjectsOfType<WaveTimelineController>();
                 foreach (var waveTimelineController in waveControllers)
                 {
-                    if (waveTimelineController.WaveTimeline != null)
+                    if (waveTimelineController.WaveTimeline == null)
                         continue;
 
                     var waveIndex = waveTimelineController.WaveTimeline.WaveIndex;
