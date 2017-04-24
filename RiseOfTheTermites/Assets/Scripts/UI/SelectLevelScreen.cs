@@ -47,13 +47,14 @@ namespace Assets.Scripts.UI
                 var newItem = Instantiate(ItemTemplate);
                 
                 newItem.transform.SetParent(ItemPanel, false);
+                newItem.GetComponent<SelectLevelItem>().Setup(level);
                 newItem.SetActive(true);
                 
                 var index1 = index;
                 var bt = newItem.GetComponentInChildren<Button>();
 
                 var btn_label = bt.GetComponentInChildren<Text>();
-                btn_label.text = string.Format("Level {0}", index);
+                btn_label.text = string.Format("Level {0}: <i><color=red>'<b>{1}</b>'</color></i>", index, level.Name);
                 bt.onClick.AddListener(() =>
                 {
                     Debug.Log("On level selected");
