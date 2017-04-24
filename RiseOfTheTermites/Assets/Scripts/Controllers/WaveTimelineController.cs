@@ -48,14 +48,15 @@ namespace Assets.Scripts.Controllers
         {
             var newEnemy = Instantiate(EnemyTemplate);
             newEnemy.transform.parent = this.transform;
-
             
             newEnemy.transform.position = wave.StartLocation == WaveStartLocation.Left ? 
                 GameController.Instance.EnemySpawnLocationLeft.position : 
                 GameController.Instance.EnemySpawnLocationRight.position;
             newEnemy.SetActive(true);
 
-            newEnemy.GetComponent<FighterComponent>().HitPoints = wave.HitPoint;
+            var figther = newEnemy.GetComponent<FighterComponent>();
+            figther.HitPoints = wave.HitPoint;
+            figther.Damage = wave.Damage;
 
             var tooltip = newEnemy.GetComponent<LevelTooltipProvider>() ?? 
                 newEnemy.AddComponent<LevelTooltipProvider>();
