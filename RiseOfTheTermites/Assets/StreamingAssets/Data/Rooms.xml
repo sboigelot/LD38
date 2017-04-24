@@ -307,7 +307,7 @@
   </Room>
 
   <Room Name="Builder room level 1"
-           SpritePath="BuilderRoom1"
+           SpritePath="builder_room_1"
            ValidLocation="AboveGround"
            MaxWorker="1"
         HideIfNoNeighboard="false"
@@ -320,7 +320,7 @@
   </Room>
 
   <Room Name="Builder room level 2"
-           SpritePath="BuilderRoom2"
+           SpritePath="builder_room_2"
            ValidLocation="AboveGround"
            MaxWorker="2"
         HideIfNoNeighboard="false"
