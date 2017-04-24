@@ -1053,6 +1053,11 @@ Prefab:
       propertyPath: SpitTemplate
       value: 
       objectReference: {fileID: 1568970994}
+    - target: {fileID: 114365382139325818, guid: c7e8691c282e486438ba9b89bce50c68,
+        type: 2}
+      propertyPath: Speed
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7e8691c282e486438ba9b89bce50c68, type: 2}
   m_IsPrefabParent: 0
@@ -4696,10 +4701,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455a126b2fe7cd844b701e2ca8d6b28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LayerIndexNonSelected: 1
-  PositionInRoom: {x: 0, y: 0}
   DestinationInRoom: {x: 0, y: 0}
+  LayerIndexNonSelected: 1
   MovementSpeedInRoom: 0.2
+  PositionInRoom: {x: 0, y: 0}
   Selector: {fileID: 0}
   CombatSpeed: 0.5
 --- !u!1 &1103351354 stripped
@@ -6987,6 +6992,16 @@ Prefab:
       propertyPath: SpitTemplate
       value: 
       objectReference: {fileID: 1568970994}
+    - target: {fileID: 114864337732586470, guid: 3f01d25d60dfa6947bce53765ef76c9d,
+        type: 2}
+      propertyPath: MovementSpeedInRoom
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864337732586470, guid: 3f01d25d60dfa6947bce53765ef76c9d,
+        type: 2}
+      propertyPath: CombatSpeed
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3f01d25d60dfa6947bce53765ef76c9d, type: 2}
   m_IsPrefabParent: 0
