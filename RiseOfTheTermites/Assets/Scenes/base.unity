@@ -3184,6 +3184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CloseButton: {fileID: 1972976839}
   ObjectivesText: {fileID: 1383341137}
+  DescriptionText: {fileID: 404424270}
 --- !u!1 &609814063
 GameObject:
   m_ObjectHideFlags: 0
