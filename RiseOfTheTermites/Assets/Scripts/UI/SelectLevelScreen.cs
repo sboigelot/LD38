@@ -52,9 +52,9 @@ namespace Assets.Scripts.UI
                 
                 var index1 = index;
                 var bt = newItem.GetComponentInChildren<Button>();
-
+                
                 var btn_label = bt.GetComponentInChildren<Text>();
-                btn_label.text = string.Format("Level {0}: <i><color=red>'<b>{1}</b>'</color></i>", index, level.Name);
+                btn_label.text = string.Format("Level {0}: <i><color=yellow>'<b>{1}</b>'</color></i>", index, level.Name);
                 bt.onClick.AddListener(() =>
                 {
                     Debug.Log("On level selected");

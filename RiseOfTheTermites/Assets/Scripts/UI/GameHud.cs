@@ -56,12 +56,17 @@ namespace Assets.Scripts.UI
             BindResource("ColonyLife", LifeAmount, LifeRate);
 
             var level = LevelController.Instance.Level;
+            if (level == null)
+                return;
             DiggingCooldown.text = string.Format("{0} sec left", (int) level.DiggingTimeLeft);
         }
 
         private void BindResource(string statName, Text count, Text rate)
         {
             var level = LevelController.Instance.Level;
+
+            if (level == null)
+                return;
 
             //Population
             var stat = level.ColonyStats.FirstOrDefault(res => res.Name == statName);
