@@ -35,6 +35,9 @@ namespace Assets.Scripts.Models
         public float SoldierEatAmount { get; set; }
 
         [XmlAttribute]
+        public string Description { get; set; }
+
+        [XmlAttribute]
         public float WorkerEatAmount { get; set; }
 
         [XmlAttribute("WaveIndexGoal")]
@@ -67,7 +70,8 @@ namespace Assets.Scripts.Models
                 WaveTimelines = WaveTimelines,
                 Index = Index,
                 WaveIndexGoal = WaveIndexGoal,
-                ColonyStatGoals = ColonyStatGoals.ToList()
+                ColonyStatGoals = ColonyStatGoals.ToList(),
+                Description = Description
             };
         }
 

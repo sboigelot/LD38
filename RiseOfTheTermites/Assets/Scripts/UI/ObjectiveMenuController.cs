@@ -13,6 +13,8 @@ namespace Assets.Scripts.UI
 
         public Text ObjectivesText;
 
+        public Text DescriptionText;
+
         public void Start()
         {
             CloseButton.onClick.AddListener(() =>
@@ -43,6 +45,8 @@ namespace Assets.Scripts.UI
             var level = LevelController.Instance.Level;
             if (level != null)
             {
+                DescriptionText.text = level.Description;
+
                 if (level.WaveIndexGoal != 0)
                 {
                     objectives += CreateObjectiveText("Surive until enemy wave " + level.WaveIndexGoal,
@@ -59,6 +63,7 @@ namespace Assets.Scripts.UI
             }
 
             ObjectivesText.text = objectives;
+
         }
 
         private string CreateObjectiveText(string newObjectif, bool isSuceeded)
