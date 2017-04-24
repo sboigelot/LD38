@@ -28,8 +28,8 @@ namespace Assets.Scripts.Controllers
         public void StopLevel()
         {
             EnemyLayer.ClearChildren();
-            RoomsPanel.ClearChildren();
             TermitesPanel.ClearChildren();
+            RoomsPanel.ClearChildren();
             Level = null;
         }
 

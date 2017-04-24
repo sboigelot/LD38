@@ -188,6 +188,11 @@ namespace Assets.Scripts.Models
 
             var referenceRoom = orderedRooms.Find(r => r.GridLocationY == 0);
 
+            if (referenceRoom == null)
+            {
+                return;
+            }
+
             var roomAbsolutePosition = new Vector2(
                 LevelController.Instance.RoomSpacing.x * referenceRoom.GridLocationX,
                 LevelController.Instance.RoomSpacing.y * referenceRoom.GridLocationY
