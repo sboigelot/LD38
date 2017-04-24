@@ -5530,7 +5530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DespawnDistance: 0.05
-  Speed: 10
+  Speed: 15
   Target: {fileID: 0}
   VenomColor: {r: 0, g: 1, b: 0, a: 1}
   NormalColor: {r: 1, g: 1, b: 1, a: 1}
