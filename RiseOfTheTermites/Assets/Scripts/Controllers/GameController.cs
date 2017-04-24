@@ -77,16 +77,31 @@ namespace Assets.Scripts.Controllers
                     .ToList()
                     .FindAll(o => o.HitPoints <= 0);
 
+            var soldierLimit = GameManager.Instance.CurrentLevel.ColonyStats.FirstOrDefault(r => r.Name == "Soldier");
+            var workerLimit = GameManager.Instance.CurrentLevel.ColonyStats.FirstOrDefault(r => r.Name == "Population");
+
             foreach (var f in deadFighters)
             {
                 var termiteController = f.GetComponentInParent<TermiteController>();
 
                 GameManager.Instance.CurrentLevel.Termites.Remove(termiteController.Termite);
 
-                var soldierLimit = GameManager.Instance.CurrentLevel.ColonyStats.FirstOrDefault(r => r.Name == "Soldier");
-                if (soldierLimit != null && soldierLimit.Value > 0)
+                switch (termiteController.Termite.Job)
                 {
-                    soldierLimit.Value--;
+                    case TermiteType.Queen:
+                        break;
+                    case TermiteType.Soldier:
+                        if (soldierLimit != null && soldierLimit.Value > 0)
+                        {
+                            soldierLimit.Value--;
+                        }
+                        break;
+                    case TermiteType.Worker:
+                        if (workerLimit != null && workerLimit.Value > 0)
+                        {
+                            workerLimit.Value--;
+                        }
+                        break;
                 }
 
                 f.gameObject.SetActive(false);
