@@ -1901,7 +1901,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1858133666}
   m_Direction: 0
   m_Value: 0.5
-  m_Size: 0.5561905
+  m_Size: 0.5004762
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3818,8 +3818,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d62f53cc635c043994b17a8628e6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: <b>Venom</b>. Extremely hard to produce, but multiply by 2 the attack of
-    your soldier. Soldier consume it when attacking
+  content: <b>Venom</b>. Extremely hard to produce, but doubles the attack damage
+    of your soldiers. Soldiers consume one when attacking
 --- !u!1 &876178443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4798,7 +4798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d62f53cc635c043994b17a8628e6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: <b>Soil</b> stored in your colony. Mostly use for building new rooms
+  content: <b>Soil</b> stored in your colony. Mostly used to build new rooms
 --- !u!1 &1253867591
 GameObject:
   m_ObjectHideFlags: 0
@@ -5524,42 +5524,42 @@ Prefab:
     - target: {fileID: 224561469339280480, guid: 98556f1035d26594091528d707fd59cc,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 224561469339280480, guid: 98556f1035d26594091528d707fd59cc,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 224470831770352742, guid: 98556f1035d26594091528d707fd59cc,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 224470831770352742, guid: 98556f1035d26594091528d707fd59cc,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 224483651150443288, guid: 98556f1035d26594091528d707fd59cc,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -185
       objectReference: {fileID: 0}
     - target: {fileID: 224483651150443288, guid: 98556f1035d26594091528d707fd59cc,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 224003961831583436, guid: 98556f1035d26594091528d707fd59cc,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 224003961831583436, guid: 98556f1035d26594091528d707fd59cc,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 224003961831583436, guid: 98556f1035d26594091528d707fd59cc,
         type: 2}
@@ -7730,7 +7730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d62f53cc635c043994b17a8628e6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: Your <b>Soldierr Limit</b>. To house more soldier, construct new barracks
+  content: Your <b>Soldier Limit</b>. To house more soldiers, construct new barracks
 --- !u!1 &1982462613
 GameObject:
   m_ObjectHideFlags: 0
