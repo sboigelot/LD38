@@ -25,6 +25,8 @@ namespace Assets.Scripts.Controllers
 
         public GameObject Selector;
 
+        public SpriteRenderer[] WorkerSlots;
+
         public Room Room
         {
             get { return room; }
@@ -71,6 +73,8 @@ namespace Assets.Scripts.Controllers
 
         public void Update()
         {
+            UpdateWorkerSlots();
+
             bool isSwapping = !string.IsNullOrEmpty(SwapTarget);
             
             if (spriteRenderer != null)
@@ -104,6 +108,29 @@ namespace Assets.Scripts.Controllers
             {
                 ChangeRoomType(SwapTarget);
                 SwapTarget = null;
+            }
+        }
+
+        private void UpdateWorkerSlots()
+        {
+            var visibleDots = 0;
+            var usedDots = 0;
+            if (Room != null)
+            {
+                visibleDots = Room.MaxWorker;
+                usedDots = Room.LastComputedWorkforce;
+            }
+
+            if(WorkerSlots != null)
+            for (var i = 0; i < WorkerSlots.Length; i++)
+            {
+                var workerSlot = WorkerSlots[i];
+
+                workerSlot.enabled = visibleDots > 0;
+                visibleDots--;
+
+                workerSlot.color = usedDots > 0 ? Color.white : new Color(255f, 255f, 255f, .25f);
+                usedDots--;
             }
         }
 
@@ -161,7 +188,8 @@ namespace Assets.Scripts.Controllers
                     var population = LevelController.Instance.Level.ColonyStats.FirstOrDefault(r => r.Name == "Population");
                     if (population != null)
                     {
-                        population.Value++;
+                        if(termiteTemplate.Job != TermiteType.Queen)
+                            population.Value++;
 
                         var newborn = new Termite
                         {

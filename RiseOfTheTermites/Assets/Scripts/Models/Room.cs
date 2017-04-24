@@ -102,20 +102,20 @@ namespace Assets.Scripts.Models
                 IsDiggingAction = IsDiggingAction,
                 HideIfNoNeighboard = HideIfNoNeighboard,
                 IsPassable = IsPassable,
-                SpawnTermitesOnBuild = SpawnTermitesOnBuild,
+                SpawnTermitesOnBuild = SpawnTermitesOnBuild.ToList(),
                 Description = Description
             };
         }
 
-        private int lastComputedWorkforce;
+        public int LastComputedWorkforce;
         public int GetWorkforce()
         {
-            lastComputedWorkforce = LevelController.Instance.Level.Termites.Count(
+            LastComputedWorkforce = LevelController.Instance.Level.Termites.Count(
                 t => t.RoomX == GridLocationX &&
                      t.RoomY == GridLocationY &&
                      t.Job == TermiteType.Worker);
 
-            return 1 + Math.Min(lastComputedWorkforce, MaxWorker);
+            return 1 + Math.Min(LastComputedWorkforce, MaxWorker);
         }
 
 

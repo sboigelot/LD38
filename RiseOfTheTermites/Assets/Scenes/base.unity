@@ -1021,10 +1021,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1466217183144576, guid: 189dbc1198ed4c245b2fc9c766660d33, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 189dbc1198ed4c245b2fc9c766660d33, type: 2}
   m_IsPrefabParent: 0
@@ -1645,6 +1641,7 @@ MonoBehaviour:
   TimerBackground: {fileID: 0}
   Timer: {fileID: 0}
   Selector: {fileID: 0}
+  WorkerSlots: []
   InitializeAsRoom: Diggable Room
   startSwapTime: 0
   completedSwapTime: 0
@@ -2139,6 +2136,7 @@ MonoBehaviour:
   TimerBackground: {fileID: 0}
   Timer: {fileID: 0}
   Selector: {fileID: 0}
+  WorkerSlots: []
   InitializeAsRoom: Diggable Room
   startSwapTime: 0
   completedSwapTime: 0
@@ -2917,6 +2915,7 @@ MonoBehaviour:
   TimerBackground: {fileID: 0}
   Timer: {fileID: 0}
   Selector: {fileID: 0}
+  WorkerSlots: []
   InitializeAsRoom: Mushroom Farm
   startSwapTime: 0
   completedSwapTime: 0
@@ -3396,6 +3395,7 @@ MonoBehaviour:
   TimerBackground: {fileID: 0}
   Timer: {fileID: 0}
   Selector: {fileID: 0}
+  WorkerSlots: []
   InitializeAsRoom: Throne Room
   startSwapTime: 0
   completedSwapTime: 0
@@ -4613,7 +4613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1125194264
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6216,6 +6216,7 @@ MonoBehaviour:
   TimerBackground: {fileID: 0}
   Timer: {fileID: 0}
   Selector: {fileID: 0}
+  WorkerSlots: []
   InitializeAsRoom: Tunel
   startSwapTime: 0
   completedSwapTime: 0
@@ -7056,6 +7057,7 @@ MonoBehaviour:
   TimerBackground: {fileID: 0}
   Timer: {fileID: 0}
   Selector: {fileID: 0}
+  WorkerSlots: []
   InitializeAsRoom: Mushroom Farm
   startSwapTime: 0
   completedSwapTime: 0

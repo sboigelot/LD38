@@ -66,6 +66,7 @@
     <PossibleUpgrade>Barracks level 1</PossibleUpgrade>    
     <PossibleUpgrade>GatheringRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>Soil generator level 1</PossibleUpgrade>
+    <PossibleUpgrade>Builder room level 1</PossibleUpgrade>
   </Room>
 
   <Room Name="Underground Empty Room"
@@ -94,6 +95,8 @@
     <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="1" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="300" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="200" ImpactType="Value"/>
+    <ResourceImpactOnBuilt ResourceName="ColonyLife" ImpactValuePerWorker="100" ImpactType="MaxValue"/>
+    <ResourceImpactOnBuilt ResourceName="ColonyLife" ImpactValuePerWorker="100" ImpactType="Value"/>
     <SpawnTermiteOnBuild Job="Queen" Hp="150" QueenBirthTimer="10"/>
   </Room>
 
@@ -301,6 +304,31 @@
     <PossibleUpgrade>Soil generator level 2</PossibleUpgrade>
   </Room>
 
+  <Room Name="Builder room level 1"
+           SpritePath="BuilderRoom1"
+           ValidLocation="AboveGround"
+           MaxWorker="1"
+        HideIfNoNeighboard="false"
+        IsPassable="true"
+        Description="Slowly repair your colony">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="400" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="400" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="ColonyLife" ImpactValuePerWorker="0.5" ImpactType="Value"/>
+    <PossibleUpgrade>Builder room level 2</PossibleUpgrade>
+  </Room>
+
+  <Room Name="Builder room level 2"
+           SpritePath="BuilderRoom2"
+           ValidLocation="AboveGround"
+           MaxWorker="2"
+        HideIfNoNeighboard="false"
+        IsPassable="true"
+        Description="Slowly repair your colony">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="600" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="600" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="ColonyLife" ImpactValuePerWorker="0.8" ImpactType="Value"/>
+  </Room>
+  
   <Room Name="Soil generator level 2"
            SpritePath="SoilGenerator"
            ValidLocation="AboveGround"
