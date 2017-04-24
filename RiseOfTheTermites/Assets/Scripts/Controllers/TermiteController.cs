@@ -23,18 +23,6 @@ namespace Assets.Scripts.Controllers
         public float MovementSpeedInRoom = 0.2f;
 
         public GameObject Selector;
-
-        #region COMBAT
-
-        const float ENEMY_COMBAT_DISTANCE = 0.2f;
-        float FORCED_VELOCITY = -0.2f; // Dirty : Should calculate according to startLocation.x - targetLocation.x
-        public Vector3 StartLocation { get; set; }
-        public Vector3 TargetLocation { get; set; } // CombatLocation
-        public bool ItIsInCombat = false;
-
-        #endregion
-
-        private GameObject _enemyTermiteTarget;
         
         public void FixedUpdate()
         {
@@ -44,10 +32,9 @@ namespace Assets.Scripts.Controllers
                 return;
             }
 
-            if (Termite.Job == TermiteType.Soldier && ItIsInCombat)
+            if (Termite.Job == TermiteType.Soldier && IsInCombat)
             {
                 UpdateCombat();
-
                 return;
             }
 
@@ -66,53 +53,61 @@ namespace Assets.Scripts.Controllers
         }
 
         #region COMBAT
+
+        private GameObject _enemyTermiteTarget;
+        const float ENEMY_COMBAT_DISTANCE = 0.2f;
+        float FORCED_VELOCITY = -0.2f; // Dirty : Should calculate according to startLocation.x - targetLocation.x
+        public Vector3 StartLocation { get; set; }
+        public Vector3 TargetLocation { get; set; } // CombatLocation
+        public bool IsInCombat = false;
+
         private void UpdateCombat()
         {
-            if (_enemyTermiteTarget && _enemyTermiteTarget.GetComponent<FighterComponent>().HitPoints > 0)
-            {
-                //Do the fighting
-                //enemyTermiteTarget.
+            //if (_enemyTermiteTarget && _enemyTermiteTarget.GetComponent<FighterComponent>().HitPoints > 0)
+            //{
+            //    //Do the fighting
+            //    //enemyTermiteTarget.
 
-                GetComponent<FighterComponent>().PerformCombatWith(_enemyTermiteTarget.GetComponent<FighterComponent>(), Time.deltaTime);
+            //    GetComponent<FighterComponent>().PerformCombatWith(_enemyTermiteTarget.GetComponent<FighterComponent>(), Time.deltaTime);
 
-                if (_enemyTermiteTarget.GetComponent<FighterComponent>().HitPoints <= 0)
-                    _enemyTermiteTarget = null;
+            //    if (_enemyTermiteTarget.GetComponent<FighterComponent>().HitPoints <= 0)
+            //        _enemyTermiteTarget = null;
 
-                return;
-            }
-            else
-            {
-                var lst = new List<FighterComponent>();
+            //    return;
+            //}
+            //else
+            //{
+            //    var lst = new List<FighterComponent>();
 
-                lst.AddRange(LevelController.Instance.EnemyLayer.GetComponentsInChildren<FighterComponent>());
-                //get only next termites (those who have already passed through are ignored to simplify handling of directions
-                lst = lst.FindAll(it => it.HitPoints > 0 && !it.PlayerFighter && (Mathf.Abs(it.transform.position.x - transform.position.x) < ENEMY_COMBAT_DISTANCE * 2.0f) );
+            //    lst.AddRange(LevelController.Instance.EnemyLayer.GetComponentsInChildren<FighterComponent>());
+            //    //get only next termites (those who have already passed through are ignored to simplify handling of directions
+            //    lst = lst.FindAll(it => it.HitPoints > 0 && !it.PlayerFighter && (Mathf.Abs(it.transform.position.x - transform.position.x) < ENEMY_COMBAT_DISTANCE * 2.0f) );
 
-                foreach (var fighter in lst)
-                {
-                    float squareEnemyDistance = (transform.position.x - fighter.transform.position.x) * (transform.position.x - fighter.transform.position.x) + (transform.position.y - fighter.transform.position.y) * (transform.position.y - fighter.transform.position.y);
+            //    foreach (var fighter in lst)
+            //    {
+            //        float squareEnemyDistance = (transform.position.x - fighter.transform.position.x) * (transform.position.x - fighter.transform.position.x) + (transform.position.y - fighter.transform.position.y) * (transform.position.y - fighter.transform.position.y);
 
-                    squareEnemyDistance = Mathf.Abs(squareEnemyDistance);
+            //        squareEnemyDistance = Mathf.Abs(squareEnemyDistance);
 
-                    if (squareEnemyDistance < ENEMY_COMBAT_DISTANCE * ENEMY_COMBAT_DISTANCE)
-                    {
-                        //Now they are fighting
-                        _enemyTermiteTarget = fighter.gameObject;
+            //        if (squareEnemyDistance < ENEMY_COMBAT_DISTANCE * ENEMY_COMBAT_DISTANCE)
+            //        {
+            //            //Now they are fighting
+            //            _enemyTermiteTarget = fighter.gameObject;
 
-                        return;
-                    }
-                }
-            }
+            //            return;
+            //        }
+            //    }
+            //}
 
-            //Advance normally
-            float distance = (transform.position.x - TargetLocation.x) * (transform.position.x - TargetLocation.x) + (transform.position.y - TargetLocation.y) * (transform.position.y - TargetLocation.y);
-            distance = Mathf.Sqrt(distance);
+            ////Advance normally
+            //float distance = (transform.position.x - TargetLocation.x) * (transform.position.x - TargetLocation.x) + (transform.position.y - TargetLocation.y) * (transform.position.y - TargetLocation.y);
+            //distance = Mathf.Sqrt(distance);
 
-            if (distance > FORCED_VELOCITY)
-            {
-                transform.rotation = transform.position.x > TargetLocation.x ? new Quaternion(0f, 0f, 0f, 0f) : new Quaternion(0f, 180f, 0f, 0f);
-                transform.position = new Vector3(transform.position.x - FORCED_VELOCITY * Time.deltaTime, transform.position.y, transform.position.z);
-            }
+            //if (distance > FORCED_VELOCITY)
+            //{
+            //    transform.rotation = transform.position.x > TargetLocation.x ? new Quaternion(0f, 0f, 0f, 0f) : new Quaternion(0f, 180f, 0f, 0f);
+            //    transform.position = new Vector3(transform.position.x - FORCED_VELOCITY * Time.deltaTime, transform.position.y, transform.position.z);
+            //}
         }
         #endregion
 

@@ -12,6 +12,9 @@ namespace Assets.Scripts.Controllers
 {
     public class GameController : MonoBehaviourSingleton<GameController>
     {
+        public Transform EnemySpawnLocationLeft;
+        public Transform EnemySpawnLocationRight;
+
         private bool IsGameOver;
 
         public bool IsGamePaused;

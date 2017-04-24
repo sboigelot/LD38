@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Assets.Scripts.Components;
+using Assets.Scripts.Models;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
@@ -13,64 +14,83 @@ namespace Assets.Scripts.Controllers
 
         private FighterComponent fighterComponent;
 
-        public float Velocity = 0.5f;
-
-        public Vector3 TargetLocation { get; set; }
-
+        public float Speed = 0.5f;
+        
         public void Start()
         {
             fighterComponent = GetComponent<FighterComponent>();
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
-            if (targetEnemy == null)
+            if (targetEnemy == null || targetEnemy.HitPoints <= 0)
             {
                 targetEnemy = SearchNextValidEnemy();
             }
 
-            if (targetEnemy != null && targetEnemy.HitPoints > 0)
+            if (targetEnemy != null)
             {
-                //Do the fighting
-                fighterComponent.PerformCombatWith(targetEnemy, Time.deltaTime);
-
-                if (targetEnemy.HitPoints <= 0)
+                var distanceToTarget = Vector3.Distance(transform.position, targetEnemy.transform.position);
+                if (distanceToTarget < ENEMY_COMBAT_DISTANCE)
                 {
-                    targetEnemy = null;
+                    AttackTaget();
                 }
-
+                else
+                {
+                    MoveToTarget();
+                }
                 return;
             }
 
-            AdvanceNormaly();
+            //we should never reach here
+            targetEnemy = null;
         }
 
-        private void AdvanceNormaly()
+        private void MoveToTarget()
         {
-            //Advance normally
-            var distance =
-                (transform.position.x - TargetLocation.x) *
-                (transform.position.x - TargetLocation.x) +
-                (transform.position.y - TargetLocation.y) *
-                (transform.position.y - TargetLocation.y);
+            var direction = targetEnemy.transform.position - transform.position;
 
-            distance = Mathf.Sqrt(distance);
-
-            if (distance > Velocity)
+            transform.rotation = transform.position.x > targetEnemy.transform.position.x ?
+                new Quaternion(0f, 0f, 0f, 0f) :
+                new Quaternion(0f, 180f, 0f, 0f);
+            
+            if (direction.magnitude >= Speed * 2)
             {
-                transform.rotation = transform.position.x > TargetLocation.x ? 
-                    new Quaternion(0f, 0f, 0f, 0f) :
-                    new Quaternion(0f, 180f, 0f, 0f);
+                var move = direction * Speed * Time.fixedDeltaTime;
+                transform.position = new Vector3(
+                    transform.position.x + move.x,
+                    transform.position.y + move.y,
+                    transform.position.z
+                );
+            }
+        }
 
-                transform.position =
-                    new Vector3(
-                        transform.position.x - Velocity * Time.deltaTime,
-                        transform.position.y,
-                        transform.position.z);
+        private void AttackTaget()
+        {
+            //Do the fighting
+            var termite = targetEnemy.gameObject.GetComponent<TermiteController>();
+            var job = TermiteType.Worker;
+            if (termite != null && termite.Termite != null)
+            {
+                job = termite.Termite.Job;
+            }
+
+            if (job == TermiteType.Queen)
+            {
+                fighterComponent.HitEnemyStructure(Time.deltaTime);
             }
             else
             {
-                fighterComponent.HitEnemyStructure(Time.deltaTime);
+                fighterComponent.PerformCombatWith(targetEnemy, Time.deltaTime);
+            }
+
+            if (targetEnemy.HitPoints <= 0)
+            {
+                if (job != TermiteType.Queen)
+                {
+                    //TODO Destroy()   
+                }
+                targetEnemy = null;
             }
         }
 
@@ -80,33 +100,19 @@ namespace Assets.Scripts.Controllers
                 Instance.
                 TermitesPanel.
                 GetComponentsInChildren<FighterComponent>().
-                ToList();
+                ToList()
+                .FindAll(it => it.HitPoints > 0 &&
+                               it.PlayerFighter);
 
-            //removed ? //get only next termites (those who have already passed through are ignored to simplify handling of directions
-            figthers = figthers.
-                FindAll(it => it.HitPoints > 0 &&
-                              it.PlayerFighter);/* &&
-                              Mathf.Abs(it.transform.position.x - transform.position.x) < ENEMY_COMBAT_DISTANCE * 2.0f);
-                              */
-            
-            foreach (var fighter in figthers)
+            var queens = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Queen).ToList();
+            var others = figthers.Where(f => !queens.Contains(f)).ToList();
+
+            if (others.Any())
             {
-                var squareEnemyDistance =
-                    (transform.position.x - fighter.transform.position.x) *
-                    (transform.position.x - fighter.transform.position.x) +
-                    (transform.position.y - fighter.transform.position.y) *
-                    (transform.position.y - fighter.transform.position.y);
-
-                squareEnemyDistance = Mathf.Abs(squareEnemyDistance);
-
-                if (squareEnemyDistance < ENEMY_COMBAT_DISTANCE * ENEMY_COMBAT_DISTANCE)
-                {
-                    //Now they are fighting
-                    return fighter.gameObject.GetComponent<FighterComponent>();
-                }
+                return others.OrderBy(f => Random.Range(0f, 100f)).First();
             }
 
-            return null;
+            return queens.OrderBy(f => Random.Range(0f, 100f)).First();
         }
     }
 }

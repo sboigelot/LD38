@@ -97,7 +97,7 @@
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="200" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="ColonyLife" ImpactValuePerWorker="100" ImpactType="MaxValue"/>
     <ResourceImpactOnBuilt ResourceName="ColonyLife" ImpactValuePerWorker="100" ImpactType="Value"/>
-    <SpawnTermiteOnBuild Job="Queen" Hp="150" QueenBirthTimer="10"/>
+    <SpawnTermiteOnBuild Job="Queen" Hp="100" QueenBirthTimer="10"/>
   </Room>
 
   <Room Name="BedRoom level 1"

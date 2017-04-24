@@ -27,6 +27,16 @@ namespace Assets.Scripts.Models
         public int HitPoint { get; set; }
 
         [XmlIgnore]
+        public WaveStartLocation StartLocation { get; set; }
+
+        [XmlAttribute("StartLocation")]
+        public string XmlStartLocation
+        {
+            get { return Enum.GetName(typeof(WaveStartLocation), StartLocation); }
+            set { StartLocation = (WaveStartLocation)Enum.Parse(typeof(WaveStartLocation), value); }
+        }
+
+        [XmlIgnore]
         public float AccumulatedSpawnTimer { get; set; }
 
         [XmlIgnore]

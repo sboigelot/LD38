@@ -14,21 +14,22 @@ namespace Assets.Scripts.Controllers
 
         public WaveTimeline WaveTimeline;
         
-        public void Update()
+        public void FixedUpdate()
         {
-            if (WaveTimeline != null && WaveTimeline.IsEnabled)
-                Spawn();
-        }
-
-        private void Spawn()
-        {
-            if (WaveTimeline.WaveIndex >= WaveTimeline.Waves.Count)
+            if (WaveTimeline == null || !WaveTimeline.IsEnabled)
+            {
                 return;
+            }
+
+            if (WaveTimeline.WaveIndex >= WaveTimeline.Waves.Count)
+            {
+                return;
+            }
 
             var wave = WaveTimeline.Waves[WaveTimeline.WaveIndex];
 
-            wave.AccumulatedDuration += Time.deltaTime;
-            wave.AccumulatedSpawnTimer += Time.deltaTime;
+            wave.AccumulatedDuration += Time.fixedDeltaTime;
+            wave.AccumulatedSpawnTimer += Time.fixedDeltaTime;
 
             //Check if wave is over
             if (wave.AccumulatedDuration >= wave.Duration)
@@ -47,13 +48,17 @@ namespace Assets.Scripts.Controllers
         {
             var newEnemy = Instantiate(EnemyTemplate);
             newEnemy.transform.parent = this.transform;
-            var startLocation = new Vector3(6.0f * LevelController.Instance.RoomSpacing.x, 0.0f, 0.0f); //TODO this is a static location, not related to the position of the enemy room
-            newEnemy.transform.position = startLocation;
+
+            
+            newEnemy.transform.position = wave.StartLocation == WaveStartLocation.Left ? 
+                GameController.Instance.EnemySpawnLocationLeft.position : 
+                GameController.Instance.EnemySpawnLocationRight.position;
             newEnemy.SetActive(true);
 
             newEnemy.GetComponent<FighterComponent>().HitPoints = wave.HitPoint;
 
-            var tooltip = newEnemy.GetComponent<LevelTooltipProvider>() ?? newEnemy.AddComponent<LevelTooltipProvider>();
+            var tooltip = newEnemy.GetComponent<LevelTooltipProvider>() ?? 
+                newEnemy.AddComponent<LevelTooltipProvider>();
             tooltip.content =
                 "A <b>Enemy</b> termite. It will attack your soldier and then your Queen. <b><color=red>Kill it before it kills you!</color></b>";
 

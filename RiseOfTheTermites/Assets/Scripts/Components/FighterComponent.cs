@@ -7,10 +7,10 @@ namespace Assets.Scripts.Components
 {
     public class FighterComponent : MonoBehaviour
     {
-        private float _combatTimer;
+        private float combatTimer;
+
         public float AttackSpeed;
         public int Damage;
-        public GameObject EnemyHiveObject;
         private int initialHitpoint;
         public int HitPoints;
         public bool PlayerFighter;
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Components
             HitPoints = 0;
             Damage = 0;
             AttackSpeed = 1.0f;
-            _combatTimer = 0.0f;
+            combatTimer = 0.0f;
         }
 
         /// <summary>
@@ -34,11 +34,11 @@ namespace Assets.Scripts.Components
         /// <param name="time"></param>
         public void PerformCombatWith(FighterComponent enemyComponent, float time)
         {
-            _combatTimer += time;
+            combatTimer += time;
 
-            if (_combatTimer >= AttackSpeed)
+            if (combatTimer >= AttackSpeed)
             {
-                _combatTimer = 0.0f;
+                combatTimer = 0.0f;
 
                 enemyComponent.DealDamage(Damage);
             }
@@ -91,11 +91,11 @@ namespace Assets.Scripts.Components
         /// </summary>
         public void HitEnemyStructure(float time)
         {
-            _combatTimer += time;
+            combatTimer += time;
 
-            if (_combatTimer >= AttackSpeed)
+            if (combatTimer >= AttackSpeed)
             {
-                _combatTimer = 0.0f;
+                combatTimer = 0.0f;
                 LevelController.Instance.Level.ColonyTakeDamage(Damage);
             }
         }

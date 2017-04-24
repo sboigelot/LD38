@@ -240,9 +240,9 @@ namespace Assets.Scripts.Models
             {
                 var termiteController = soldier.GetComponentInParent<TermiteController>();
 
-                if ( !termiteController.ItIsInCombat)
+                if ( !termiteController.IsInCombat)
                 {
-                    termiteController.ItIsInCombat = true;
+                    termiteController.IsInCombat = true;
                     termiteController.TargetLocation = new Vector3(combatDestinationTarget.x, combatDestinationTarget.y, 0.0f );
                     termiteController.StartLocation = termiteController.transform.position;
                 }
