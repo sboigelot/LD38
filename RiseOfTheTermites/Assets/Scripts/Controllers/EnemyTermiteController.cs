@@ -8,7 +8,7 @@ namespace Assets.Scripts.Controllers
     [RequireComponent(typeof(FighterComponent))]
     public class EnemyTermiteController : MonoBehaviour
     {
-        const float ENEMY_COMBAT_DISTANCE = 0.2f;
+        const float ENEMY_COMBAT_DISTANCE = 0.6f;
 
         private FighterComponent targetEnemy;
 
@@ -21,7 +21,7 @@ namespace Assets.Scripts.Controllers
             fighterComponent = GetComponent<FighterComponent>();
         }
 
-        public void FixedUpdate()
+        public void Update()
         {
             if (targetEnemy == null || targetEnemy.HitPoints <= 0)
             {
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Controllers
             if (targetEnemy != null)
             {
                 var distanceToTarget = Vector3.Distance(transform.position, targetEnemy.transform.position);
-                if (distanceToTarget < ENEMY_COMBAT_DISTANCE)
+                if (distanceToTarget <= ENEMY_COMBAT_DISTANCE)
                 {
                     AttackTaget();
                 }
@@ -54,9 +54,9 @@ namespace Assets.Scripts.Controllers
                 new Quaternion(0f, 0f, 0f, 0f) :
                 new Quaternion(0f, 180f, 0f, 0f);
             
-            if (direction.magnitude >= Speed * 2)
+            if (direction.magnitude >= ENEMY_COMBAT_DISTANCE)
             {
-                var move = direction * Speed * Time.fixedDeltaTime;
+                var move = direction * Speed * Time.deltaTime;
                 transform.position = new Vector3(
                     transform.position.x + move.x,
                     transform.position.y + move.y,
@@ -67,8 +67,8 @@ namespace Assets.Scripts.Controllers
 
         private void AttackTaget()
         {
-            //Do the fighting
             var termite = targetEnemy.gameObject.GetComponent<TermiteController>();
+
             var job = TermiteType.Worker;
             if (termite != null && termite.Termite != null)
             {
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Controllers
 
             if (job == TermiteType.Queen)
             {
-                fighterComponent.HitEnemyStructure(Time.deltaTime);
+                fighterComponent.HitColonyLife(targetEnemy.transform, Time.deltaTime);
             }
             else
             {
@@ -112,7 +112,7 @@ namespace Assets.Scripts.Controllers
                 return others.OrderBy(f => Random.Range(0f, 100f)).First();
             }
 
-            return queens.OrderBy(f => Random.Range(0f, 100f)).First();
+            return queens.OrderBy(f => Random.Range(0f, 100f)).FirstOrDefault();
         }
     }
 }

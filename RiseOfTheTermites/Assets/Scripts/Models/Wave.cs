@@ -51,7 +51,8 @@ namespace Assets.Scripts.Models
                 Duration = Duration,
                 AccumulatedSpawnTimer = AccumulatedSpawnTimer,
                 AccumulatedDuration = AccumulatedDuration,
-                HitPoint = HitPoint
+                HitPoint = HitPoint,
+                StartLocation = StartLocation
             };
         }
     }

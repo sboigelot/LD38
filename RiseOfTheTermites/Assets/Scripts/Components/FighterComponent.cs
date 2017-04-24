@@ -17,6 +17,8 @@ namespace Assets.Scripts.Components
 
         public SpriteRenderer HitpointSpriteRenderer;
 
+        public GameObject SpitTemplate;
+
         public FighterComponent()
         {
             initialHitpoint = 0;
@@ -39,9 +41,18 @@ namespace Assets.Scripts.Components
             if (combatTimer >= AttackSpeed)
             {
                 combatTimer = 0.0f;
-
                 enemyComponent.DealDamage(Damage);
+                SpitAt(enemyComponent.transform);
             }
+        }
+
+        private void SpitAt(Transform target)
+        {
+            var spit = Instantiate(SpitTemplate);
+            spit.transform.position = transform.position;
+            var spitController = spit.GetComponent<SpitController>();
+            spitController.Target = target;
+            spit.SetActive(true);
         }
 
         /// <summary>
@@ -89,7 +100,7 @@ namespace Assets.Scripts.Components
         /// <summary>
         ///     This hits enemy structure if there is no more enemies and that we are at target location (Throne room)
         /// </summary>
-        public void HitEnemyStructure(float time)
+        public void HitColonyLife(Transform queen, float time)
         {
             combatTimer += time;
 
@@ -97,6 +108,8 @@ namespace Assets.Scripts.Components
             {
                 combatTimer = 0.0f;
                 LevelController.Instance.Level.ColonyTakeDamage(Damage);
+
+                SpitAt(queen);
             }
         }
     }
