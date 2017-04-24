@@ -7,6 +7,17 @@ namespace Assets.Scripts.Controllers
         public float DespawnDistance = 0.05f;
         public float Speed = 4f;
         public Transform Target;
+        public bool IsVenomActive { get; set; }
+
+        private SpriteRenderer spriteRenderer;
+
+        public Color VenomColor = Color.green;
+        public Color NormalColor = Color.white;
+
+        public void Start()
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
 
         public void Update()
         {
@@ -15,6 +26,8 @@ namespace Assets.Scripts.Controllers
                 Destroy(gameObject);
                 return;
             }
+
+            spriteRenderer.color = IsVenomActive ? VenomColor : NormalColor;
 
             var distanceToTarget = Vector3.Distance(transform.position, Target.transform.position);
             if (!(distanceToTarget <= DespawnDistance))

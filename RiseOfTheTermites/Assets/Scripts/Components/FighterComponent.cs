@@ -41,17 +41,43 @@ namespace Assets.Scripts.Components
             if (combatTimer >= AttackSpeed)
             {
                 combatTimer = 0.0f;
-                enemyComponent.DealDamage(Damage);
-                SpitAt(enemyComponent.transform);
+                var isVenomActive = IsVenomAvailable();
+                int realDamage = isVenomActive ? Damage * 2 : Damage;
+                SpitAt(enemyComponent.transform, isVenomActive);
+                enemyComponent.DealDamage(realDamage);
             }
         }
 
-        private void SpitAt(Transform target)
+        private bool IsVenomAvailable()
+        {
+            if (!PlayerFighter)
+            {
+                return false;
+            }
+
+            var level = LevelController.Instance.Level;
+            var venom = level.FindLevelResourceByName("Venom");
+            if (venom == null || !(venom.Value >= 1))
+            {
+                return false;
+            }
+
+            level.ApplyImpact(new ResourceImpact
+            {
+                ResourceName = "Venom",
+                ImpactValuePerWorker = -1,
+                ImpactType = ResourceImpactType.Value,
+            }, 1);
+            return true;
+        }
+
+        private void SpitAt(Transform target, bool isVenomActive)
         {
             var spit = Instantiate(SpitTemplate);
             spit.transform.position = transform.position;
             var spitController = spit.GetComponent<SpitController>();
             spitController.Target = target;
+            spitController.IsVenomActive = isVenomActive;
             spit.SetActive(true);
         }
 
@@ -63,23 +89,7 @@ namespace Assets.Scripts.Components
         public bool DealDamage(int amount)
         {
             Debug.Assert(amount > 0);
-
-            if (PlayerFighter)
-            {
-                var level = LevelController.Instance.Level;
-                var venom = level.FindLevelResourceByName("Venom");
-                if (venom != null && venom.Value >= 1)
-                {
-                    level.ApplyImpact(new ResourceImpact
-                    {
-                        ResourceName = "Venom",
-                        ImpactValuePerWorker = -1,
-                        ImpactType = ResourceImpactType.Value,
-                    }, 1);
-                    amount *= 2;
-                }
-            }
-
+            
             if (initialHitpoint == 0)
             {
                 initialHitpoint = HitPoints;
@@ -109,7 +119,7 @@ namespace Assets.Scripts.Components
                 combatTimer = 0.0f;
                 LevelController.Instance.Level.ColonyTakeDamage(Damage);
 
-                SpitAt(queen);
+                SpitAt(queen, false);
             }
         }
     }

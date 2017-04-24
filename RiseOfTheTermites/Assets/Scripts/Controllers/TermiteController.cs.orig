@@ -23,12 +23,7 @@ namespace Assets.Scripts.Controllers
         public float MovementSpeedInRoom = 0.2f;
 
         public GameObject Selector;
-
-        public void Start()
-        {
-            fighterComponent = GetComponent<FighterComponent>();
-        }
-
+        
         public void FixedUpdate()
         {
             if (Termite == null)
@@ -37,10 +32,10 @@ namespace Assets.Scripts.Controllers
                 return;
             }
 
-            if (Termite.Job == TermiteType.Soldier)
+            if (Termite.Job == TermiteType.Soldier && IsInCombat)
             {
-                if(UpdateCombat())
-                    return;
+                UpdateCombat();
+                return;
             }
 
             Termite.Update(Time.fixedDeltaTime);
@@ -59,77 +54,60 @@ namespace Assets.Scripts.Controllers
 
         #region COMBAT
 
-        private FighterComponent targetEnemy;
+        private GameObject _enemyTermiteTarget;
+        const float ENEMY_COMBAT_DISTANCE = 0.2f;
+        float FORCED_VELOCITY = -0.2f; // Dirty : Should calculate according to startLocation.x - targetLocation.x
+        public Vector3 StartLocation { get; set; }
+        public Vector3 TargetLocation { get; set; } // CombatLocation
+        public bool IsInCombat = false;
 
-        private FighterComponent fighterComponent;
-
-        private const float ENEMY_COMBAT_DISTANCE = 0.6f;
-
-        public float CombatSpeed = 0.5f;
-
-        private bool UpdateCombat()
+        private void UpdateCombat()
         {
-            if (targetEnemy == null || targetEnemy.HitPoints <= 0)
-            {
-                targetEnemy = SearchNextValidEnemy();
-            }
+            //if (_enemyTermiteTarget && _enemyTermiteTarget.GetComponent<FighterComponent>().HitPoints > 0)
+            //{
+            //    //Do the fighting
+            //    //enemyTermiteTarget.
 
-            if (targetEnemy != null)
-            {
-                var distanceToTarget = Vector3.Distance(transform.position, targetEnemy.transform.position);
-                if (distanceToTarget <= ENEMY_COMBAT_DISTANCE)
-                {
-                    AttackTaget();
-                }
-                else
-                {
-                    MoveToTarget();
-                }
-            }
+            //    GetComponent<FighterComponent>().PerformCombatWith(_enemyTermiteTarget.GetComponent<FighterComponent>(), Time.deltaTime);
 
-            return targetEnemy != null;
-        }
+            //    if (_enemyTermiteTarget.GetComponent<FighterComponent>().HitPoints <= 0)
+            //        _enemyTermiteTarget = null;
 
-        private FighterComponent SearchNextValidEnemy()
-        {
-            return LevelController.
-                Instance.
-                EnemyLayer.
-                GetComponentsInChildren<FighterComponent>().
-                ToList()
-                .FindAll(it => it.HitPoints > 0 &&
-                               !it.PlayerFighter)
-                .OrderBy(f => Random.Range(0f, 100f)).
-                FirstOrDefault();
-        }
+            //    return;
+            //}
+            //else
+            //{
+            //    var lst = new List<FighterComponent>();
 
-        private void MoveToTarget()
-        {
-            var direction = targetEnemy.transform.position - transform.position;
+            //    lst.AddRange(LevelController.Instance.EnemyLayer.GetComponentsInChildren<FighterComponent>());
+            //    //get only next termites (those who have already passed through are ignored to simplify handling of directions
+            //    lst = lst.FindAll(it => it.HitPoints > 0 && !it.PlayerFighter && (Mathf.Abs(it.transform.position.x - transform.position.x) < ENEMY_COMBAT_DISTANCE * 2.0f) );
 
-            transform.rotation = transform.position.x > targetEnemy.transform.position.x ?
-                new Quaternion(0f, 0f, 0f, 0f) :
-                new Quaternion(0f, 180f, 0f, 0f);
+            //    foreach (var fighter in lst)
+            //    {
+            //        float squareEnemyDistance = (transform.position.x - fighter.transform.position.x) * (transform.position.x - fighter.transform.position.x) + (transform.position.y - fighter.transform.position.y) * (transform.position.y - fighter.transform.position.y);
 
-            if (direction.magnitude >= ENEMY_COMBAT_DISTANCE)
-            {
-                var move = direction * CombatSpeed * Time.deltaTime;
-                transform.position = new Vector3(
-                    transform.position.x + move.x,
-                    transform.position.y + move.y,
-                    transform.position.z
-                );
-            }
-        }
+            //        squareEnemyDistance = Mathf.Abs(squareEnemyDistance);
 
-        private void AttackTaget()
-        {
-            fighterComponent.PerformCombatWith(targetEnemy, Time.deltaTime);
+            //        if (squareEnemyDistance < ENEMY_COMBAT_DISTANCE * ENEMY_COMBAT_DISTANCE)
+            //        {
+            //            //Now they are fighting
+            //            _enemyTermiteTarget = fighter.gameObject;
 
-            if (targetEnemy.HitPoints <= 0)
-            {
-                targetEnemy = null;
-            }
+            //            return;
+            //        }
+            //    }
+            //}
+
+            ////Advance normally
+            //float distance = (transform.position.x - TargetLocation.x) * (transform.position.x - TargetLocation.x) + (transform.position.y - TargetLocation.y) * (transform.position.y - TargetLocation.y);
+            //distance = Mathf.Sqrt(distance);
+
+            //if (distance > FORCED_VELOCITY)
+            //{
+            //    transform.rotation = transform.position.x > TargetLocation.x ? new Quaternion(0f, 0f, 0f, 0f) : new Quaternion(0f, 180f, 0f, 0f);
+            //    transform.position = new Vector3(transform.position.x - FORCED_VELOCITY * Time.deltaTime, transform.position.y, transform.position.z);
+            //}
         }
         #endregion
 
@@ -192,8 +170,13 @@ namespace Assets.Scripts.Controllers
                 case TermiteType.Worker:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
                     LayerIndexNonSelected = 3;
+<<<<<<< HEAD
                     GetComponentInChildren<FighterComponent>().Damage = 0; // Allow the worker to be target for attack ?
+                    tooltip.content = "A <b>Worker</b> termite. Try to drag it around in different room. It may work and help you produce resources faster.";
+=======
+                    GetComponentInChildren<FighterComponent>().Damage = 0; // Allow the worker to be target for attack ? TODO (need algo change)
                     tooltip.content = "A <b>Worker</b> termite. Try to drag it around in different rooms. It may work and help you produce resources faster.";
+>>>>>>> 602140ea56d1f3d1cb460b4449ced61525b427cb
                     break;
                 case TermiteType.Soldier:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));

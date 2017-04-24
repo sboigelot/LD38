@@ -8,7 +8,7 @@ namespace Assets.Scripts.Models
         public Wave()
         {
             RatePerSecond = 0.05f;
-            SoldierLevel = 1;
+            Damage = 1;
             Duration = int.MaxValue;
             AccumulatedSpawnTimer = 0.0f;
             AccumulatedDuration = 0.0f;
@@ -18,7 +18,7 @@ namespace Assets.Scripts.Models
         public float RatePerSecond { get; set; }
         
         [XmlAttribute]
-        public int SoldierLevel { get; set; }
+        public int Damage { get; set; }
 
         [XmlAttribute]
         public int Duration { get; set; }
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Models
             return new Wave
             {
                 RatePerSecond = RatePerSecond,
-                SoldierLevel = SoldierLevel,
+                Damage = Damage,
                 Duration = Duration,
                 AccumulatedSpawnTimer = AccumulatedSpawnTimer,
                 AccumulatedDuration = AccumulatedDuration,
