@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using Assets.Scripts.Controllers;
 using Assets.Scripts.Managers.DialogBoxes;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
@@ -13,12 +15,24 @@ namespace Assets.Scripts.UI
 
         public void Start()
         {
-            CloseButton.onClick.AddListener(CloseDialog);
+            CloseButton.onClick.AddListener(() =>
+            {
+                CloseDialog();
+                GameController.Instance.IsGamePaused = false;
+            });
         }
 
         protected override void OnDialogOpen()
         {
+            StartCoroutine(PauseNextFrame());
             RebuildUi();
+        }
+
+        private IEnumerator PauseNextFrame()
+        {
+            yield return new WaitForSeconds(.1f);
+            GameController.Instance.IsGamePaused = true;
+            yield break;
         }
 
         private void RebuildUi()
