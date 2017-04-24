@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Controllers;
+﻿using System;
+using Assets.Scripts.Controllers;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Models;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Assets.Scripts.Components
         private int initialHitpoint;
         public int HitPoints;
         public bool PlayerFighter;
+        public Action<FighterComponent> OnTakeDamage;
+
 
         public SpriteRenderer HitpointSpriteRenderer;
 
@@ -45,6 +48,10 @@ namespace Assets.Scripts.Components
                 int realDamage = isVenomActive ? Damage * 2 : Damage;
                 SpitAt(enemyComponent.transform, isVenomActive);
                 enemyComponent.DealDamage(realDamage);
+                if (enemyComponent.OnTakeDamage != null)
+                {
+                    enemyComponent.OnTakeDamage(this);
+                }
             }
         }
 

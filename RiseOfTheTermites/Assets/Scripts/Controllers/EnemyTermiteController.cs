@@ -20,6 +20,17 @@ namespace Assets.Scripts.Controllers
         public void Start()
         {
             fighterComponent = GetComponent<FighterComponent>();
+            fighterComponent.OnTakeDamage = Retaliate;
+        }
+
+        private void Retaliate(FighterComponent attaker)
+        {
+            if (attaker == null || attaker.HitPoints <= 0)
+            {
+                return;
+            }
+
+            targetEnemy = attaker;
         }
 
         public void Update()
@@ -106,19 +117,25 @@ namespace Assets.Scripts.Controllers
                 .FindAll(it => it.HitPoints > 0 &&
                                it.PlayerFighter);
 
-            var soldier = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Soldier).ToList();
-            if (soldier.Any())
-            {
-                return soldier.OrderBy(f => Random.Range(0f, 100f)).First();
-            }
-
-            var workers = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Worker).ToList();
-            if (workers.Any())
-            {
-                return workers.OrderBy(f => Random.Range(0f, 100f)).First();
-            }
-
             var queens = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Queen).ToList();
+            var others = figthers.Where(f => !queens.Contains(f)).ToList();
+            if (others.Any())
+            {
+                return others.OrderBy(f => Random.Range(0f, 100f)).First();
+            }
+
+            //var soldier = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Soldier).ToList();
+            //if (soldier.Any())
+            //{
+            //    return soldier.OrderBy(f => Random.Range(0f, 100f)).First();
+            //}
+
+            //var workers = figthers.Where(f => f.GetComponent<TermiteController>().Termite.Job == TermiteType.Worker).ToList();
+            //if (workers.Any())
+            //{
+            //    return workers.OrderBy(f => Random.Range(0f, 100f)).First();
+            //}
+
             return queens.OrderBy(f => Random.Range(0f, 100f)).FirstOrDefault();
         }
     }

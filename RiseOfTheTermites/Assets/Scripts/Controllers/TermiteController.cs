@@ -75,6 +75,11 @@ namespace Assets.Scripts.Controllers
 
             if (barrack == null)
             {
+                PositionInRoom = new Vector2(
+                    transform.position.x - (Termite.RoomX * LevelController.Instance.RoomSpacing.x),
+                    transform.position.y - (Termite.RoomY * LevelController.Instance.RoomSpacing.y)
+                    );
+
                 return false;
             }
 
@@ -93,6 +98,12 @@ namespace Assets.Scripts.Controllers
 
             Termite.RoomX = barrack.GridLocationX;
             Termite.RoomY = barrack.GridLocationY;
+
+            PositionInRoom = new Vector2(
+                transform.position.x - (Termite.RoomX * LevelController.Instance.RoomSpacing.x),
+                transform.position.y - (Termite.RoomY * LevelController.Instance.RoomSpacing.y)
+                );
+
             return false;
         }
 
@@ -120,8 +131,8 @@ namespace Assets.Scripts.Controllers
             }
             else
             {
-                var halfx = LevelController.Instance.RoomSpacing.x / 2.5f;
-                var halfy = LevelController.Instance.RoomSpacing.x / 2.5f;
+                var halfx = LevelController.Instance.RoomSpacing.x / 3f;
+                var halfy = LevelController.Instance.RoomSpacing.x / 3f;
                 DestinationInRoom = new Vector2(
                     Random.Range(-halfx, halfx),
                     Random.Range(-halfy, halfy)
