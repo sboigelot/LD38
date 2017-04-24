@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Managers.DialogBoxes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,6 +44,13 @@ namespace Assets.Scripts.Components
             {
                 //Game is lost
                 HitPoints = 0;
+                
+                var screen = DialogBoxManager.Instance.Show( typeof( EndGameController ) ) as EndGameController;
+
+                if (screen )
+                {
+                    screen.GameIsSuccessful = false;
+                }
             }
         }
     }

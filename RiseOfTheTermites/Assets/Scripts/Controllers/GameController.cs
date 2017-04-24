@@ -23,6 +23,9 @@ namespace Assets.Scripts.Controllers
 
         public void NewGame(int level_index)
         {
+            //Hack: Don't want to store it for everyone
+            PrototypeManager.Instance.Levels[level_index].Index = level_index;
+
             GameManager.Instance.NewGame((Level) PrototypeManager.Instance.Levels[level_index].Clone());
             StartCoroutine(GameTick());
         }

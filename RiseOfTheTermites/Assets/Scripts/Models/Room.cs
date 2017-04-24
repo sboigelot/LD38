@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using Assets.Scripts.Controllers;
+using UnityEngine;
 
 namespace Assets.Scripts.Models
 {
@@ -67,6 +68,9 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public bool HideIfNoNeighboard { get; set; }
 
+        [XmlAttribute]
+        public bool IsPassable { get; set; }
+
         public Room()
         {
             
@@ -90,7 +94,8 @@ namespace Assets.Scripts.Models
                 ConstructionTime = ConstructionTime,
                 DestructionTime = DestructionTime,
                 IsDiggingAction = IsDiggingAction,
-                HideIfNoNeighboard = HideIfNoNeighboard
+                HideIfNoNeighboard = HideIfNoNeighboard,
+                IsPassable = IsPassable
             };
         }
 
@@ -104,5 +109,56 @@ namespace Assets.Scripts.Models
 
             return 1 + Math.Min(lastComputedWorkforce, MaxWorker);
         }
+
+
+        [XmlIgnore]
+        public bool IsVisible;
+
+        public void ShowHideRoom()
+        {
+            IsVisible = !HideIfNoNeighboard || HasBuiltNeighboard();
+        }
+
+        public void ShowHideRoomNeighboard()
+        {
+            var searchLocation = GetNeighboardLocation();
+
+            var neighboard = LevelController.Instance.Level.Rooms.FindAll(r => r.HideIfNoNeighboard &&
+                                                                 searchLocation.Contains(new Vector2(r.GridLocationX,
+                                                                     r.GridLocationY)));
+
+            foreach (var n in neighboard)
+            {
+                n.ShowHideRoom();
+            }
+        }
+
+        private bool HasBuiltNeighboard()
+        {
+            var searchLocation = GetNeighboardLocation();
+
+            return LevelController.Instance.Level.Rooms.Any(r => r.IsPassable &&
+                                                                 searchLocation.Contains(new Vector2(r.GridLocationX,
+                                                                     r.GridLocationY)));
+        }
+
+        private List<Vector2> GetNeighboardLocation()
+        {
+            var gridLocation = new Vector2(GridLocationX, GridLocationY);
+
+            var left = gridLocation - new Vector2(-1, 0);
+            var right = gridLocation - new Vector2(1, 0);
+            var down = gridLocation - new Vector2(0, 1);
+            var up = gridLocation - new Vector2(0, -1);
+
+            return new List<Vector2>
+            {
+                left,
+                right,
+                down,
+                up
+            };
+        }
+
     }
 }

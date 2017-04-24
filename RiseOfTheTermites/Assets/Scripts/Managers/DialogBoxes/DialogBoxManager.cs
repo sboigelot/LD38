@@ -27,12 +27,12 @@ namespace Assets.Scripts.Managers.DialogBoxes
             screens[screenType] = dialogBox;
         }
 
-        public void Show(Type screenType)
+        public IDialogBox Show(Type screenType)
         {
-            Show(screenType, null);
+            return Show(screenType, null);
         }
 
-        public void Show(Type screenType, object context)
+        public IDialogBox Show(Type screenType, object context)
         {
             if (screens.ContainsKey(screenType))
             {
@@ -44,7 +44,11 @@ namespace Assets.Scripts.Managers.DialogBoxes
                     if(otherDialogBox != dialogBox)
                         otherDialogBox.CloseDialog();
                 }
+
+                return dialogBox;
             }
+
+            return null;
         }
 
         public void Close(Type screenType)
