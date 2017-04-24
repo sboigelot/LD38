@@ -56,6 +56,8 @@ namespace Assets.Scripts.UI
             BindResource("ColonyLife", LifeAmount, LifeRate);
 
             var level = LevelController.Instance.Level;
+            if (level == null)
+                return;
             DiggingCooldown.text = string.Format("{0} sec left", (int) level.DiggingTimeLeft);
         }
 

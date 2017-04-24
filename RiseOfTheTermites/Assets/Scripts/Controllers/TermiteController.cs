@@ -97,7 +97,10 @@ namespace Assets.Scripts.Controllers
                 return false;
             }
 
-            if (!MoveToTarget(barrackRoom))
+            var barrackWorldLocation = new Vector2(
+                barrackRoom.x * LevelController.Instance.RoomSpacing.x,
+                barrackRoom.x * LevelController.Instance.RoomSpacing.y);
+            if (!MoveToTarget(barrackWorldLocation))
             {
                 return true;
             }
