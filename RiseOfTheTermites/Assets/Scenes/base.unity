@@ -4701,7 +4701,7 @@ MonoBehaviour:
   DestinationInRoom: {x: 0, y: 0}
   MovementSpeedInRoom: 0.2
   Selector: {fileID: 0}
-  IsInCombat: 0
+  CombatSpeed: 0.5
 --- !u!1 &1103351354 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1903408068680722, guid: 98556f1035d26594091528d707fd59cc,
@@ -5505,7 +5505,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1000
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: bb38e258856bb8a499343facfc7277d0, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5527,6 +5527,8 @@ MonoBehaviour:
   DespawnDistance: 0.05
   Speed: 10
   Target: {fileID: 0}
+  VenomColor: {r: 0, g: 1, b: 0, a: 1}
+  NormalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1576929173
 GameObject:
   m_ObjectHideFlags: 0
