@@ -5844,7 +5844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7901f4b36e6d147be1e9ba87e9ce78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameIsSuccessful: 1
   NextLevelButton: {fileID: 609814065}
   RetryButton: {fileID: 2078907457}
   ScoreText: {fileID: 0}
@@ -6879,7 +6878,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ff21b9abd0605ff44974e316c432afd7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

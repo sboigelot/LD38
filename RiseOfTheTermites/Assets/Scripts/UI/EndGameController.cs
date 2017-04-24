@@ -4,20 +4,17 @@ using Assets.Scripts.Managers.DialogBoxes;
 using Assets.Scripts.UI;
 using UnityEngine.UI;
 
-public class EndGameController : DialogBoxBase<EndGameController>
+public class EndGameController : ContextualDialogBoxBase<EndGameController, bool>
 {
-    public bool GameIsSuccessful = true;
     public Button NextLevelButton;
     public Button RetryButton;
     public Text ScoreText;
     public Text TitleText;
-
-    protected override void OnDialogOpen()
+    
+    protected override void OnScreenOpen(bool victory)
     {
-        TitleText.text = GameIsSuccessful ? "Congratulations" : "Game over";
-
-        //NextLevelButton.gameObject.SetActive(GameIsSuccessful);
-
+        TitleText.text = victory ? "Victory!" : "Defeat... try again :D";
+        
         RetryButton.onClick.AddListener(() =>
         {
             GameController.Instance.NewGame(GameManager.Instance.CurrentLevel.Index);

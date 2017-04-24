@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Controllers;
+﻿using System.Linq;
+using Assets.Scripts.Controllers;
 using Assets.Scripts.Managers.DialogBoxes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -63,7 +64,7 @@ namespace Assets.Scripts.UI
             var level = LevelController.Instance.Level;
 
             //Population
-            var stat = level.ColonyStats.Find(res => res.Name == statName);
+            var stat = level.ColonyStats.FirstOrDefault(res => res.Name == statName);
             if (stat == null)
                 return;
 
