@@ -6,6 +6,7 @@ using Assets.Scripts.Managers.DialogBoxes;
 using Assets.Scripts.Models;
 using Assets.Scripts.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Controllers
 {
@@ -29,6 +30,8 @@ namespace Assets.Scripts.Controllers
 
         public SpriteRenderer[] WorkerSlots;
 
+        public AudioClip DigSound;
+        
         public Room Room
         {
             get { return room; }
@@ -65,6 +68,8 @@ namespace Assets.Scripts.Controllers
                 level.IsDigging = true;
                 level.DiggingRoom = Room;
                 level.DiggingTimeLeft = (float)Room.DestructionTime;
+
+                PlaySound(DigSound);
             }
 
             startSwapTime = Time.time;
@@ -73,8 +78,31 @@ namespace Assets.Scripts.Controllers
             completedSwapTime = startSwapTime + Room.DestructionTime + otherRoom.ConstructionTime;
         }
 
+        private void PlaySound(AudioClip sound)
+        {
+            var slider = GameObject.Find("SoundEffectSlider");
+            var volume = 0.25f;
+            if (slider != null)
+            {
+                volume = slider.GetComponent<Slider>().value;
+            }
+
+            var audioSource = GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.volume = volume;
+                audioSource.loop = false;
+                audioSource.Stop();
+                audioSource.clip = sound;
+                audioSource.Play();
+            }
+        }
+
         public void Update()
         {
+            if (GameController.Instance.IsGamePaused)
+                return;
+
             UpdateWorkerSlots();
 
             bool isSwapping = !string.IsNullOrEmpty(SwapTarget);

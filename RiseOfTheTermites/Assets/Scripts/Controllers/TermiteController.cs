@@ -5,6 +5,7 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Models;
 using Assets.Scripts.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Controllers
 {
@@ -23,6 +24,8 @@ namespace Assets.Scripts.Controllers
 
         public Termite Termite { get; set; }
 
+        public AudioClip PopSound;
+
         public void Start()
         {
             fighterComponent = GetComponent<FighterComponent>();
@@ -30,6 +33,9 @@ namespace Assets.Scripts.Controllers
 
         public void FixedUpdate()
         {
+            if (GameController.Instance.IsGamePaused)
+                return;
+
             if (Termite == null)
             {
                 gameObject.SetActive(false);
@@ -147,6 +153,26 @@ namespace Assets.Scripts.Controllers
             );
         }
 
+        private void PlaySound(AudioClip sound)
+        {
+            var slider = GameObject.Find("SoundEffectSlider");
+            var volume = 0.25f;
+            if (slider != null)
+            {
+                volume = slider.GetComponent<Slider>().value;
+            }
+
+            var audioSource = GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.volume = volume;
+                audioSource.loop = false;
+                audioSource.Stop();
+                audioSource.clip = sound;
+                audioSource.Play();
+            }
+        }
+
         public void SetTermiteAndRoom(Termite termite, int termiteRoomX, int termiteRoomY)
         {
             Termite = termite;
@@ -186,6 +212,8 @@ namespace Assets.Scripts.Controllers
                 LevelController.Instance.RoomSpacing.x * termite.RoomX,
                 LevelController.Instance.RoomSpacing.y * termite.RoomY,
                 0);
+
+            PlaySound(PopSound);
         }
 
         public void OnMouseEnter()

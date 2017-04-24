@@ -3,6 +3,7 @@ using Assets.Scripts.Controllers;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Models;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Components
 {
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Components
         public bool PlayerFighter;
         public Action<FighterComponent> OnTakeDamage;
 
+        public AudioClip SpitSound;
 
         public SpriteRenderer HitpointSpriteRenderer;
 
@@ -86,6 +88,27 @@ namespace Assets.Scripts.Components
             spitController.Target = target;
             spitController.IsVenomActive = isVenomActive;
             spit.SetActive(true);
+            PlaySound(SpitSound);
+        }
+
+        private void PlaySound(AudioClip sound)
+        {
+            var slider = GameObject.Find("SoundEffectSlider");
+            var volume = 0.25f;
+            if (slider != null)
+            {
+                volume = slider.GetComponent<Slider>().value;
+            }
+
+            var audioSource = GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.volume = volume;
+                audioSource.loop = false;
+                audioSource.Stop();
+                audioSource.clip = sound;
+                audioSource.Play();
+            }
         }
 
         /// <summary>

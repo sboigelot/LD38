@@ -16,6 +16,9 @@ namespace Assets.Scripts.Controllers
         
         public void FixedUpdate()
         {
+            if (GameController.Instance.IsGamePaused)
+                return;
+
             if (WaveTimeline == null || !WaveTimeline.IsEnabled)
             {
                 return;

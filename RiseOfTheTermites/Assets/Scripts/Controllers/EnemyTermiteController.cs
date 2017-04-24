@@ -35,6 +35,9 @@ namespace Assets.Scripts.Controllers
 
         public void Update()
         {
+            if(GameController.Instance.IsGamePaused)
+                return;
+
             if (targetEnemy == null || targetEnemy.HitPoints <= 0)
             {
                 targetEnemy = SearchNextValidEnemy();

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Managers.DialogBoxes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,20 +21,27 @@ namespace Assets.Scripts.UI
         public Text SoldierCount;
         public Text VenomAmount;
         public Text WorkerCount;
+        
+        public Button ShowObjectiveButton;
 
-        private void Start()
+        public void Start()
         {
             PauseButton.onClick.AddListener(() =>
             {
-                var ttp = PauseButton.GetComponent<TooltipProvider>();
-                ttp.content =
-                    "Well tried ^^ But we told you this wouldn't pause the game.";
-                TooltipController.Instance.Show(ttp.content);
-
+                GameController.Instance.IsGamePaused = !GameController.Instance.IsGamePaused;
+                PauseButton.GetComponentInChildren<Text>().text = GameController.Instance.IsGamePaused
+                    ? "Unpause"
+                    : "Pause";
             });
+
             MenuButton.onClick.AddListener(() =>
             {
                 GameController.Instance.GameOver(false);
+            });
+
+            ShowObjectiveButton.onClick.AddListener(() =>
+            {
+                DialogBoxManager.Instance.Show(typeof(ObjectiveMenuController));
             });
         }
 

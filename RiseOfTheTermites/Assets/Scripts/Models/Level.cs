@@ -11,9 +11,6 @@ namespace Assets.Scripts.Models
 {
     public class Level : ICloneable
     {
-        const float ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD = 20.0f;
-        const float ROUGHT_ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD = ENEMY_DEFENSE_COMBAT_DISTANCE_THRESHOLD * 2.0f;
-
         public int Index { get; set; }
 
         [XmlAttribute]
@@ -138,6 +135,9 @@ namespace Assets.Scripts.Models
 
         public void Tick()
         {
+            if (GameController.Instance.IsGamePaused)
+                return;
+
             lastTickChanges.Clear();
             
             foreach (var room in Rooms)

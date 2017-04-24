@@ -6,13 +6,13 @@ using Assets.Scripts.Managers.DialogBoxes;
 using Assets.Scripts.Models;
 using Assets.Scripts.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Controllers
 {
     public class GameController : MonoBehaviourSingleton<GameController>
     {
         public Transform EnemySpawnLocationLeft;
+
         public Transform EnemySpawnLocationRight;
 
         private bool IsGameOver;
@@ -35,6 +35,7 @@ namespace Assets.Scripts.Controllers
 
             GameManager.Instance.NewGame((Level) PrototypeManager.Instance.Levels[level_index].Clone());
             StartCoroutine(GameTick());
+            DialogBoxManager.Instance.Show(typeof(ObjectiveMenuController));
         }
 
         public IEnumerator GameTick()
@@ -48,7 +49,10 @@ namespace Assets.Scripts.Controllers
                         GameOver(true);
                     }
 
-                    GameManager.Instance.CurrentLevel.Tick();
+                    if (!GameController.Instance.IsGamePaused)
+                    {
+                        GameManager.Instance.CurrentLevel.Tick();
+                    }
                     RemoveDeadFighters();
                     RebuildUi();
                 }
@@ -56,11 +60,11 @@ namespace Assets.Scripts.Controllers
                 yield return new WaitForSeconds(1);
             }
         }
-        
+
         private bool IsGameWon()
         {
             var level = LevelController.Instance.Level;
-            if (level.ColonyStatGoals == null || 
+            if (level.ColonyStatGoals == null ||
                 !level.ColonyStatGoals.Any() &&
                 level.WaveIndexGoal == 0)
             {
@@ -70,21 +74,28 @@ namespace Assets.Scripts.Controllers
 
             var allStatAchieved = level.ColonyStatGoals.All(g => g.IsAchieved());
 
+            var waveAchieved = IsWaveGoalAchieved();
+
+            return allStatAchieved && waveAchieved;
+        }
+
+        public bool IsWaveGoalAchieved()
+        {
             var waveAchieved = true;
+            var level = LevelController.Instance.Level;
             if (level.WaveIndexGoal != 0)
             {
                 var waveControllers = FindObjectsOfType<WaveTimelineController>();
                 foreach (var waveTimelineController in waveControllers)
                 {
-                    if(waveTimelineController.WaveTimeline != null)
+                    if (waveTimelineController.WaveTimeline != null)
                         continue;
 
-                    var waveIndex =  waveTimelineController.WaveTimeline.WaveIndex;
-                    waveAchieved &= (waveIndex >= level.WaveIndexGoal);
+                    var waveIndex = waveTimelineController.WaveTimeline.WaveIndex;
+                    waveAchieved &= waveIndex >= level.WaveIndexGoal;
                 }
             }
-
-            return allStatAchieved && waveAchieved;
+            return waveAchieved;
         }
 
         public void RebuildUi()

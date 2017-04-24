@@ -57,6 +57,9 @@ namespace Assets.Scripts.Models
 
         public void Update(float deltaTime)
         {
+            if (GameController.Instance.IsGamePaused)
+                return;
+
             switch (Job)
             {
                 case TermiteType.Queen:
