@@ -89,15 +89,15 @@ namespace Assets.Scripts.Controllers
         {
             EnemyLayer.ClearChildren();
 
-            if (Level == null || !Level.Enemies.Any())
+            if (Level == null || !Level.WaveTimelines.Any())
                 return;
 
             var enemy_index = 0;
-            foreach (var enemy in Level.Enemies)
+            foreach (var enemy in Level.WaveTimelines)
             {
                 var newEnemy = new GameObject();
                 newEnemy.transform.SetParent(EnemyLayer, false);
-                newEnemy.name = string.Format("WaveTimeline {0}", enemy_index++);
+                newEnemy.name = string.Format("WaveTimelines {0}", enemy_index++);
                 newEnemy.SetActive(true);
                 newEnemy.transform.position = new Vector3(
                     0.0f,

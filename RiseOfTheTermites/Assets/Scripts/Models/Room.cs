@@ -110,6 +110,12 @@ namespace Assets.Scripts.Models
         public int LastComputedWorkforce;
         public int GetWorkforce()
         {
+            var level = LevelController.Instance.Level;
+            if (level == null || level.Termites == null)
+            {
+                return 0;
+            }
+
             LastComputedWorkforce = LevelController.Instance.Level.Termites.Count(
                 t => t.RoomX == GridLocationX &&
                      t.RoomY == GridLocationY &&

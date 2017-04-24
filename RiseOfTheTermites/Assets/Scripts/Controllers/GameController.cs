@@ -40,6 +40,11 @@ namespace Assets.Scripts.Controllers
             {
                 if (GameManager.Instance.CurrentLevel != null)
                 {
+                    if (IsGameWon())
+                    {
+                        GameOver(true);
+                    }
+
                     GameManager.Instance.CurrentLevel.Tick();
                     RemoveDeadFighters();
                     RebuildUi();
@@ -47,6 +52,36 @@ namespace Assets.Scripts.Controllers
 
                 yield return new WaitForSeconds(1);
             }
+        }
+        
+        private bool IsGameWon()
+        {
+            var level = LevelController.Instance.Level;
+            if (level.ColonyStatGoals == null || 
+                !level.ColonyStatGoals.Any() &&
+                level.WaveIndexGoal == 0)
+            {
+                //sandbox
+                return false;
+            }
+
+            var allStatAchieved = level.ColonyStatGoals.All(g => g.IsAchieved());
+
+            var waveAchieved = true;
+            if (level.WaveIndexGoal != 0)
+            {
+                var waveControllers = FindObjectsOfType<WaveTimelineController>();
+                foreach (var waveTimelineController in waveControllers)
+                {
+                    if(waveTimelineController.WaveTimeline != null)
+                        continue;
+
+                    var waveIndex =  waveTimelineController.WaveTimeline.WaveIndex;
+                    waveAchieved &= (waveIndex >= level.WaveIndexGoal);
+                }
+            }
+
+            return allStatAchieved && waveAchieved;
         }
 
         public void RebuildUi()

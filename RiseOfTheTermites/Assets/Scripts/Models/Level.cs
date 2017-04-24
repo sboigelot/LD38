@@ -29,7 +29,7 @@ namespace Assets.Scripts.Models
         public List<Termite> Termites { get; set; }
 
         [XmlElement("WaveTimeline")]
-        public List<WaveTimeline> Enemies { get; set; }
+        public List<WaveTimeline> WaveTimelines { get; set; }
 
         [XmlAttribute]
         public float QueenEatAmount { get; set; }
@@ -39,6 +39,12 @@ namespace Assets.Scripts.Models
 
         [XmlAttribute]
         public float WorkerEatAmount { get; set; }
+
+        [XmlAttribute("WaveIndexGoal")]
+        public int WaveIndexGoal { get; set; }
+
+        [XmlElement("ColonyStatGoal")]
+        public List<ColonyStatGoal> ColonyStatGoals { get; set; }
 
         public bool IsDigging { get; set; }
 
@@ -61,8 +67,10 @@ namespace Assets.Scripts.Models
                     return r2;
                 }).ToList(),
                 Termites = Termites.Select(t=>(Termite)t.Clone()).ToList(),
-                Enemies = Enemies,
-                Index = Index
+                WaveTimelines = WaveTimelines,
+                Index = Index,
+                WaveIndexGoal = WaveIndexGoal,
+                ColonyStatGoals = ColonyStatGoals.ToList()
             };
         }
 
