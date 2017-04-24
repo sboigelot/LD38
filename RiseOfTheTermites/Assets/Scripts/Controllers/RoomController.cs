@@ -75,6 +75,9 @@ namespace Assets.Scripts.Controllers
 
         public void Update()
         {
+            if (GameController.Instance.IsGamePaused)
+                return;
+
             UpdateWorkerSlots();
 
             bool isSwapping = !string.IsNullOrEmpty(SwapTarget);

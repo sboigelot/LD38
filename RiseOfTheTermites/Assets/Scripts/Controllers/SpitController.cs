@@ -21,6 +21,9 @@ namespace Assets.Scripts.Controllers
 
         public void Update()
         {
+            if (GameController.Instance.IsGamePaused)
+                return;
+
             if (Target == null || Target.transform == null)
             {
                 Destroy(gameObject);

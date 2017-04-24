@@ -30,6 +30,9 @@ namespace Assets.Scripts.Controllers
 
         public void FixedUpdate()
         {
+            if (GameController.Instance.IsGamePaused)
+                return;
+
             if (Termite == null)
             {
                 gameObject.SetActive(false);

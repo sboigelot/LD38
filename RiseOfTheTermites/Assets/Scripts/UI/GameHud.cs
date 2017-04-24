@@ -28,11 +28,10 @@ namespace Assets.Scripts.UI
         {
             PauseButton.onClick.AddListener(() =>
             {
-                var ttp = PauseButton.GetComponent<TooltipProvider>();
-                ttp.content =
-                    "Well tried ^^ But we told you this wouldn't pause the game.";
-                TooltipController.Instance.Show(ttp.content);
-
+                GameController.Instance.IsGamePaused = !GameController.Instance.IsGamePaused;
+                PauseButton.GetComponentInChildren<Text>().text = GameController.Instance.IsGamePaused
+                    ? "Unpause"
+                    : "Pause";
             });
 
             MenuButton.onClick.AddListener(() =>

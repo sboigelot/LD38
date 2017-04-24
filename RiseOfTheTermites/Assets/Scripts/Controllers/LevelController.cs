@@ -42,6 +42,9 @@ namespace Assets.Scripts.Controllers
 
         public void FixedUpdate()
         {
+            if (GameController.Instance.IsGamePaused)
+                return;
+
             if (Level != null && Level.IsDigging)
             {
                 var workforce = Level.DiggingRoom.GetWorkforce();
