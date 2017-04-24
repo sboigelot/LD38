@@ -5,6 +5,7 @@ using Assets.Scripts.Components;
 using Assets.Scripts.Models;
 using UnityEngine;
 using System.Collections.Generic;
+using Assets.Scripts.UI;
 
 namespace Assets.Scripts.Controllers
 {
@@ -91,6 +92,8 @@ namespace Assets.Scripts.Controllers
                 {
                     float squareEnemyDistance = (transform.position.x - fighter.transform.position.x) * (transform.position.x - fighter.transform.position.x) + (transform.position.y - fighter.transform.position.y) * (transform.position.y - fighter.transform.position.y);
 
+                    squareEnemyDistance = Mathf.Abs(squareEnemyDistance);
+
                     if (squareEnemyDistance < ENEMY_COMBAT_DISTANCE * ENEMY_COMBAT_DISTANCE)
                     {
                         //Now they are fighting
@@ -107,6 +110,7 @@ namespace Assets.Scripts.Controllers
 
             if (distance > FORCED_VELOCITY)
             {
+                transform.rotation = transform.position.x > TargetLocation.x ? new Quaternion(0f, 0f, 0f, 0f) : new Quaternion(0f, 180f, 0f, 0f);
                 transform.position = new Vector3(transform.position.x - FORCED_VELOCITY * Time.deltaTime, transform.position.y, transform.position.z);
             }
         }
@@ -124,6 +128,10 @@ namespace Assets.Scripts.Controllers
         private void RandomlyMoveTermite()
         {
             var direction = DestinationInRoom - PositionInRoom;
+
+            transform.rotation = PositionInRoom.x > DestinationInRoom.x ?
+                new Quaternion(0f, 0f, 0f, 0f) : 
+                new Quaternion(0f, 180f, 0f, 0f);
 
             if (direction.magnitude >= MovementSpeedInRoom * 2)
             {
@@ -154,21 +162,28 @@ namespace Assets.Scripts.Controllers
             gameObject.SetActive(true);
 
             var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+            var tooltip = gameObject.GetComponent<LevelTooltipProvider>() ?? gameObject.AddComponent<LevelTooltipProvider>();
             switch (termite.Job)
             {
                 case TermiteType.Queen:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Queen"));
                     LayerIndexNonSelected = 1;
                     Destroy(GetComponentInChildren<FighterComponent>());
+                    tooltip.content =
+                        "Your <b>Queen</b> will lay new soldier and worker if you have enougth space in your colony. Protect it!";
                     break;
                 case TermiteType.Worker:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
                     LayerIndexNonSelected = 3;
-                    Destroy(GetComponentInChildren<FighterComponent>());
+                    GetComponentInChildren<FighterComponent>().Damage = 0; // Allow the worker to be target for attack ? TODO (need algo change)
+                    tooltip.content = "A <b>Worker</b> termite. Try to drag it around in different room. It may work and help you produce resources faster.";
                     break;
                 case TermiteType.Soldier:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));
                     LayerIndexNonSelected = 2;
+                    tooltip.content =
+                        "A <b>Soldier</b> termite. It will attack any enemy in sigth and become stronger if you produce <b>Venom</b>";
                     break;
             }
             spriteRenderer.sortingOrder = LayerIndexNonSelected;

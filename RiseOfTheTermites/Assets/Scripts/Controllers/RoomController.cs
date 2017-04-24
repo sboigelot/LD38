@@ -25,6 +25,8 @@ namespace Assets.Scripts.Controllers
 
         public GameObject Selector;
 
+        public SpriteRenderer[] WorkerSlots;
+
         public Room Room
         {
             get { return room; }
@@ -71,6 +73,8 @@ namespace Assets.Scripts.Controllers
 
         public void Update()
         {
+            UpdateWorkerSlots();
+
             bool isSwapping = !string.IsNullOrEmpty(SwapTarget);
             
             if (spriteRenderer != null)
@@ -107,6 +111,29 @@ namespace Assets.Scripts.Controllers
             }
         }
 
+        private void UpdateWorkerSlots()
+        {
+            var visibleDots = 0;
+            var usedDots = 0;
+            if (Room != null)
+            {
+                visibleDots = Room.MaxWorker;
+                usedDots = Room.LastComputedWorkforce;
+            }
+
+            if(WorkerSlots != null)
+            for (var i = 0; i < WorkerSlots.Length; i++)
+            {
+                var workerSlot = WorkerSlots[i];
+
+                workerSlot.enabled = visibleDots > 0;
+                visibleDots--;
+
+                workerSlot.color = usedDots > 0 ? Color.white : new Color(255f, 255f, 255f, .25f);
+                usedDots--;
+            }
+        }
+
         private void ChangeRoomType(string roomName)
         {
             if (!string.IsNullOrEmpty(roomName) && LevelController.Instance != null && LevelController.Instance.Level != null)
@@ -137,12 +164,46 @@ namespace Assets.Scripts.Controllers
             if (Room == null)
                 return;
 
+            var tooltip = gameObject.GetComponent<LevelTooltipProvider>() ?? gameObject.AddComponent<LevelTooltipProvider>();
+            tooltip.content = Room.Description;
+            tooltip.CheckIfTooltipShouldBeDisplayed = () => Room.IsVisible;
+
+            SpawnTermitesOnBuilt();
+
             if (spriteRenderer != null)
             {
                 StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.RoomFolder, Room.SpritePath));
             }
             
             Room.ShowHideRoom();
+        }
+
+        private void SpawnTermitesOnBuilt()
+        {
+            if (Room.SpawnTermitesOnBuild != null)
+            {
+                foreach (var termiteTemplate in Room.SpawnTermitesOnBuild.ToList())
+                {
+                    Room.SpawnTermitesOnBuild.Remove(termiteTemplate);
+                    var population = LevelController.Instance.Level.ColonyStats.FirstOrDefault(r => r.Name == "Population");
+                    if (population != null)
+                    {
+                        if(termiteTemplate.Job != TermiteType.Queen)
+                            population.Value++;
+
+                        var newborn = new Termite
+                        {
+                            RoomX =Room.GridLocationX,
+                            RoomY = Room.GridLocationY,
+                            Job = termiteTemplate.Job,
+                            Hp = termiteTemplate.Hp,
+                            QueenBirthTimer = termiteTemplate.QueenBirthTimer
+                        };
+                        LevelController.Instance.Level.Termites.Add(newborn);
+                        LevelController.Instance.InstanciateTermite(newborn);
+                    }
+                }
+            }
         }
 
         public void Start()

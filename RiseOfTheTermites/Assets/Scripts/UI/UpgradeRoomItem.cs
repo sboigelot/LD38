@@ -5,6 +5,7 @@ using System.Text;
 using Assets.Scripts.Controllers;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.DialogBoxes;
+using Assets.Scripts.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +16,30 @@ namespace Assets.Scripts.UI
         public Text NameText;
         public Image Image;
         public Text CostText;
-        
+        public TooltipProvider TooltipProvider;
+        private Room room;
+        private bool noChange;
+        private RoomController roomController;
+        private string roomName;
+
         public void Setup(RoomController roomController, bool noChange, string roomName)
         {
-            var room = PrototypeManager.FindRoomPrototype(roomName);
-            
+            this.room = PrototypeManager.FindRoomPrototype(roomName);
+            this.noChange = noChange;
+            this.roomController = roomController;
+            this.roomName = roomName;
+
+            RefreshUi();
+        }
+
+        public void FixedUpdate()
+        {
+            RefreshUi();
+        }
+
+        public void RefreshUi()
+        { 
+            TooltipProvider.content = noChange ? "Don't change anything" : room.Description;
             NameText.text = room.Name;
             
             bool diggingConflict = !noChange && roomController.Room.IsDiggingAction && LevelController.Instance.Level.IsDigging;
@@ -50,7 +70,11 @@ namespace Assets.Scripts.UI
             {
                 foreach (var price in room.ResourceImpactPrices)
                 {
-                    costs += string.Format("{0} {1}", price.ImpactValuePerWorker, price.ResourceName) + Environment.NewLine;
+                    var res = LevelController.Instance.Level.FindLevelResourceByName(price.ResourceName);
+                    costs += string.Format("<color={2}>{0} {1}</color>", 
+                        price.ImpactValuePerWorker, 
+                        price.ResourceName,
+                        res != null && res.Value >= price.ImpactValuePerWorker ? "green" : "red") + Environment.NewLine;
                 }
             }
 

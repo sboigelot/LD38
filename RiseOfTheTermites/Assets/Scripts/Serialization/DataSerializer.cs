@@ -80,8 +80,8 @@ namespace Assets.Scripts.Serialization
         {
             return new[]
             {
-                typeof(Enemy),
-                typeof(Spawn),
+                typeof(WaveTimeline),
+                typeof(Wave),
                 typeof(Level),
                 typeof(PlayerProfile),
                 typeof(ColonyStat),

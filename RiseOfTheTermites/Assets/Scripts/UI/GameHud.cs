@@ -6,70 +6,66 @@ namespace Assets.Scripts.UI
 {
     public class GameHud : MonoBehaviourSingleton<GameHud>
     {
-        public Button PauseButton;
-        public Text WorkerCount;
-        public Text SoldierCount;
-        public Text SoilAmount;
+        public Text DiggingCooldown;
         public Text FoodAmount;
         public Text FoodRate;
-        public Text SoilRate;
-        public Text DiggingCooldown;
+        public Text LifeAmount;
+        public Text LifeRate;
 
-        public Color OkColor;
-        public Color KOColor;
+        public Button PauseButton;
+        public Button MenuButton;
+
+        public Text SoilAmount;
+        public Text SoilRate;
+        public Text SoldierCount;
+        public Text VenomAmount;
+        public Text WorkerCount;
 
         private void Start()
         {
-            PauseButton.onClick.AddListener(() => {
-                
+            PauseButton.onClick.AddListener(() =>
+            {
+                var ttp = PauseButton.GetComponent<TooltipProvider>();
+                ttp.content =
+                    "Well tried ^^ But we told you this wouldn't pause the game.";
+                TooltipController.Instance.Show(ttp.content);
+
+            });
+            MenuButton.onClick.AddListener(() =>
+            {
+                GameController.Instance.GameOver(false);
             });
         }
 
         public void OnGameTick()
         {
+            BindResource("Population", WorkerCount, null);
+            BindResource("Soldier", SoldierCount, null);
+            BindResource("Soil", SoilAmount, SoilRate);
+            BindResource("Food", FoodAmount, FoodRate);
+            BindResource("Venom", VenomAmount, null);
+            BindResource("ColonyLife", LifeAmount, LifeRate);
+
+            var level = LevelController.Instance.Level;
+            DiggingCooldown.text = string.Format("{0} sec left", (int) level.DiggingTimeLeft);
+        }
+
+        private void BindResource(string statName, Text count, Text rate)
+        {
             var level = LevelController.Instance.Level;
 
             //Population
-            var population = level.ColonyStats.Find(res => res.Name == "Population" );
-
-            if (population == null)
+            var stat = level.ColonyStats.Find(res => res.Name == statName);
+            if (stat == null)
                 return;
 
-            WorkerCount.text = string.Format("{0} / {1}", population.Value, population.MaxValue );
-            float percentage = Mathf.Min(1.0f, ((population.MaxValue - population.Value) / population.MaxValue) * 10.0f);
+            count.text = string.Format("{0} / {1}", (int)Mathf.FloorToInt(stat.Value), Mathf.FloorToInt(stat.MaxValue));
 
-            //Soldiers
-            var soldiers = level.ColonyStats.Find(res => res.Name == "Soldier");
-
-            if (soldiers == null)
-                return;
-
-            SoldierCount.text = string.Format("{0} / {1}", soldiers.Value, soldiers.MaxValue);
-            percentage = Mathf.Min(1.0f, ((soldiers.MaxValue - soldiers.Value) / soldiers.MaxValue) * 10.0f);
-
-            //Soil
-            var soil = level.ColonyStats.Find(res => res.Name == "Soil");
-
-            if (soil == null)
-                return;
-
-            SoilAmount.text = string.Format("{0} / {1}", soil.Value, soil.MaxValue);
-            percentage = Mathf.Min(1.0f, ((soil.MaxValue - soil.Value) / soil.MaxValue) * 10.0f);
-
-            //Food
-            var food = level.ColonyStats.Find(res => res.Name == "Food");
-
-            if (food == null)
-                return;
-
-            FoodAmount.text = string.Format("{0} / {1}", food.Value, food.MaxValue);
-
-            percentage = Mathf.Min(1.0f, ((food.MaxValue - food.Value) / food.MaxValue) * 10.0f);
-
-            FoodRate.text = string.Format("+ {0:0.00}", level.GetLastTickChange( food.Name ));
-            SoilRate.text = string.Format("+ {0:0.00}", level.GetLastTickChange(soil.Name));
-            
-            DiggingCooldown.text = string.Format("{0} sec left", (int)level.DiggingTimeLeft);
+            if (rate != null)
+            {
+                var change = level.GetLastTickChange(statName);
+                rate.text = string.Format("{0} {1:0.00}", change > 0 ? "+" : "", change);
+            }
         }
     }
 }

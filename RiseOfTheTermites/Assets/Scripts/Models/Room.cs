@@ -46,6 +46,9 @@ namespace Assets.Scripts.Models
         [XmlElement("ResourceImpactPrice")]
         public List<ResourceImpact> ResourceImpactPrices { get; set; }
 
+        [XmlElement("SpawnTermiteOnBuild")]
+        public List<Termite> SpawnTermitesOnBuild { get; set; }
+
         [XmlAttribute]
         public int BuildingTime { get; set; }
 
@@ -71,6 +74,9 @@ namespace Assets.Scripts.Models
         [XmlAttribute]
         public bool IsPassable { get; set; }
 
+        [XmlAttribute("Description")]
+        public string Description { get; set; }
+
         public Room()
         {
             
@@ -95,19 +101,27 @@ namespace Assets.Scripts.Models
                 DestructionTime = DestructionTime,
                 IsDiggingAction = IsDiggingAction,
                 HideIfNoNeighboard = HideIfNoNeighboard,
-                IsPassable = IsPassable
+                IsPassable = IsPassable,
+                SpawnTermitesOnBuild = SpawnTermitesOnBuild.ToList(),
+                Description = Description
             };
         }
 
-        private int lastComputedWorkforce;
+        public int LastComputedWorkforce;
         public int GetWorkforce()
         {
-            lastComputedWorkforce = LevelController.Instance.Level.Termites.Count(
+            var level = LevelController.Instance.Level;
+            if (level == null || level.Termites == null)
+            {
+                return 0;
+            }
+
+            LastComputedWorkforce = LevelController.Instance.Level.Termites.Count(
                 t => t.RoomX == GridLocationX &&
                      t.RoomY == GridLocationY &&
                      t.Job == TermiteType.Worker);
 
-            return 1 + Math.Min(lastComputedWorkforce, MaxWorker);
+            return 1 + Math.Min(LastComputedWorkforce, MaxWorker);
         }
 
 

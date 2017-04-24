@@ -4,7 +4,8 @@
         SpritePath="Rock"
         ValidLocation="UnderGround"
         HideIfNoNeighboard="false"
-        IsPassable="false">
+        IsPassable="false"
+        Description="Solid as a rock. Your Termites will never be able to move it.">
   </Room>
 
   <Room Name="Food bonus"
@@ -14,7 +15,8 @@
         IsDiggingAction="true"
         HideIfNoNeighboard="true"
         IsPassable="false"
-        MaxWorker="3">
+        MaxWorker="3"
+        Description="You can find free food here if you dig this room">
     <ResourceImpactOnDestroy ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
@@ -26,7 +28,8 @@
         IsDiggingAction="true"
         HideIfNoNeighboard="true"
         IsPassable="false"
-        MaxWorker="3">
+        MaxWorker="3"
+        Description="You can find extra soil here if you dig this room">
     <ResourceImpactOnDestroy ResourceName="Soil" ImpactValuePerWorker="100" ImpactType="Value"/>
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
@@ -38,7 +41,8 @@
         IsDiggingAction="true"
         HideIfNoNeighboard="true"
         IsPassable="false"
-        MaxWorker="3">
+        MaxWorker="3"
+        Description="Dig this room to make space for other building">
     <PossibleUpgrade>Underground Empty Room</PossibleUpgrade>
   </Room>
 
@@ -47,31 +51,37 @@
         ValidLocation="Anywhere"
         CanAttack="true"
         HideIfNoNeighboard="false"
-        IsPassable="false">
+        IsPassable="false"
+        Description="Enemy will come from here, this is a dangerous place">
   </Room>
 
   <Room Name="Surface Empty Room"
         SpritePath="empty_room_aboveground"
         ValidLocation="AboveGround"
         HideIfNoNeighboard="true"
-        IsPassable="false">
+        IsPassable="false"
+        Description="You can build other room here">
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>Barracks level 1</PossibleUpgrade>    
     <PossibleUpgrade>GatheringRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>Soil generator level 1</PossibleUpgrade>
+    <PossibleUpgrade>Builder room level 1</PossibleUpgrade>
   </Room>
 
   <Room Name="Underground Empty Room"
         SpritePath="empty_room_underground"
         ValidLocation="UnderGround"
         HideIfNoNeighboard="true"
-        IsPassable="true">
+        IsPassable="true"
+        Description="You can build other room here">
     <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
     <PossibleUpgrade>StorageRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>FarmRoom level 1</PossibleUpgrade>
     <PossibleUpgrade>Barracks level 1</PossibleUpgrade>
     <PossibleUpgrade>BedRoom level 1</PossibleUpgrade>
+    <PossibleUpgrade>Venom room</PossibleUpgrade>
+    <PossibleUpgrade>Throne Room</PossibleUpgrade>
   </Room>
 
   <Room Name="Throne Room"
@@ -79,9 +89,15 @@
         ValidLocation="UnderGround"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="The seat of your power, host a Queen that will lay new Termites">
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="1" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="1" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="300" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="200" ImpactType="Value"/>
+    <ResourceImpactOnBuilt ResourceName="ColonyLife" ImpactValuePerWorker="100" ImpactType="MaxValue"/>
+    <ResourceImpactOnBuilt ResourceName="ColonyLife" ImpactValuePerWorker="100" ImpactType="Value"/>
+    <SpawnTermiteOnBuild Job="Queen" Hp="150" QueenBirthTimer="10"/>
   </Room>
 
   <Room Name="BedRoom level 1"
@@ -89,10 +105,10 @@
         ValidLocation="UnderGround"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Increase your worker limit by 1">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
-    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1" ImpactType="Value"/> TODO replace by Level Food consumption per termite type, speak with Paris-->
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 2</PossibleUpgrade>
   </Room>
@@ -102,10 +118,10 @@
         ValidLocation="UnderGround"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Increase your worker limit by 2">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
-    <!--<ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="-1.5" ImpactType="Value"/>-->
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
     <PossibleUpgrade>BedRoom level 3</PossibleUpgrade>
   </Room>
@@ -115,40 +131,46 @@
         ValidLocation="UnderGround"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Increase your worker limit by 4">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="35" ImpactType="Value"/>    
     <ResourceImpactOnBuilt ResourceName="Population" ImpactValuePerWorker="2" ImpactType="MaxValue"/>
   </Room>
 
   <Room Name="GatheringRoom level 1"
-        SpritePath="GatheringRoom"
+        SpritePath="gathering_room_1"
         ValidLocation="AboveGround"
         MaxWorker="1"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="A place to gather food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="20" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="60" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
+    <PossibleUpgrade>GatheringRoom level 2</PossibleUpgrade>
   </Room>
 
   <Room Name="GatheringRoom level 2"
-        SpritePath="GatheringRoom"
+        SpritePath="gathering_room_2"
         ValidLocation="AboveGround"
         MaxWorker="1"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="A place to gather food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="80" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="4" ImpactType="Value"/>
+    <PossibleUpgrade>GatheringRoom level 3</PossibleUpgrade>
   </Room>
 
   <Room Name="GatheringRoom level 3"
-        SpritePath="GatheringRoom"
+        SpritePath="gathering_room_3"
         ValidLocation="AboveGround"
         MaxWorker="2"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="A place to gather food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="40" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="100" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="5" ImpactType="Value"/>
@@ -159,7 +181,8 @@
         ValidLocation="UnderGround"
         MaxWorker="1"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="A place to grow food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="20" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="2" ImpactType="Value"/>
@@ -171,7 +194,8 @@
         ValidLocation="UnderGround"
         MaxWorker="1"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="A place to grow food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="40" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
@@ -183,7 +207,8 @@
         ValidLocation="UnderGround"
         MaxWorker="2"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="A place to grow food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="40" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="4" ImpactType="Value"/>
@@ -194,7 +219,8 @@
         ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Increase your soldier limit by 1">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
@@ -206,7 +232,8 @@
         ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Increase your soldier limit by 2">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="75" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="45" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
@@ -218,7 +245,8 @@
         ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Increase your soldier limit by 3">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="60" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Soldier" ImpactValuePerWorker="1" ImpactType="MaxValue"/>
@@ -229,7 +257,8 @@
           ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Increase your food and soil limit">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="20" ImpactType="MaxValue"/>
@@ -242,7 +271,8 @@
           ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Increase your food and soil limit">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="50" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="30" ImpactType="MaxValue"/>
@@ -255,7 +285,8 @@
           ValidLocation="Anywhere"
         MaxWorker="0"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Increase your food and soil limit">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="35" ImpactType="MaxValue"/>
@@ -263,42 +294,79 @@
   </Room>
 
   <Room Name="Soil generator level 1"
-           SpritePath="SoilGenerator"
+           SpritePath="soil_generator_room_1"
            ValidLocation="AboveGround"
            MaxWorker="1"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="A place to slowly gather Soil">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="60" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="0" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
     <PossibleUpgrade>Soil generator level 2</PossibleUpgrade>
   </Room>
 
-  <Room Name="Soil generator level 2"
-           SpritePath="SoilGenerator"
+  <Room Name="Builder room level 1"
+           SpritePath="BuilderRoom1"
            ValidLocation="AboveGround"
            MaxWorker="1"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="Slowly repair your colony">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="400" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="400" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="ColonyLife" ImpactValuePerWorker="0.5" ImpactType="Value"/>
+    <PossibleUpgrade>Builder room level 2</PossibleUpgrade>
+  </Room>
+
+  <Room Name="Builder room level 2"
+           SpritePath="BuilderRoom2"
+           ValidLocation="AboveGround"
+           MaxWorker="2"
+        HideIfNoNeighboard="false"
+        IsPassable="true"
+        Description="Slowly repair your colony">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="600" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="600" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="ColonyLife" ImpactValuePerWorker="0.8" ImpactType="Value"/>
+  </Room>
+  
+  <Room Name="Soil generator level 2"
+           SpritePath="soil_generator_room_2"
+           ValidLocation="AboveGround"
+           MaxWorker="1"
+        HideIfNoNeighboard="false"
+        IsPassable="true"
+        Description="A place to slowly gather Soil">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="80" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="0" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.8" ImpactType="Value"/>
     <PossibleUpgrade>Soil generator level 3</PossibleUpgrade>
   </Room>
 
   <Room Name="Soil generator level 3"
-           SpritePath="SoilGenerator"
+           SpritePath="soil_generator_room_3"
            ValidLocation="AboveGround"
            MaxWorker="2"
         HideIfNoNeighboard="false"
-        IsPassable="true">
+        IsPassable="true"
+        Description="A place to slowly gather Soil">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="0" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
-    <PossibleUpgrade>Soil generator level 2</PossibleUpgrade>
+    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="1.2" ImpactType="Value"/>
   </Room>
 
-
-  <!--Venom room-->
+  <Room Name="Venom room"
+           SpritePath="venom_room"
+           ValidLocation="UnderGround"
+           MaxWorker="2"
+        HideIfNoNeighboard="false"
+        IsPassable="true"
+        Description="A place to very slowly gather Venom">
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="200" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="200" ImpactType="Value"/>
+    <ResourceImpactOnBuilt ResourceName="Venom" ImpactValuePerWorker="50" ImpactType="MaxValue"/>
+    <ResourceImpactOnTick ResourceName="Venom" ImpactValuePerWorker="0.1" ImpactType="Value"/>
+  </Room>
 
 </ArrayOfRoom>

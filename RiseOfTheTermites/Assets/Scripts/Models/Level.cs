@@ -28,8 +28,8 @@ namespace Assets.Scripts.Models
         [XmlElement("Termite")]
         public List<Termite> Termites { get; set; }
 
-        [XmlElement("Enemy")]
-        public List<Enemy> Enemies { get; set; }
+        [XmlElement("WaveTimeline")]
+        public List<WaveTimeline> WaveTimelines { get; set; }
 
         [XmlAttribute]
         public float QueenEatAmount { get; set; }
@@ -39,6 +39,12 @@ namespace Assets.Scripts.Models
 
         [XmlAttribute]
         public float WorkerEatAmount { get; set; }
+
+        [XmlAttribute("WaveIndexGoal")]
+        public int WaveIndexGoal { get; set; }
+
+        [XmlElement("ColonyStatGoal")]
+        public List<ColonyStatGoal> ColonyStatGoals { get; set; }
 
         public bool IsDigging { get; set; }
 
@@ -61,8 +67,10 @@ namespace Assets.Scripts.Models
                     return r2;
                 }).ToList(),
                 Termites = Termites.Select(t=>(Termite)t.Clone()).ToList(),
-                Enemies = Enemies,
-                Index = Index
+                WaveTimelines = WaveTimelines,
+                Index = Index,
+                WaveIndexGoal = WaveIndexGoal,
+                ColonyStatGoals = ColonyStatGoals.ToList()
             };
         }
 
@@ -73,42 +81,40 @@ namespace Assets.Scripts.Models
 
         public bool SwapRoom(Room oldRoom, Room newRoom)
         {
-            if (CanAfford(newRoom))
-            {
-                newRoom.GridLocationX = oldRoom.GridLocationX;
-                newRoom.GridLocationY = oldRoom.GridLocationY;
-
-                Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
-
-                if (oldRoom.ResourceImpactsOnDestroy != null)
-                {
-                    foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
-                    {
-                        ApplyImpact(resourceImpact, 1);
-                    }
-                }
-
-                if (newRoom.ResourceImpactsOnBuilt != null)
-                {
-                    foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
-                    {
-                        ApplyImpact(resourceImpact, 1);
-                    }
-                }
-
-                if (newRoom.ResourceImpactPrices != null)
-                {
-                    foreach (var resourceImpact in newRoom.ResourceImpactPrices)
-                    {
-                        ApplyImpact(resourceImpact, -1);
-                    }
-                }
-                return true;
-            }
-            else
+            if (!CanAfford(newRoom))
             {
                 return false;
             }
+
+            newRoom.GridLocationX = oldRoom.GridLocationX;
+            newRoom.GridLocationY = oldRoom.GridLocationY;
+
+            Rooms[Rooms.IndexOf(oldRoom)] = newRoom;
+
+            if (oldRoom.ResourceImpactsOnDestroy != null)
+            {
+                foreach (var resourceImpact in oldRoom.ResourceImpactsOnDestroy)
+                {
+                    ApplyImpact(resourceImpact, 1);
+                }
+            }
+
+            if (newRoom.ResourceImpactsOnBuilt != null)
+            {
+                foreach (var resourceImpact in newRoom.ResourceImpactsOnBuilt)
+                {
+                    ApplyImpact(resourceImpact, 1);
+                }
+            }
+
+            if (newRoom.ResourceImpactPrices != null)
+            {
+                foreach (var resourceImpact in newRoom.ResourceImpactPrices)
+                {
+                    ApplyImpact(resourceImpact, -1);
+                }
+            }
+            return true;
         }
 
         private readonly Dictionary<string, float> lastTickChanges = new Dictionary<string, float>();
@@ -189,6 +195,11 @@ namespace Assets.Scripts.Models
             var orderedRooms = classedRooms.OrderBy(o => o.GridLocationX).ToList();
 
             var referenceRoom = orderedRooms.Find(r => r.GridLocationY == 0);
+
+            if (referenceRoom == null)
+            {
+                return;
+            }
 
             var roomAbsolutePosition = new Vector2(
                 LevelController.Instance.RoomSpacing.x * referenceRoom.GridLocationX,
@@ -290,6 +301,27 @@ namespace Assets.Scripts.Models
                 }
             }
             return canAfford;
+        }
+        
+        public void ColonyTakeDamage(int damage)
+        {
+            ApplyImpact(new ResourceImpact
+            {
+                ImpactValuePerWorker = -damage,
+                ResourceName = "ColonyLife",
+                ImpactType = ResourceImpactType.Value
+                
+            }, 1);
+
+            var colonyLife = ColonyStats.FirstOrDefault(s => s.Name == "ColonyLife");
+            if(colonyLife == null)
+                return;
+            
+            if (colonyLife.Value <= 0)
+            {
+                //Game is lost
+                GameController.Instance.GameOver(false);
+            }
         }
     }
 }

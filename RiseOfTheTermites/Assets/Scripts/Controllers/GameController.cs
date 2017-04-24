@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Linq;
+using Assets.Scripts.Components;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.DialogBoxes;
 using Assets.Scripts.Models;
 using Assets.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
-using Assets.Scripts.Components;
-using System.Linq;
 
 namespace Assets.Scripts.Controllers
 {
-    class GameController : MonoBehaviourSingleton<GameController>
+    public class GameController : MonoBehaviourSingleton<GameController>
     {
+        private bool IsGameOver;
+
+        public bool IsGamePaused;
+
         public void Awake()
         {
             StartCoroutine(PrototypeManager.Instance.LoadPrototypes());
@@ -23,6 +26,7 @@ namespace Assets.Scripts.Controllers
 
         public void NewGame(int level_index)
         {
+            IsGameOver = false;
             //Hack: Don't want to store it for everyone
             PrototypeManager.Instance.Levels[level_index].Index = level_index;
 
@@ -32,10 +36,15 @@ namespace Assets.Scripts.Controllers
 
         public IEnumerator GameTick()
         {
-            while (true)
+            while (!IsGameOver)
             {
                 if (GameManager.Instance.CurrentLevel != null)
                 {
+                    if (IsGameWon())
+                    {
+                        GameOver(true);
+                    }
+
                     GameManager.Instance.CurrentLevel.Tick();
                     RemoveDeadFighters();
                     RebuildUi();
@@ -44,39 +53,67 @@ namespace Assets.Scripts.Controllers
                 yield return new WaitForSeconds(1);
             }
         }
+        
+        private bool IsGameWon()
+        {
+            var level = LevelController.Instance.Level;
+            if (level.ColonyStatGoals == null || 
+                !level.ColonyStatGoals.Any() &&
+                level.WaveIndexGoal == 0)
+            {
+                //sandbox
+                return false;
+            }
+
+            var allStatAchieved = level.ColonyStatGoals.All(g => g.IsAchieved());
+
+            var waveAchieved = true;
+            if (level.WaveIndexGoal != 0)
+            {
+                var waveControllers = FindObjectsOfType<WaveTimelineController>();
+                foreach (var waveTimelineController in waveControllers)
+                {
+                    if(waveTimelineController.WaveTimeline != null)
+                        continue;
+
+                    var waveIndex =  waveTimelineController.WaveTimeline.WaveIndex;
+                    waveAchieved &= (waveIndex >= level.WaveIndexGoal);
+                }
+            }
+
+            return allStatAchieved && waveAchieved;
+        }
 
         public void RebuildUi()
         {
             GameHud.Instance.OnGameTick();
-
-            var resources = "";
-
-            /*foreach (var currentLevelResource in GameManager.Instance.CurrentLevel.ColonyStats)
-            {
-                resources += string.Format("{0}: {1} / {2}",
-                                 currentLevelResource.Name,
-                                 currentLevelResource.Value,
-                                 currentLevelResource.MaxValue) + Environment.NewLine;
-            }*/
-
-            GameObject.Find("DebugText").GetComponent<Text>().text = resources;
         }
 
         /// <summary>
-        /// After all updates are done we can safely removed dead bodies
+        ///     After all updates are done we can safely removed dead bodies
         /// </summary>
         void RemoveDeadFighters()
         {
-            var deadEnemies = LevelController.Instance.EnemyLayer.GetComponentsInChildren<FighterComponent>().ToList<FighterComponent>().FindAll(o => o.HitPoints == 0);
+            var deadEnemies = LevelController.
+                Instance.
+                EnemyLayer.
+                GetComponentsInChildren<FighterComponent>().
+                ToList().
+                FindAll(o => o.HitPoints <= 0);
 
             foreach (var f in deadEnemies)
             {
                 f.gameObject.SetActive(false);
-
                 Destroy(f.gameObject);
             }
 
-            var deadFighters = LevelController.Instance.TermitesPanel.GetComponentsInChildren<FighterComponent>().ToList<FighterComponent>().FindAll(o => o.HitPoints == 0);
+            var deadFighters =
+                LevelController.Instance.TermitesPanel.GetComponentsInChildren<FighterComponent>()
+                    .ToList()
+                    .FindAll(o => o.HitPoints <= 0);
+
+            var soldierLimit = GameManager.Instance.CurrentLevel.ColonyStats.FirstOrDefault(r => r.Name == "Soldier");
+            var workerLimit = GameManager.Instance.CurrentLevel.ColonyStats.FirstOrDefault(r => r.Name == "Population");
 
             foreach (var f in deadFighters)
             {
@@ -84,13 +121,40 @@ namespace Assets.Scripts.Controllers
 
                 GameManager.Instance.CurrentLevel.Termites.Remove(termiteController.Termite);
 
-                var soldierLimit = GameManager.Instance.CurrentLevel.ColonyStats.FirstOrDefault(r => r.Name == "Soldier");
-                if (soldierLimit != null && soldierLimit.Value > 0)
-                    soldierLimit.Value--;
+                switch (termiteController.Termite.Job)
+                {
+                    case TermiteType.Queen:
+                        break;
+                    case TermiteType.Soldier:
+                        if (soldierLimit != null && soldierLimit.Value > 0)
+                        {
+                            soldierLimit.Value--;
+                        }
+                        break;
+                    case TermiteType.Worker:
+                        if (workerLimit != null && workerLimit.Value > 0)
+                        {
+                            workerLimit.Value--;
+                        }
+                        break;
+                }
 
                 f.gameObject.SetActive(false);
 
                 Destroy(f.gameObject);
+            }
+        }
+
+        public void GameOver(bool victory)
+        {
+            IsGameOver = true;
+            LevelController.Instance.StopLevel();
+
+            var screen = DialogBoxManager.Instance.Show(typeof(EndGameController)) as EndGameController;
+
+            if (screen)
+            {
+                screen.GameIsSuccessful = false;
             }
         }
     }
