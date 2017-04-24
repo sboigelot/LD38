@@ -163,13 +163,7 @@ namespace Assets.Scripts.Controllers
         {
             IsGameOver = true;
             LevelController.Instance.StopLevel();
-
-            var screen = DialogBoxManager.Instance.Show(typeof(EndGameController)) as EndGameController;
-
-            if (screen)
-            {
-                screen.GameIsSuccessful = false;
-            }
+            DialogBoxManager.Instance.Show(typeof(EndGameController), victory);
         }
     }
 }
