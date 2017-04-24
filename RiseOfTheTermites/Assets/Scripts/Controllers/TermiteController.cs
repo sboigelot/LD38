@@ -166,13 +166,13 @@ namespace Assets.Scripts.Controllers
                     LayerIndexNonSelected = 1;
                     Destroy(GetComponentInChildren<FighterComponent>());
                     tooltip.content =
-                        "Your <b>Queen</b> will lay new soldier and worker if you have enougth space in your colony. Protect it!";
+                        "Your <b>Queen</b> will produce new soldiers and workers if you have enougth space in your colony. Protect it!";
                     break;
                 case TermiteType.Worker:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Worker"));
                     LayerIndexNonSelected = 3;
                     GetComponentInChildren<FighterComponent>().Damage = 0; // Allow the worker to be target for attack ? TODO (need algo change)
-                    tooltip.content = "A <b>Worker</b> termite. Try to drag it around in different room. It may work and help you produce resources faster.";
+                    tooltip.content = "A <b>Worker</b> termite. Try to drag it around in different rooms. It may work and help you produce resources faster.";
                     break;
                 case TermiteType.Soldier:
                     StartCoroutine(SpriteManager.Set(spriteRenderer, SpriteManager.TermitesFolder, "Soldier"));
