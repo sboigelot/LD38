@@ -147,7 +147,7 @@
         Description="A place to gather food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="20" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="60" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="2.5" ImpactType="Value"/>
     <PossibleUpgrade>GatheringRoom level 2</PossibleUpgrade>
   </Room>
 
@@ -160,7 +160,7 @@
         Description="A place to gather food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="80" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="4" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
     <PossibleUpgrade>GatheringRoom level 3</PossibleUpgrade>
   </Room>
 
@@ -173,7 +173,7 @@
         Description="A place to gather food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="40" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="100" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="5" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="4" ImpactType="Value"/>
   </Room>
 
   <Room Name="FarmRoom level 1"
@@ -196,9 +196,9 @@
         HideIfNoNeighboard="false"
         IsPassable="true"
         Description="A place to grow food">
-    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
-    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="40" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="20" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="35" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="2.5" ImpactType="Value"/>
     <PossibleUpgrade>FarmRoom level 3</PossibleUpgrade>
   </Room>
 
@@ -210,8 +210,8 @@
         IsPassable="true"
         Description="A place to grow food">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="40" ImpactType="Value"/>
-    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="50" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="4" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="60" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Food" ImpactValuePerWorker="3" ImpactType="Value"/>
   </Room>
 
   <Room Name="Barracks level 1"
@@ -261,8 +261,8 @@
         Description="Increase your food and soil limit">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
-    <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="20" ImpactType="MaxValue"/>
-    <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="MaxValue"/>
+    <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="30" ImpactType="MaxValue"/>
+    <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="MaxValue"/>
     <PossibleUpgrade>StorageRoom level 2</PossibleUpgrade>
   </Room>
 
@@ -287,10 +287,10 @@
         HideIfNoNeighboard="false"
         IsPassable="true"
         Description="Increase your food and soil limit">
-    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="30" ImpactType="Value"/>
-    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
-    <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="35" ImpactType="MaxValue"/>
-    <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="35" ImpactType="MaxValue"/>
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="70" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="70" ImpactType="Value"/>
+    <ResourceImpactOnBuilt ResourceName="Food" ImpactValuePerWorker="40" ImpactType="MaxValue"/>
+    <ResourceImpactOnBuilt ResourceName="Soil" ImpactValuePerWorker="40" ImpactType="MaxValue"/>
   </Room>
 
   <Room Name="Soil generator level 1"
@@ -301,8 +301,8 @@
         IsPassable="true"
         Description="A place to slowly gather Soil">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="60" ImpactType="Value"/>
-    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="0" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.5" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="20" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.8" ImpactType="Value"/>
     <PossibleUpgrade>Soil generator level 2</PossibleUpgrade>
   </Room>
 
@@ -313,8 +313,8 @@
         HideIfNoNeighboard="false"
         IsPassable="true"
         Description="Slowly repair your colony">
-    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="400" ImpactType="Value"/>
-    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="400" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="300" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="300" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="ColonyLife" ImpactValuePerWorker="0.5" ImpactType="Value"/>
     <PossibleUpgrade>Builder room level 2</PossibleUpgrade>
   </Room>
@@ -326,8 +326,8 @@
         HideIfNoNeighboard="false"
         IsPassable="true"
         Description="Slowly repair your colony">
-    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="600" ImpactType="Value"/>
-    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="600" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="500" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="500" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="ColonyLife" ImpactValuePerWorker="0.8" ImpactType="Value"/>
   </Room>
   
@@ -339,7 +339,7 @@
         IsPassable="true"
         Description="A place to slowly gather Soil">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="80" ImpactType="Value"/>
-    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="0" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
     <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="0.8" ImpactType="Value"/>
     <PossibleUpgrade>Soil generator level 3</PossibleUpgrade>
   </Room>
@@ -352,8 +352,8 @@
         IsPassable="true"
         Description="A place to slowly gather Soil">
     <ResourceImpactPrice ResourceName="Food" ImpactValuePerWorker="100" ImpactType="Value"/>
-    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="0" ImpactType="Value"/>
-    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="1.2" ImpactType="Value"/>
+    <ResourceImpactPrice ResourceName="Soil" ImpactValuePerWorker="30" ImpactType="Value"/>
+    <ResourceImpactOnTick ResourceName="Soil" ImpactValuePerWorker="1.5" ImpactType="Value"/>
   </Room>
 
   <Room Name="Venom room"
