@@ -63,6 +63,9 @@ namespace Assets.Scripts.UI
         {
             var level = LevelController.Instance.Level;
 
+            if (level == null)
+                return;
+
             //Population
             var stat = level.ColonyStats.FirstOrDefault(res => res.Name == statName);
             if (stat == null)
