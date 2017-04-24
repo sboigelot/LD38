@@ -16,7 +16,7 @@ public class EndGameController : DialogBoxBase<EndGameController>
     {
         TitleText.text = GameIsSuccessful ? "Congratulations" : "Game over";
 
-        NextLevelButton.gameObject.SetActive(GameIsSuccessful);
+        //NextLevelButton.gameObject.SetActive(GameIsSuccessful);
 
         RetryButton.onClick.AddListener(() =>
         {
