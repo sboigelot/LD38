@@ -99,7 +99,7 @@ namespace Assets.Scripts.Controllers
 
             var barrackWorldLocation = new Vector2(
                 barrackRoom.x * LevelController.Instance.RoomSpacing.x,
-                barrackRoom.x * LevelController.Instance.RoomSpacing.y);
+                barrackRoom.y * LevelController.Instance.RoomSpacing.y);
             if (!MoveToTarget(barrackWorldLocation))
             {
                 return true;
