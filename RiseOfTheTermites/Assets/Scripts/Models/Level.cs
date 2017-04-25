@@ -67,7 +67,7 @@ namespace Assets.Scripts.Models
                     return r2;
                 }).ToList(),
                 Termites = Termites.Select(t=>(Termite)t.Clone()).ToList(),
-                WaveTimelines = WaveTimelines,
+                WaveTimelines = WaveTimelines.ToList(),
                 Index = Index,
                 WaveIndexGoal = WaveIndexGoal,
                 ColonyStatGoals = ColonyStatGoals.ToList(),
