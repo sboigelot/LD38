@@ -49,7 +49,7 @@ namespace Assets.Scripts.UI
 
                 if (level.WaveIndexGoal != 0)
                 {
-                    objectives += CreateObjectiveText("Surive until enemy wave " + level.WaveIndexGoal,
+                    objectives += CreateObjectiveText("Survive until enemy wave " + level.WaveIndexGoal,
                         GameController.Instance.IsWaveGoalAchieved());
                 }
 

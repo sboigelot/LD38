@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace Assets.Scripts.Models
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Models
         {
             return new WaveTimeline
             {
-                Waves = Waves,
+                Waves = Waves.Select(w=>(Wave)w.Clone()).ToList(),
                 StartTime = StartTime,
                 StartPosition = StartPosition,
                 WaveIndex = WaveIndex,

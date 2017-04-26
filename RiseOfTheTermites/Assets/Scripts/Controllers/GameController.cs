@@ -64,17 +64,17 @@ namespace Assets.Scripts.Controllers
         private bool IsGameWon()
         {
             var level = LevelController.Instance.Level;
-            if (level.ColonyStatGoals == null ||
-                !level.ColonyStatGoals.Any() &&
-                level.WaveIndexGoal == 0)
+            if (level.ColonyStatGoals == null)
             {
                 //sandbox
                 return false;
             }
 
-            var allStatAchieved = level.ColonyStatGoals.All(g => g.IsAchieved());
+            var allStatAchieved = !level.ColonyStatGoals.Any() ||
+                                  level.ColonyStatGoals.All(g => g.IsAchieved());
 
-            var waveAchieved = IsWaveGoalAchieved();
+            var waveAchieved = level.WaveIndexGoal == 0 ||
+                               IsWaveGoalAchieved();
 
             return allStatAchieved && waveAchieved;
         }
@@ -85,7 +85,6 @@ namespace Assets.Scripts.Controllers
             var level = LevelController.Instance.Level;
             if (level.WaveIndexGoal != 0)
             {
-                waveAchieved = false;
                 var waveControllers = FindObjectsOfType<WaveTimelineController>();
                 foreach (var waveTimelineController in waveControllers)
                 {
